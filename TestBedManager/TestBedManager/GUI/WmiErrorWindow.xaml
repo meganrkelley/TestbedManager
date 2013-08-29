@@ -1,0 +1,8 @@
+﻿<Window x:Class="TestBedManager.WmiErrorWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		Title="Remote Access Error" Height="217.5" Width="474.642" WindowStyle="ToolWindow" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+	<Grid Margin="10">
+		<TextBlock Padding="5" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"><Run Text="Could not contact the Windows Management Instrumentation (WMI) service on the remote computer."/><LineBreak/><Run/><LineBreak/><Run Text="Possible solutions:"/><LineBreak/><Run Text="&#x9;- Verify that the username and password are correct."/><LineBreak/><Run Text="&#x9;- Ensure that the supplied user is a member of the Administrators group."/><LineBreak/><Run Text="&#x9;- Make sure that WMI Control is allowed on the remote machine."/><LineBreak/><Run Text="&#x9;- The minimum OS required is Windows 2000; only Windows is supported."/></TextBlock>
+	</Grid>
+</Window>

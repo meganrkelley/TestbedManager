@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7764999C-CCA2-40E8-A627-CED20419EE49}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestBedManager</RootNamespace>
+    <AssemblyName>TestBedManager</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>batman.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Management.Instrumentation" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppModel\ActiveTestbed.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel\DBTestbedRelationsHandler.cs" />
+    <Compile Include="DomainModel\ConnectionInfoChecker.cs" />
+    <Compile Include="DomainModel\DBComputerHandler.cs" />
+    <Compile Include="DomainModel\DBTestbedHandler.cs" />
+    <Compile Include="DomainModel\NullComputer.cs" />
+    <Compile Include="DomainModel\NullTestbed.cs" />
+    <Compile Include="AppModel\RemoteComputerEditor.cs" />
+    <Compile Include="Services\DBComputersGateway.cs" />
+    <Compile Include="Services\DBConnectionManager.cs" />
+    <Compile Include="Services\DBTestbedRelationsGateway.cs" />
+    <Compile Include="Services\DBTestbedsGateway.cs" />
+    <Compile Include="GUI\EventCodeWindow.xaml.cs">
+      <DependentUpon>EventCodeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel\LocalProcessExecutor.cs" />
+    <Compile Include="RemoteTasks\ComputerSystemProductQueryTask.cs" />
+    <Compile Include="RemoteTasks\ComputerSystemQueryTask.cs" />
+    <Compile Include="RemoteTasks\CreateProcessTask.cs" />
+    <Compile Include="RemoteTasks\DriverQueryTask.cs" />
+    <Compile Include="RemoteTasks\EventViewerQueryTask.cs" />
+    <Compile Include="RemoteTasks\LocalTimeQueryTask.cs" />
+    <Compile Include="RemoteTasks\NetworkQueryTask.cs" />
+    <Compile Include="RemoteTasks\ProgramsQueryTask.cs" />
+    <Compile Include="RemoteTasks\RenameComputerTask.cs" />
+    <Compile Include="RemoteTasks\RunningProcessesQueryTask.cs" />
+    <Compile Include="RemoteTasks\ScheduledJobsQueryTask.cs" />
+    <Compile Include="GUI\RenameComputerWindow.xaml.cs">
+      <DependentUpon>RenameComputerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\RunCmdWindow.xaml.cs">
+      <DependentUpon>RunCmdWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel\ITestbedObserver.cs" />
+    <Compile Include="GUI\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\AccountInfoView.xaml.cs">
+      <DependentUpon>AccountInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\AddComputerWindow.xaml.cs">
+      <DependentUpon>AddComputerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\DatabaseManager.cs" />
+    <Compile Include="GUI\Browser.xaml.cs">
+      <DependentUpon>Browser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel\IComputerObserver.cs" />
+    <Compile Include="AppModel\TestbedEditor.cs" />
+    <Compile Include="DomainModel\Master.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ConnectionMonitor.cs" />
+    <Compile Include="DomainModel\NetworkStatus.cs" />
+    <Compile Include="Services\NetUtils.cs" />
+    <Compile Include="AppModel\OutputLogManager.cs" />
+    <Compile Include="DomainModel\RemoteComputer.cs" />
+    <Compile Include="DomainModel\RemoteConnectionInfo.cs" />
+    <Compile Include="DomainModel\RemoteTask.cs" />
+    <Compile Include="DomainModel\RemoteTaskManager.cs" />
+    <Compile Include="GUI\SaveListWindow.xaml.cs">
+      <DependentUpon>SaveListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestbedTable.xaml.cs">
+      <DependentUpon>TestbedTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\TestbedTree.xaml.cs">
+      <DependentUpon>TestbedTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\StartupWindow.xaml.cs">
+      <DependentUpon>StartupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel\Testbed.cs" />
+    <Compile Include="TestBedManagerDBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestBedManagerDBDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel\WmiClass.cs" />
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="GUI\WmiErrorWindow.xaml.cs">
+      <DependentUpon>WmiErrorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\WmiTools.cs" />
+    <Compile Include="Services\WmiConnectionHandler.cs" />
+    <Page Include="GUI\EventCodeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\AccountInfoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\AddComputerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Browser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\SaveListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\RenameComputerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\RunCmdWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestbedTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\TestbedTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\StartupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\WmiErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="TestBedManagerDBDataSet.xsc">
+      <DependentUpon>TestBedManagerDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TestBedManagerDBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TestBedManagerDBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TestBedManagerDBDataSet.xss">
+      <DependentUpon>TestBedManagerDBDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\hub.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Notes.txt" />
+    <Resource Include="Icons\power.png" />
+    <Resource Include="Icons\batman.gif" />
+    <Resource Include="Icons\account.png" />
+    <Resource Include="Icons\key.png" />
+    <Resource Include="Icons\lock_small.png" />
+    <Resource Include="Icons\batman_small.png" />
+    <Resource Include="Icons\bullet_black.png" />
+    <Resource Include="Icons\bullet_green.png" />
+    <Resource Include="Icons\bullet_red.png" />
+    <Resource Include="Icons\bullet_yellow.png" />
+    <Resource Include="Icons\check.png" />
+    <Resource Include="Icons\clean.png" />
+    <Resource Include="Icons\disk.png" />
+    <Resource Include="Icons\ip.png" />
+    <Resource Include="Icons\list_add.png" />
+    <Resource Include="Icons\list_delete.png" />
+    <Resource Include="Icons\list_edit.png" />
+    <Resource Include="Icons\list_multiple.png" />
+    <Resource Include="Icons\monitor.png" />
+    <Resource Include="Icons\monitor_add.png" />
+    <Resource Include="Icons\monitor_delete.png" />
+    <Resource Include="Icons\monitor_edit.png" />
+    <Resource Include="Icons\refresh.png" />
+    <Resource Include="Icons\settings.png" />
+    <Resource Include="Icons\terminal.png" />
+    <Resource Include="Icons\remove2.png" />
+    <Resource Include="Icons\font1.png" />
+    <Resource Include="Icons\remove_small.png" />
+    <Resource Include="Icons\clipboard.png" />
+    <Resource Include="Icons\background.png" />
+    <Resource Include="Icons\documentZoom.png" />
+    <Resource Include="Icons\list_export.png" />
+    <Resource Include="Icons\list_import.png" />
+    <Resource Include="Icons\key_small.png" />
+    <Resource Include="Icons\eye.png" />
+    <Resource Include="Icons\check_small.png" />
+    <Resource Include="Icons\disk_small.png" />
+    <Resource Include="Icons\key_hd.png" />
+    <Resource Include="Icons\cancel.png" />
+    <Resource Include="Icons\check2.png" />
+    <Resource Include="Icons\exclamation.png" />
+    <Resource Include="Icons\vial.png" />
+    <Resource Include="Icons\selectAll.png" />
+    <Resource Include="Icons\collapse.png" />
+    <Resource Include="Icons\expand.png" />
+    <Resource Include="batman.ico" />
+    <Content Include="TestBedManagerDB.sdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.SQL.Server.Compact.4.0">
+      <Visible>False</Visible>
+      <ProductName>SQL Server Compact 4.0 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

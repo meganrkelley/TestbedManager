@@ -1,0 +1,43 @@
+﻿
+"If you think you need to test the node, don't. Instead, empower it to do the right thing."
+
+----- TO DO ----------------------------------------------------------------------------
+
+P0. NECESSARY FIXES
+	- Create database if the .sdf file is not present.
+	- Pipe cmd output from remote computer to file on local machine and read it from there
+
+P1. NEW FEATURES
+	- Logger
+	- Import/Export XML file from/to list
+	- Use AES for symmetric encryption
+
+P2. COSMETIC CHANGES
+	- Order context menu items intuitively
+	- Make tab headers green/yellow/red to match status
+
+----------------------------------------------------------------------------------------
+
+- For demo, setup a small network
+http://msdn.microsoft.com/en-us/library/ms257364(v=vs.80).aspx - How to execute a method
+http://msdn.microsoft.com/en-US/library/ms186146(v=vs.80).aspx - WMI queries
+
+
+/*byte[] encrypted;
+string encryptedStr;
+		
+AesCryptoServiceProvider AES = new AesCryptoServiceProvider();
+AES.GenerateKey();
+AES.GenerateIV();
+ICryptoTransform encryptor = AES.CreateEncryptor(AES.Key, AES.IV);
+		
+using (MemoryStream msEncrypt = new MemoryStream()) {
+	using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write)) {
+		using (StreamWriter swEncrypt = new StreamWriter(csEncrypt)) {
+			swEncrypt.Write(PasswordBoxPassword.Password);
+		}
+		encrypted = msEncrypt.ToArray();
+	}
+}
+		
+encryptedStr =*/
