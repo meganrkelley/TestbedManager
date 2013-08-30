@@ -8,7 +8,6 @@ P0. NECESSARY FIXES
 	- Pipe cmd output from remote computer to file on local machine and read it from there
 
 P1. NEW FEATURES
-	- Logger
 	- Import/Export XML file from/to list
 	- Use AES for symmetric encryption
 
@@ -21,6 +20,18 @@ P2. COSMETIC CHANGES
 - For demo, setup a small network
 http://msdn.microsoft.com/en-us/library/ms257364(v=vs.80).aspx - How to execute a method
 http://msdn.microsoft.com/en-US/library/ms186146(v=vs.80).aspx - WMI queries
+
+
+[System.Runtime.InteropServices.DllImport("winmm.dll", EntryPoint = "mciSendStringA", CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
+protected static extern int mciSendString(string lpstrCommand, System.Text.StringBuilder lpstrReturnString, int uReturnLength, System.IntPtr hwndCallback);
+public void OpenCloseCD(bool Open)
+{
+	if (Open) {
+		mciSendString("set cdaudio door open", null, 0, System.IntPtr.Zero);
+	} else {
+		mciSendString("set cdaudio door closed", null, 0, System.IntPtr.Zero);
+	}
+}
 
 
 /*byte[] encrypted;

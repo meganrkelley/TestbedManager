@@ -267,6 +267,16 @@ namespace TestBedManager
 				executor.StartRemoteDesktop(computer.hostname);
 			}
 		}
+
+		private void MenuItemOpenLogs_Click(object sender, RoutedEventArgs e)
+		{
+			DebugLog.OpenLogsFolderInExplorer();
+		}
+
+		private void MenuItemClearLogs_Click(object sender, RoutedEventArgs e)
+		{
+			DebugLog.ClearLogs();
+		}
 		#endregion
 
         // copied from TestbedTable.xaml.cs
@@ -287,5 +297,7 @@ namespace TestBedManager
                 Master.logManager.Add(item);
             }
         }
+
+		
 	}
 }

@@ -83,6 +83,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DebugLog.cs" />
     <Compile Include="DomainModel\DBTestbedRelationsHandler.cs" />
     <Compile Include="DomainModel\ConnectionInfoChecker.cs" />
     <Compile Include="DomainModel\DBComputerHandler.cs" />

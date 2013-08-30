@@ -56,22 +56,25 @@ namespace TestBedManager
 			try {
 				tabControl.Items.Remove(tabControl.Items[computer.tabIndex]);
 			} catch (Exception ex) {
-				Trace.WriteLine(ex);
+				DebugLog.Log(ex);
 			}
 		}
 
-		public void WriteToComputerTab(RemoteComputer computer, string text)
+		public void WriteToComputerTab(RemoteComputer computer, string text, bool printTimestamp = true)
 		{
 			try {
 				tabControl.Dispatcher.Invoke((Action)(() => {
 					RichTextBox textBox = ((RichTextBox)(((TabItem)tabControl.Items[computer.tabIndex]).Content));
 					if (textBox != null) {
-						textBox.AppendText("[" + DateTime.Now + "] " + text + "\n");
+						if (printTimestamp)
+							textBox.AppendText("[" + DateTime.Now + "] " + text + "\n");
+						else
+							textBox.AppendText(text + "\n");
 						textBox.ScrollToEnd();
 					}
 				}));
 			} catch (Exception ex) {
-				Trace.WriteLine(ex);
+				DebugLog.Log(ex);
 			}
 		}
 

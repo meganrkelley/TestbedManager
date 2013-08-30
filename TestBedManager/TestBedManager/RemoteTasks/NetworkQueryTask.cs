@@ -16,6 +16,8 @@ namespace TestBedManager
 			ObjectQuery query = new ObjectQuery(String.Format("select * from {0} where MACAddress is not null",
 				WmiClass.NetworkConfig));
 
+			remoteComputer.Log("Querying network information...");
+
 			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 				foreach (var item in wmiObjectSearcher.Get()) {
 
@@ -30,13 +32,15 @@ namespace TestBedManager
 						for (int i = 0; i < ipAddresses.Length; i++)
 							ipAddressesStr += ipAddresses[i] + Environment.NewLine;
 
-					remoteComputer.Log("Device: " + caption);
-					remoteComputer.Log("Service: " + serviceName);
-					remoteComputer.Log("Hostname: " + dnsHostname);
-					remoteComputer.Log("IP Address(es): " + ipAddressesStr);
-					remoteComputer.Log("MAC: " + mac + Environment.NewLine);
+					remoteComputer.Log("Device: " + caption + Environment.NewLine +
+						"Service: " + serviceName + Environment.NewLine +
+						"Hostname: " + dnsHostname + Environment.NewLine +
+						"IP Address(es): " + ipAddressesStr + Environment.NewLine +
+						"MAC: " + mac + Environment.NewLine, false);
 				}
 			}
+
+			remoteComputer.Log("End of network information.");
 		}
 	}
 }

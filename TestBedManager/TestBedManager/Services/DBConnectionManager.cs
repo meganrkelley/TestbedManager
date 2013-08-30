@@ -15,11 +15,11 @@ namespace TestBedManager
 			try {
 				if (connection != null && connection.State == ConnectionState.Open)
 					return connection;
-				Trace.WriteLine("Opening a connection...");
+				DebugLog.Log("Opening a connection...");
 				connection = new SqlCeConnection(Settings.Default.TestBedManagerDBConnectionString);
 				connection.Open();
 			} catch (Exception ex) {
-				Trace.WriteLine(ex);
+				DebugLog.Log(ex);
 			}
 
 			return connection;
@@ -30,7 +30,7 @@ namespace TestBedManager
 			try {
 				connection.Close();
 			} catch (Exception ex) {
-				Trace.WriteLine(ex);
+				DebugLog.Log(ex);
 			}
 		}
 	}

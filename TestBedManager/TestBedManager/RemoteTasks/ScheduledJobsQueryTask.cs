@@ -15,11 +15,15 @@ namespace TestBedManager
 		{
 			ObjectQuery query = new ObjectQuery(String.Format("select * from {0}", WmiClass.ScheduledJob));
 
+			remoteComputer.Log("Querying scheduled tasks...");
+
 			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 				foreach (var item in wmiObjectSearcher.Get()) {
-					Console.Write(item["Name"]);
+					remoteComputer.Log((string)item["Name"], false);
 				}
 			}
+
+			remoteComputer.Log("End of scheduled tasks.");
 		}
 	}
 }

@@ -20,7 +20,7 @@
 				<MenuItem x:Name="MenuItemExit" Header="Exit" Click="MenuItemExit_Click" />
 			</MenuItem>
 			<MenuItem x:Name="MenuItemTestbeds" Header="TESTBEDS">
-				<MenuItem x:Name="MenuItemAddNewComputer" Header="Add a New Computer" Click="MenuItemAddNewComputer_Click">
+				<MenuItem x:Name="MenuItemAddNewComputer" Header="Add a New Computer" Click="MenuItemAddNewComputer_Click" FontWeight="Bold">
 					<MenuItem.Icon>
 						<Image Source="Icons/monitor_add.png" />
 					</MenuItem.Icon>
@@ -37,12 +37,12 @@
 					</MenuItem.Icon>
 				</MenuItem>
 				<Separator />
-				<MenuItem x:Name="MenuItemExportList" Header="Export Current List to XML">
+				<MenuItem IsEnabled="False" x:Name="MenuItemExportList" Header="Export Current List to XML">
 					<MenuItem.Icon>
 						<Image Source="Icons/list_export.png" />
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem x:Name="MenuItemImportList" Header="Import List from XML">
+                <MenuItem IsEnabled="False" x:Name="MenuItemImportList" Header="Import List from XML">
 					<MenuItem.Icon>
 						<Image Source="Icons/list_import.png" />
 					</MenuItem.Icon>
@@ -61,7 +61,7 @@
 					<MenuItem x:Name="MenuItemRestart" Header="Restart" Click="MenuItemRestart_Click" />
 					<MenuItem x:Name="MenuItemShutdown" Header="Shutdown" Click="MenuItemShutdown_Click" />
 					<MenuItem x:Name="MenuItemHibernate" Header="Hibernate" Click="MenuItemHibernate_Click" />
-					<MenuItem x:Name="MenuItemSleep" Header="Sleep" Click="MenuItemSleep_Click" />
+					<MenuItem x:Name="MenuItemSleep" Header="Sleep" Click="MenuItemSleep_Click" FontStyle="Italic" FontWeight="Bold" />
 				</MenuItem>
 				<MenuItem x:Name="MenuItemRename" Header="Rename Computer" Click="MenuItemRename_Click">
 				</MenuItem>
@@ -71,19 +71,18 @@
 				<Separator />
 				<MenuItem x:Name="MenuItemNetworkData" Header="View Network Data" Click="MenuItemNetworkData_Click" />
 				<MenuItem x:Name="MenuItemDrivers" Header="View Drivers">
-					<MenuItem x:Name="MenuItemDrivers_amppal" Header="AMPPAL" Click="MenuItemDrivers_amppal_Click"></MenuItem>
-					<MenuItem x:Name="MenuItemDrivers_bluetooth" Header="Bluetooth" Click="MenuItemDrivers_bluetooth_Click"></MenuItem>
-					<MenuItem x:Name="MenuItemDrivers_display" Header="Display" Click="MenuItemDrivers_display_Click"></MenuItem>
-					<MenuItem x:Name="MenuItemDrivers_media" Header="Media" Click="MenuItemDrivers_media_Click"></MenuItem>
-					<MenuItem x:Name="MenuItemDrivers_net" Header="Network" Click="MenuItemDrivers_net_Click"></MenuItem>
-					<MenuItem x:Name="MenuItemDrivers_processor" Header="Processor" Click="MenuItemDrivers_processor_Click"></MenuItem>
-					<MenuItem x:Name="MenuItemDrivers_system" Header="System" Click="MenuItemDrivers_system_Click"></MenuItem>
-					<MenuItem x:Name="MenuItemDrivers_usb" Header="USB" Click="MenuItemDrivers_usb_Click"></MenuItem>
+					<MenuItem x:Name="MenuItemDrivers_amppal" Header="AMPPAL" Click="MenuItemDrivers_amppal_Click"/>
+					<MenuItem x:Name="MenuItemDrivers_bluetooth" Header="Bluetooth" Click="MenuItemDrivers_bluetooth_Click"/>
+					<MenuItem x:Name="MenuItemDrivers_display" Header="Display" Click="MenuItemDrivers_display_Click"/>
+					<MenuItem x:Name="MenuItemDrivers_media" Header="Media" Click="MenuItemDrivers_media_Click"/>
+					<MenuItem x:Name="MenuItemDrivers_net" Header="Network" Click="MenuItemDrivers_net_Click"/>
+					<MenuItem x:Name="MenuItemDrivers_processor" Header="Processor" Click="MenuItemDrivers_processor_Click"/>
+					<MenuItem x:Name="MenuItemDrivers_system" Header="System" Click="MenuItemDrivers_system_Click"/>
+					<MenuItem x:Name="MenuItemDrivers_usb" Header="USB" Click="MenuItemDrivers_usb_Click"/>
 				</MenuItem>
-				<MenuItem x:Name="MenuItemEventViewer" Header="Query System Events" Click="MenuItemEventViewer_Click">
-				</MenuItem>
-				<MenuItem x:Name="MenuItemLocalTime" Header="View System Time/Date" Click="MenuItemLocalTime_Click" />
-				<MenuItem x:Name="MenuItemComputerSystem" Header="View OS/Architecture" Click="MenuItemComputerSystem_Click" />
+                <MenuItem x:Name="MenuItemEventViewer" Header="Query System Events" Click="MenuItemEventViewer_Click"/>
+                <MenuItem x:Name="MenuItemLocalTime" Header="View System Time" Click="MenuItemLocalTime_Click" />
+				<MenuItem x:Name="MenuItemComputerSystem" Header="View OS and Architecture" Click="MenuItemComputerSystem_Click" />
 				<MenuItem x:Name="MenuItemComputerProduct" Header="View Computer Model Information" Click="MenuItemComputerProduct_Click" />
 				<MenuItem x:Name="MenuItemInstalledPrograms" Header="View Installed Programs" Click="MenuItemInstalledPrograms_Click" />
 				<MenuItem x:Name="MenuItemRunningPrograms" Header="View Running Applications/Services" Click="MenuItemRunningPrograms_Click" />
@@ -96,12 +95,15 @@
 			</MenuItem>
 			<MenuItem x:Name="MenuItemHelp" Header="HELP">
 				<MenuItem x:Name="MenuItemAbout" Header="About" Click="MenuItemAbout_Click" />
+                <Separator/>
+                <MenuItem x:Name="MenuItemOpenLogs" Header="Open Logs Folder" Click="MenuItemOpenLogs_Click" />
+                <MenuItem x:Name="MenuItemClearLogs" Header="Clear Log Files" Click="MenuItemClearLogs_Click" />
 			</MenuItem>
 		</Menu>
 
 		<Grid x:Name="StackPanelComputerTable" Grid.Column="0" Margin="10" Grid.Row="1" Height="325">
-			<local:TestbedTable x:Name="TestbedTable" VerticalAlignment="Top" />
-            <Button Content="Load Most Recent" HorizontalAlignment="Left" Margin="67,300,0,0" VerticalAlignment="Top" Width="99" Height="25" Click="Button_Click_1"/>
+			<local:TestbedTable x:Name="TestbedTable" VerticalAlignment="Top" Height="315" />
+            <Button Visibility="Hidden" Content="Load Most Recent" HorizontalAlignment="Left" Margin="67,300,0,0" VerticalAlignment="Top" Width="99" Height="25" Click="Button_Click_1"/>
         </Grid>
 		
 		<Grid x:Name="StackPanelOutputLog" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Grid.Row="1">

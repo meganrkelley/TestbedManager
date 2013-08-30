@@ -77,7 +77,7 @@ namespace TestBedManager
 				try {
 					PingRemoteComputer();
 				} catch (System.Exception ex) {
-					Trace.WriteLine(ex);
+					DebugLog.Log(ex);
 				}
 				Thread.Sleep(interval * 1000);
 			}

@@ -15,17 +15,21 @@ namespace TestBedManager
 		private void WindowListBrowserWindow_Loaded(object sender, RoutedEventArgs e)
 		{
 			List<Testbed> lists = Master.databaseManager.GetAllSavedLists();
-			foreach (Testbed testbed in lists) {
+			if (lists.Count == 0)
+				goto loadAllComputers; // yeah I seriously just used a goto
 
-				Testbed listContents = Master.databaseManager.GetListContents(testbed.ID.ToString());
+			foreach (Testbed testbed in lists) {
+                Testbed listContents = Master.databaseManager.GetListContents(testbed.ID.ToString());
+
 				if (listContents.items.Count == 1 && listContents.items[0] == null)
 					continue;
-				listTree.AddList(testbed.title, listContents); //? dispatcher invoke?
+				listTree.AddList(testbed.title, listContents);
 			}
 
+		loadAllComputers:
             Testbed master = Master.databaseManager.GetAllComputers();
             foreach (RemoteComputer computer in master.items) {
-                masterList.Items.Add(computer.hostname); //? dispatcher invoke?
+                masterList.Items.Add(computer.hostname);
             }
 		}
 
@@ -37,7 +41,6 @@ namespace TestBedManager
 				return;
 
             TestbedEditor.Load((string)item.Header);
-		//	TestbedEditor.Load(Master.databaseManager.GetListID(item.Header.ToString()));
 
 			Close();
 		}
@@ -50,7 +53,6 @@ namespace TestBedManager
 				return;
 
 			listTree.treeview.Items.Remove(listTree.treeview.SelectedItem);
-		//	TestbedEditor.Delete(Master.databaseManager.GetListID(item.Header.ToString()));
             TestbedEditor.Delete((string)item.Header);
 		}
 

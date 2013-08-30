@@ -15,11 +15,15 @@ namespace TestBedManager
 		{
 			ObjectQuery query = new ObjectQuery(String.Format("select * from {0}", WmiClass.Process));
 
+			remoteComputer.Log("Querying running processes...");
+
 			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 				foreach (var item in wmiObjectSearcher.Get()) {
-					remoteComputer.Log(item["Caption"].ToString());
+					remoteComputer.Log(item["Caption"].ToString(), false);
 				}
 			}
+
+			remoteComputer.Log("End of running processes.");
 		}
 	}
 }

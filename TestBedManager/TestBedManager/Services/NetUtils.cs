@@ -47,7 +47,7 @@ namespace TestBedManager
 			try {
 				return RemoveDnsSuffix(Dns.GetHostEntry(ip).HostName);
 			} catch (Exception ex) {
-				Trace.WriteLine(ex);
+				DebugLog.Log(ex);
 			}
 
 			return returnValue;
@@ -58,7 +58,7 @@ namespace TestBedManager
 			try {
 				return RemoveIPv6Addresses(Dns.GetHostEntry(hostname).AddressList.ToList());
 			} catch (Exception ex) {
-				Trace.WriteLine(ex);
+				DebugLog.Log(ex);
 			}
 
 			return new List<IPAddress>(new IPAddress[] { IPAddress.None });

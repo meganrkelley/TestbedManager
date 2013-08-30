@@ -183,11 +183,11 @@ namespace TestBedManager
 
 		#region Logging
 
-		public void Log(string text)
+		public void Log(string text, bool printTimestamp = true)
 		{
 			if (text == null)
 				text = "";
-			Master.logManager.WriteToComputerTab(this, text);
+			Master.logManager.WriteToComputerTab(this, text, printTimestamp);
 		}
 
 		#endregion

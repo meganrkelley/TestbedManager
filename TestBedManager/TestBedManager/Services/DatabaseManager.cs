@@ -218,7 +218,7 @@ namespace TestBedManager
 				command.ExecuteNonQuery();
 				command.Dispose();
 			} catch (Exception ex) {
-				Trace.WriteLine(ex);
+				DebugLog.Log(ex);
 			}
 		}
 
@@ -230,7 +230,7 @@ namespace TestBedManager
                 var adapter = new SqlCeDataAdapter(query, DBConnectionManager.connection);
 				adapter.Fill(resultTable); // Fill is slow, but straightforward.
 			} catch (Exception ex) {
-				Trace.WriteLine(ex);
+				DebugLog.Log(ex);
 			}
 
 			return resultTable;

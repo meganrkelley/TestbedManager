@@ -10,7 +10,7 @@
 		</Grid.ColumnDefinitions>
 
 		<Label Grid.Column="0" Content="Event ID" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Margin="5" Width="54"/>
-		<TextBox Grid.Column="1" x:Name="TextBoxEventID" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="" VerticalAlignment="Center" MaxLength="6" MaxLines="1" Height="22" Margin="5"/>		
+		<TextBox Grid.Column="1" x:Name="TextBoxEventID" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="" VerticalAlignment="Center" MaxLength="6" MaxLines="1" Height="22" Margin="5" KeyDown="TextBoxEventID_KeyDown"/>		
 		<Button Grid.Column="2" x:Name="ButtonSearch" Content="Search" HorizontalAlignment="Left"  VerticalAlignment="Center" Click="ButtonSearch_Click" Height="22" Margin="5" Width="41"/>
 
 	</Grid>

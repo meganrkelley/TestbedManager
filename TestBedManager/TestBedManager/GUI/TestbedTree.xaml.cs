@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Controls;
 
 namespace TestBedManager
@@ -16,13 +18,19 @@ namespace TestBedManager
 				Header = title,
 				IsExpanded = true
 			};
+
 			treeview.Items.Add(listItem);
-			foreach (var item in contents.items) {
-				TreeViewItem computerItem = new TreeViewItem {
-					Header = item.hostname
-				};
-				listItem.Items.Add(computerItem);
-			}
+
+            try {
+                foreach (var item in contents.items) {
+                    TreeViewItem computerItem = new TreeViewItem {
+                        Header = item.hostname
+                    };
+                    listItem.Items.Add(computerItem);
+                }
+            } catch (Exception ex) {
+                DebugLog.Log(ex);
+            }
 		}
 	}
 }
