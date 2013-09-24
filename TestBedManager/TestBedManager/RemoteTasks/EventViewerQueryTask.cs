@@ -22,8 +22,8 @@ namespace TestBedManager
 					string msg = (string)item["Message"];
 					string timeGenerated = (string)item["TimeGenerated"];
 					DateTime date = ManagementDateTimeConverter.ToDateTime(timeGenerated);
-					remoteComputer.Log("Event ID: " + parameter + Environment.NewLine + 
-						"Time Generated: " + date + Environment.NewLine + 
+					remoteComputer.Log("Event ID: " + parameter + Environment.NewLine +
+						"Time Generated: " + date + Environment.NewLine +
 						"Message: " + msg, false);
 				}
 			}

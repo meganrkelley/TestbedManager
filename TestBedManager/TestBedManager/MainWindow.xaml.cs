@@ -25,9 +25,8 @@ namespace TestBedManager
 			Master.main = this;
 			Master.table = TestbedTable;
 			Master.logManager = new OutputLogManager();
-			Master.databaseManager = new DatabaseManager();
-			DBConnectionManager.Connect();
-			Master.activeTestbed = new Testbed{ ID = -1 };
+			TestBedManagerDB.ConnectionManager.Connect();
+		//	Master.activeTestbed = new Testbed { ID = -1 };
 		}
 
 		private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
@@ -46,6 +45,7 @@ namespace TestBedManager
 		}
 
 		#region Settings
+
 		private void MenuItemShowStartupWarning_Click(object sender, RoutedEventArgs e)
 		{
 			Settings.Default.ShowStartupWarning = ((MenuItem)sender).IsChecked;
@@ -59,9 +59,11 @@ namespace TestBedManager
 		}
 
 		// Set Ping Interval
-		#endregion
+
+		#endregion Settings
 
 		#region Save/load testbeds
+
 		private void MenuItemSaveCurrentList_Click(object sender, RoutedEventArgs e)
 		{
 			new SaveListWindow();
@@ -71,7 +73,8 @@ namespace TestBedManager
 		{
 			Master.browser.Show();
 		}
-		#endregion
+
+		#endregion Save/load testbeds
 
 		#region Remote commands
 
@@ -79,6 +82,7 @@ namespace TestBedManager
 		{
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
 				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
+				remoteTaskManager.CreateProcess("echo \a"); // Trying to send a bell
 			}
 		}
 
@@ -189,7 +193,7 @@ namespace TestBedManager
 			}
 		}
 
-		#endregion
+		#endregion Remote commands
 
 		#region Driver Classes
 
@@ -257,9 +261,10 @@ namespace TestBedManager
 			}
 		}
 
-		#endregion
+		#endregion Driver Classes
 
 		#region Local commands
+
 		private void MenuItemRemoteDesktop_Click(object sender, RoutedEventArgs e)
 		{
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
@@ -270,34 +275,29 @@ namespace TestBedManager
 
 		private void MenuItemOpenLogs_Click(object sender, RoutedEventArgs e)
 		{
-			DebugLog.OpenLogsFolderInExplorer();
+			DebugLog.DebugLog.OpenLogsFolderInExplorer();
 		}
 
 		private void MenuItemClearLogs_Click(object sender, RoutedEventArgs e)
 		{
-			DebugLog.ClearLogs();
+			DebugLog.DebugLog.ClearLogs();
 		}
-		#endregion
 
-        // copied from TestbedTable.xaml.cs
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            Testbed list;
-            if (Settings.Default.MostRecentList == -1)
-            {
-                list = Master.databaseManager.GetAllComputers();
-            }
-            else
-            {
-                list = Master.databaseManager.GetListContents(Settings.Default.MostRecentList.ToString());
-            }
-            foreach (RemoteComputer item in list.items)
-            {
-                Master.activeTestbed.Add(item);
-                Master.logManager.Add(item);
-            }
-        }
+		#endregion Local commands
 
-		
+		// copied from TestbedTable.xaml.cs
+		private void Button_Click_1(object sender, RoutedEventArgs e)
+		{
+		//	Testbed list;
+		//	if (Settings.Default.MostRecentList == -1) {
+		//		list = Master.databaseManager.GetAllComputers();
+		//	} else {
+		//		list = Master.databaseManager.GetListContents(Settings.Default.MostRecentList.ToString());
+		//	}
+		//	foreach (RemoteComputer item in list.items) {
+		//		Master.activeTestbed.Add(item);
+		//		Master.logManager.Add(item);
+		//	}
+		}
 	}
 }

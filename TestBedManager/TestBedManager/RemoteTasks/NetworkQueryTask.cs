@@ -20,7 +20,6 @@ namespace TestBedManager
 
 			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 				foreach (var item in wmiObjectSearcher.Get()) {
-
 					string caption = (string)item["Caption"];
 					string serviceName = (string)item["ServiceName"];
 					string dnsHostname = (string)item["DNSHostName"];

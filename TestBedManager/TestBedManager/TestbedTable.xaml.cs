@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using TestBedManager.Properties;
+using TestBedManagerDB;
 
 namespace TestBedManager
 {
@@ -16,6 +16,7 @@ namespace TestBedManager
 		}
 
 		#region Properties and accessors
+
 		/// <summary>
 		/// Return a copy of the currently selected items in the data grid.
 		/// </summary>
@@ -24,8 +25,8 @@ namespace TestBedManager
 			get
 			{
 				List<RemoteComputer> selected = new List<RemoteComputer>();
-				foreach (RemoteComputer item in dataGrid.SelectedItems)
-					selected.Add(item);
+				foreach (RemoteComputer computer in dataGrid.SelectedItems)
+					selected.Add(computer);
 				return selected;
 			}
 		}
@@ -38,31 +39,48 @@ namespace TestBedManager
 			get
 			{
 				List<RemoteComputer> items = new List<RemoteComputer>();
-				foreach (RemoteComputer item in dataGrid.Items)
-					items.Add(item);
+				foreach (RemoteComputer computer in dataGrid.Items)
+					items.Add(computer);
 				return items;
 			}
 		}
-		#endregion
+
+		#endregion Properties and accessors
 
 		/// <summary>
 		/// On load, initialize the testbed table with the most recently used testbed.
 		/// </summary>
 		private void TestbedTableDataGrid_Loaded(object sender, RoutedEventArgs e)
 		{
-            //if (DesignerProperties.GetIsInDesignMode(this)) // Don't try to populate the list in design mode.
-            //    return;
+			if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) // Don't try to populate the list in design mode.
+			    return;
 
-            //Testbed list;
-            //if (Settings.Default.MostRecentList == -1) {
-            //    list = Master.databaseManager.GetAllComputers();
-            //} else {
-            //    list = Master.databaseManager.GetListContents(Settings.Default.MostRecentList.ToString());
-            //}
-            //foreach (RemoteComputer item in list.items) {
-            //    Master.activeTestbed.Add(item);
-            //    Master.logManager.Add(item); // noo bad
-            //}
+			Testbed testbed = new Testbed();
+			if (Settings.Default.MostRecentList == -1) {
+				DataTable table = new Computers().SelectAll();
+				foreach (DataRow row in table.Rows) {
+					RemoteComputer computer = new RemoteComputer(row);
+					testbed.Add(computer);
+				}
+			} else {
+				DataTable table = new TestbedRelations().FindByTestbedID(Settings.Default.MostRecentList);
+				foreach (DataRow row in table.Rows) {
+					RemoteComputer computer = new RemoteComputer(row);
+					testbed.Add(computer);
+				}
+			}
+
+			foreach (RemoteComputer item in testbed.items) {
+				ActiveTestbed.Add(item);
+			}
+		}
+
+		public bool TableContains(string hostname)
+		{
+			foreach (RemoteComputer item in dataGrid.Items)
+				if (item.hostname.Equals(hostname, System.StringComparison.InvariantCultureIgnoreCase))
+					return true;
+			return false;
 		}
 
 		/// <summary>
@@ -71,30 +89,32 @@ namespace TestBedManager
 		/// <param name="computer"></param>
 		public void Update(Testbed testbed)
 		{
-			dataGrid.Dispatcher.Invoke((Action)(() => {
-				//? This task can be made more efficient.
-				foreach (var computer in items) {
-					if (!testbed.items.Contains(computer)) {
-						dataGrid.Items.Remove(computer);
-						Master.activeTestbed.Remove(computer);
-					}
-				}
-				foreach (var computer in testbed.items) {
-					if (!dataGrid.Items.Contains(computer)) {
-						dataGrid.Items.Add(computer);
-						ConnectionMonitor connMon = new ConnectionMonitor(computer);
-					}
-				}
-				dataGrid.Items.Refresh();
-			}));
+			//dataGrid.Dispatcher.Invoke((Action)(() => {
+			//	//? This task can be made more efficient.
+			//	foreach (var computer in items) {
+			//		if (!testbed.items.Contains(computer)) {
+			//		//	dataGrid.Items.Remove(computer);
+			//			ActiveTestbed.Remove(computer);
+			//		//	Master.activeTestbed.Remove(computer);
+			//		}
+			//	}
+			//	foreach (var computer in testbed.items) {
+			//		if (!dataGrid.Items.Contains(computer)) {
+			//		//	dataGrid.Items.Add(computer);
+			//			ActiveTestbed.Add(computer);
+			//			ConnectionMonitor connMon = new ConnectionMonitor(computer);
+			//		}
+			//	}
+			//	dataGrid.Items.Refresh();
+			//}));
 		}
 
 		#region Removing computers
+
 		private void MenuItemRemove_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (var item in selectedItems) {
-				Master.activeTestbed.Remove(item);
-				Master.logManager.Remove(item);
+			foreach (RemoteComputer computer in selectedItems) {
+				ActiveTestbed.Remove(computer);
 			}
 		}
 
@@ -102,8 +122,7 @@ namespace TestBedManager
 		{
 			Testbed selected = Testbed.ToTestbed(selectedItems);
 			foreach (RemoteComputer computer in selected.items) {
-				Master.activeTestbed.Remove(computer);
-				Master.logManager.Remove(computer);
+				ActiveTestbed.Remove(computer);
 			}
 		}
 
@@ -111,18 +130,19 @@ namespace TestBedManager
 		{
 			Testbed selected = Testbed.ToTestbed(selectedItems);
 			foreach (RemoteComputer computer in selected.items) {
-			//	Master.databaseManager.RemoveComputer(computer);
 
-                new DBComputerHandler().Remove(computer.ID);
-                new DBTestbedRelationsHandler().RemoveComputerFromAllTestbeds(computer.ID);
+				ActiveTestbed.Remove(computer);
 
-				Master.activeTestbed.Remove(computer);
-				Master.logManager.Remove(computer);
+				new TestbedRelations().DeleteComputer(computer.ID);
+
+				new Computers().Delete(computer.ID);
 			}
 		}
-		#endregion
+
+		#endregion Removing computers
 
 		#region Menu items that just open windows
+
 		private void MenuItemAdd_Click(object sender, RoutedEventArgs e)
 		{
 			new AddComputerWindow();
@@ -137,7 +157,8 @@ namespace TestBedManager
 		{
 			Master.browser.Show();
 		}
-		#endregion
+
+		#endregion Menu items that just open windows
 
 		private void MenuItemSelectAll_Click(object sender, RoutedEventArgs e)
 		{
@@ -150,7 +171,6 @@ namespace TestBedManager
 				AccountInfoView accountInfo = new AccountInfoView();
 				accountInfo.InitializeInfo(item);
 			}
-			
 		}
 	}
 }

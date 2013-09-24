@@ -16,6 +16,7 @@ namespace TestBedManager
 			ObjectQuery query = new ObjectQuery(String.Format("select * from {0} where DeviceClass='{1}' and DeviceName is not null and DriverVersion is not null", WmiClass.PnPSignedDriver, deviceClass.ToUpper()));
 
 			remoteComputer.Log("Querying " + deviceClass + " drivers...");
+
 			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 				foreach (var item in wmiObjectSearcher.Get()) {
 					string deviceName = (string)item["DeviceName"];

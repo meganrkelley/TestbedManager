@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -47,7 +46,7 @@ namespace TestBedManager
 			try {
 				return RemoveDnsSuffix(Dns.GetHostEntry(ip).HostName);
 			} catch (Exception ex) {
-				DebugLog.Log(ex);
+				DebugLog.DebugLog.Log(ex);
 			}
 
 			return returnValue;
@@ -58,7 +57,7 @@ namespace TestBedManager
 			try {
 				return RemoveIPv6Addresses(Dns.GetHostEntry(hostname).AddressList.ToList());
 			} catch (Exception ex) {
-				DebugLog.Log(ex);
+				DebugLog.DebugLog.Log(ex);
 			}
 
 			return new List<IPAddress>(new IPAddress[] { IPAddress.None });
@@ -92,7 +91,7 @@ namespace TestBedManager
 		//	while ((line = streamReader.ReadLine()) != null)
 		//		if (line.StartsWith("\\"))
 		//			hostnames.Add(line.Substring(2).Substring(0,
-		//				line.Substring(2).IndexOf(" ", StringComparison.Ordinal)).ToUpper());
+		//				line.Substring(2).IndexOf(" ", StringComparison.jkljlk)).ToUpper());
 
 		//	streamReader.Close();
 		//	proc.WaitForExit(1000);
@@ -130,7 +129,7 @@ namespace TestBedManager
 
 		private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
-			Master.activeTestbed.Add((RemoteComputer)e.Result);
+			ActiveTestbed.Update((RemoteComputer)e.Result);
 		}
 	}
 }

@@ -68,6 +68,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestBedManagerDB\TestBedManagerDB.csproj">
+      <Project>{94b77fc8-6de4-4d16-a623-bb977c5f12b6}</Project>
+      <Name>TestBedManagerDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestBedManager\TestBedManager.csproj">
       <Project>{7764999c-cca2-40e8-a627-ced20419ee49}</Project>
       <Name>TestBedManager</Name>

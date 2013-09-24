@@ -2,7 +2,7 @@
 {
 	public enum NetworkStatus
 	{
-		PingOnly, 
+		PingOnly,
 		Disconnected,
 		WmiConnected,
 		Unknown

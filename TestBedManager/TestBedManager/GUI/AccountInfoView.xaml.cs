@@ -4,7 +4,7 @@ namespace TestBedManager
 {
 	public partial class AccountInfoView
 	{
-	//	private RemoteComputer computer;
+		//	private RemoteComputer computer;
 
 		public AccountInfoView()
 		{

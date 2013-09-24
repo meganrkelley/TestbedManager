@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Threading;
 using TestBedManager.Properties;
@@ -61,7 +60,7 @@ namespace TestBedManager
 
 		private NetworkStatus ToNetworkStatus(IPStatus ipStatus)
 		{
-			return ipStatus == IPStatus.Success ? 
+			return ipStatus == IPStatus.Success ?
 				NetworkStatus.PingOnly : NetworkStatus.Disconnected;
 		}
 
@@ -77,7 +76,7 @@ namespace TestBedManager
 				try {
 					PingRemoteComputer();
 				} catch (System.Exception ex) {
-					DebugLog.Log(ex);
+					DebugLog.DebugLog.Log(ex);
 				}
 				Thread.Sleep(interval * 1000);
 			}

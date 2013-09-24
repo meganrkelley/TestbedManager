@@ -17,7 +17,7 @@ namespace TestBedManager
 			try {
 				Task.Factory.StartNew(() => task.Run(parameter));
 			} catch (Exception ex) {
-				DebugLog.Log(ex);
+				DebugLog.DebugLog.Log(ex);
 			}
 		}
 

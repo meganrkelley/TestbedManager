@@ -8,14 +8,15 @@ namespace TestBedManager
 	public class RemoteConnectionInfo
 	{
 		#region Instance Variables
+
 		private string _hostname;
 		private IPAddress _ipAddress;
 		private NetworkCredential _credentials;
 		private NetworkStatus _status;
-		#endregion
+
+		#endregion Instance Variables
 
 		#region Constructors
-		public RemoteConnectionInfo() { }
 
 		public RemoteConnectionInfo(string hostname, IPAddress ipAddress)
 		{
@@ -32,7 +33,8 @@ namespace TestBedManager
 			_credentials = credentials;
 			_status = NetworkStatus.Unknown;
 		}
-		#endregion
+
+		#endregion Constructors
 
 		#region Accessors
 
@@ -60,6 +62,6 @@ namespace TestBedManager
 			set { _status = value; }
 		}
 
-		#endregion
+		#endregion Accessors
 	}
 }

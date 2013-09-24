@@ -1,6 +1,0 @@
-﻿namespace TestBedManager
-{
-	class NullComputer
-	{
-	}
-}

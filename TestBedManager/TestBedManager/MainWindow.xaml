@@ -3,15 +3,15 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:local="clr-namespace:TestBedManager" x:Name="WindowMainWindow" x:Class="TestBedManager.MainWindow"
 		Title="Test Bed Manager" Height="400" Width="740" MinHeight="385" MinWidth="385" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Icon="batman.ico">
-	
+
 	<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2">
-		
+
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="63*" MaxWidth="300"/>
+			<ColumnDefinition Width="63*" MaxWidth="300" />
 			<ColumnDefinition Width="118*" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="23*"/>
+			<RowDefinition Height="23*" />
 			<RowDefinition Height="338*" />
 		</Grid.RowDefinitions>
 
@@ -63,24 +63,24 @@
 					<MenuItem x:Name="MenuItemHibernate" Header="Hibernate" Click="MenuItemHibernate_Click" />
 					<MenuItem x:Name="MenuItemSleep" Header="Sleep" Click="MenuItemSleep_Click" FontStyle="Italic" FontWeight="Bold" />
 				</MenuItem>
+				<MenuItem x:Name="MenuItemBeep" Header="Beep" Click="MenuItemBeep_Click"/>
 				<MenuItem x:Name="MenuItemRename" Header="Rename Computer" Click="MenuItemRename_Click">
 				</MenuItem>
 				<MenuItem x:Name="MenuItemPowerSettings" Header="Adjust Power Plan" Click="MenuItemPowerSettings_Click" />
 				<MenuItem x:Name="MenuItemRemoteDesktop" Header="Start Remote Desktop Session" Click="MenuItemRemoteDesktop_Click" />
-				<MenuItem x:Name="MenuItemBeep" Header="Beep" Click="MenuItemBeep_Click" />
 				<Separator />
 				<MenuItem x:Name="MenuItemNetworkData" Header="View Network Data" Click="MenuItemNetworkData_Click" />
 				<MenuItem x:Name="MenuItemDrivers" Header="View Drivers">
-					<MenuItem x:Name="MenuItemDrivers_amppal" Header="AMPPAL" Click="MenuItemDrivers_amppal_Click"/>
-					<MenuItem x:Name="MenuItemDrivers_bluetooth" Header="Bluetooth" Click="MenuItemDrivers_bluetooth_Click"/>
-					<MenuItem x:Name="MenuItemDrivers_display" Header="Display" Click="MenuItemDrivers_display_Click"/>
-					<MenuItem x:Name="MenuItemDrivers_media" Header="Media" Click="MenuItemDrivers_media_Click"/>
-					<MenuItem x:Name="MenuItemDrivers_net" Header="Network" Click="MenuItemDrivers_net_Click"/>
-					<MenuItem x:Name="MenuItemDrivers_processor" Header="Processor" Click="MenuItemDrivers_processor_Click"/>
-					<MenuItem x:Name="MenuItemDrivers_system" Header="System" Click="MenuItemDrivers_system_Click"/>
-					<MenuItem x:Name="MenuItemDrivers_usb" Header="USB" Click="MenuItemDrivers_usb_Click"/>
+					<MenuItem x:Name="MenuItemDrivers_amppal" Header="AMPPAL" Click="MenuItemDrivers_amppal_Click" />
+					<MenuItem x:Name="MenuItemDrivers_bluetooth" Header="Bluetooth" Click="MenuItemDrivers_bluetooth_Click" />
+					<MenuItem x:Name="MenuItemDrivers_display" Header="Display" Click="MenuItemDrivers_display_Click" />
+					<MenuItem x:Name="MenuItemDrivers_media" Header="Media" Click="MenuItemDrivers_media_Click" />
+					<MenuItem x:Name="MenuItemDrivers_net" Header="Network" Click="MenuItemDrivers_net_Click" />
+					<MenuItem x:Name="MenuItemDrivers_processor" Header="Processor" Click="MenuItemDrivers_processor_Click" />
+					<MenuItem x:Name="MenuItemDrivers_system" Header="System" Click="MenuItemDrivers_system_Click" />
+					<MenuItem x:Name="MenuItemDrivers_usb" Header="USB" Click="MenuItemDrivers_usb_Click" />
 				</MenuItem>
-                <MenuItem x:Name="MenuItemEventViewer" Header="Query System Events" Click="MenuItemEventViewer_Click"/>
+                <MenuItem x:Name="MenuItemEventViewer" Header="Query System Events" Click="MenuItemEventViewer_Click" />
                 <MenuItem x:Name="MenuItemLocalTime" Header="View System Time" Click="MenuItemLocalTime_Click" />
 				<MenuItem x:Name="MenuItemComputerSystem" Header="View OS and Architecture" Click="MenuItemComputerSystem_Click" />
 				<MenuItem x:Name="MenuItemComputerProduct" Header="View Computer Model Information" Click="MenuItemComputerProduct_Click" />
@@ -91,11 +91,11 @@
 			<MenuItem x:Name="MenuItemOptions" Header="OPTIONS">
 				<MenuItem x:Name="MenuItemShowStartupWarning" Header="Show Startup Warning" IsCheckable="True" Click="MenuItemShowStartupWarning_Click" />
 				<MenuItem x:Name="MenuItemUseIpOverHostname" Header="Use IP Address" ToolTip="Check this if you have DNS issues. If unchecked, connections will use hostnames." IsCheckable="True" Click="MenuItemUseIpOverHostname_Click" />
-				<MenuItem x:Name="MenuItemPingInterval" Header="Ping Interval..." ToolTip="Amount of time in seconds to wait between testing the remote connection(s)." IsEnabled="False"/>
+				<MenuItem x:Name="MenuItemPingInterval" Header="Ping Interval..." ToolTip="Amount of time in seconds to wait between testing the remote connection(s)." IsEnabled="False" />
 			</MenuItem>
 			<MenuItem x:Name="MenuItemHelp" Header="HELP">
 				<MenuItem x:Name="MenuItemAbout" Header="About" Click="MenuItemAbout_Click" />
-                <Separator/>
+                <Separator />
                 <MenuItem x:Name="MenuItemOpenLogs" Header="Open Logs Folder" Click="MenuItemOpenLogs_Click" />
                 <MenuItem x:Name="MenuItemClearLogs" Header="Clear Log Files" Click="MenuItemClearLogs_Click" />
 			</MenuItem>
@@ -103,12 +103,11 @@
 
 		<Grid x:Name="StackPanelComputerTable" Grid.Column="0" Margin="10" Grid.Row="1" Height="325">
 			<local:TestbedTable x:Name="TestbedTable" VerticalAlignment="Top" Height="315" />
-            <Button Visibility="Hidden" Content="Load Most Recent" HorizontalAlignment="Left" Margin="67,300,0,0" VerticalAlignment="Top" Width="99" Height="25" Click="Button_Click_1"/>
+            <Button Visibility="Hidden" Content="Load Most Recent" HorizontalAlignment="Left" Margin="67,300,0,0" VerticalAlignment="Top" Width="99" Height="25" Click="Button_Click_1" />
         </Grid>
-		
+
 		<Grid x:Name="StackPanelOutputLog" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Grid.Row="1">
 			<TabControl x:Name="mainTabControl" />
 		</Grid>
-		
 	</Grid>
 </Window>

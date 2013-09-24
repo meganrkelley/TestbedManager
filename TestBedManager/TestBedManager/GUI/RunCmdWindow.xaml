@@ -3,20 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Run Command..." Height="172" Width="376" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" WindowStyle="ToolWindow">
     <Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="37*"/>
-			<RowDefinition Height="12*"/>
-		</Grid.RowDefinitions>
-		<Button x:Name="ButtonRun" Width="50" Grid.Row="1" Content="Run" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="2" Click="ButtonRun_Click" Margin="5"/>
-		<RichTextBox x:Name="RichTextBoxCommand" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="White" Background="Black" FontFamily="Consolas" FontSize="12" Grid.Row="0" Margin="5">
-			<FlowDocument>
-				<Paragraph>
-					<Run Text="ipconfig /all"/>
-				</Paragraph>
-			</FlowDocument>
-		</RichTextBox>
-
-	</Grid>
-	
-	
+        <Grid.RowDefinitions>
+            <RowDefinition Height="37*" />
+            <RowDefinition Height="12*" />
+        </Grid.RowDefinitions>
+        <Button x:Name="ButtonRun" Width="50" Grid.Row="1" Content="Run" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="2" Click="ButtonRun_Click" Margin="5" />
+        <RichTextBox x:Name="RichTextBoxCommand" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="White" Background="Black" FontFamily="Consolas" FontSize="12" Grid.Row="0" Margin="5">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="ipconfig /all" />
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+    </Grid>
 </Window>

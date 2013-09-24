@@ -7,8 +7,6 @@ namespace TestBedManager
 	/// </summary>
 	public class ConnectionInfoChecker
 	{
-		public ConnectionInfoChecker() { }
-
 		/// <summary>
 		/// Tests whether the "hostnameOrIp" input is a hostname or IP address and resolves accordingly.
 		/// </summary>

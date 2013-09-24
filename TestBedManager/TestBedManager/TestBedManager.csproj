@@ -83,18 +83,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DebugLog.cs" />
-    <Compile Include="DomainModel\DBTestbedRelationsHandler.cs" />
     <Compile Include="DomainModel\ConnectionInfoChecker.cs" />
-    <Compile Include="DomainModel\DBComputerHandler.cs" />
-    <Compile Include="DomainModel\DBTestbedHandler.cs" />
-    <Compile Include="DomainModel\NullComputer.cs" />
-    <Compile Include="DomainModel\NullTestbed.cs" />
     <Compile Include="AppModel\RemoteComputerEditor.cs" />
-    <Compile Include="Services\DBComputersGateway.cs" />
-    <Compile Include="Services\DBConnectionManager.cs" />
-    <Compile Include="Services\DBTestbedRelationsGateway.cs" />
-    <Compile Include="Services\DBTestbedsGateway.cs" />
     <Compile Include="GUI\EventCodeWindow.xaml.cs">
       <DependentUpon>EventCodeWindow.xaml</DependentUpon>
     </Compile>
@@ -126,7 +116,6 @@
     <Compile Include="GUI\AddComputerWindow.xaml.cs">
       <DependentUpon>AddComputerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\DatabaseManager.cs" />
     <Compile Include="GUI\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
     </Compile>
@@ -160,11 +149,6 @@
       <DependentUpon>StartupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DomainModel\Testbed.cs" />
-    <Compile Include="TestBedManagerDBDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestBedManagerDBDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DomainModel\WmiClass.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -252,21 +236,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="TestBedManagerDBDataSet.xsc">
-      <DependentUpon>TestBedManagerDBDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="TestBedManagerDBDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>TestBedManagerDBDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="TestBedManagerDBDataSet.xss">
-      <DependentUpon>TestBedManagerDBDataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -328,9 +301,7 @@
     <Resource Include="Icons\collapse.png" />
     <Resource Include="Icons\expand.png" />
     <Resource Include="batman.ico" />
-    <Content Include="TestBedManagerDB.sdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="beep.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -356,6 +327,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DebugLog\DebugLog.csproj">
+      <Project>{9c89ec9e-867e-4467-863e-5a753748b31f}</Project>
+      <Name>DebugLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestBedManagerDB\TestBedManagerDB.csproj">
+      <Project>{94b77fc8-6de4-4d16-a623-bb977c5f12b6}</Project>
+      <Name>TestBedManagerDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

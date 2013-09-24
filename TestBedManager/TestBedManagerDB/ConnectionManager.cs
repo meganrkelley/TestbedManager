@@ -2,11 +2,11 @@
 using System.Data;
 using System.Data.SqlServerCe;
 using System.Diagnostics;
-using TestBedManager.Properties;
+using TestBedManagerDB.Properties;
 
-namespace TestBedManager
+namespace TestBedManagerDB
 {
-	static class DBConnectionManager
+	public class ConnectionManager
 	{
 		public static SqlCeConnection connection;
 
@@ -15,11 +15,11 @@ namespace TestBedManager
 			try {
 				if (connection != null && connection.State == ConnectionState.Open)
 					return connection;
-				DebugLog.Log("Opening a connection...");
-				connection = new SqlCeConnection(Settings.Default.TestBedManagerDBConnectionString);
+				DebugLog.DebugLog.Log("Opening a connection to " + Settings.Default.dbConnectionString + ".");
+				connection = new SqlCeConnection(Settings.Default.dbConnectionString);
 				connection.Open();
 			} catch (Exception ex) {
-				DebugLog.Log(ex);
+				DebugLog.DebugLog.Log(ex);
 			}
 
 			return connection;
@@ -28,9 +28,10 @@ namespace TestBedManager
 		public static void Disconnect()
 		{
 			try {
+				DebugLog.DebugLog.Log("Closing the connection to " + Settings.Default.dbConnectionString + ".");
 				connection.Close();
 			} catch (Exception ex) {
-				DebugLog.Log(ex);
+				DebugLog.DebugLog.Log(ex);
 			}
 		}
 	}

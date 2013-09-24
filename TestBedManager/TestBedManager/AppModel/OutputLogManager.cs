@@ -1,8 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,26 +16,27 @@ namespace TestBedManager
 	/// </summary>
 	public class OutputLogManager
 	{
-		#region Private members
+		#region Private fields
 
 		private System.Windows.Forms.ColorDialog colorDialog;
 		private System.Windows.Forms.FontDialog fontDialog;
 		private SaveFileDialog saveOutputDialog;
 		private TabControl tabControl = Master.main.mainTabControl;
-		
-		private TabItem selectedTab // why does this even exist
+
+		private TabItem selectedTab
 		{
-			get { 
+			get
+			{
 				TabItem tab = new TabItem();
-				tabControl.Dispatcher.Invoke((Action)(() => { 
-					tab = (TabItem)tabControl.SelectedItem; 
-				})); 
+				tabControl.Dispatcher.Invoke((Action)(() => {
+					tab = (TabItem)tabControl.SelectedItem;
+				}));
 				return tab;
 			}
 			set { tabControl.SelectedItem = value; }
 		}
 
-		#endregion
+		#endregion Private members
 
 		//public void Update(RemoteComputer computer)
 		//{
@@ -46,6 +45,8 @@ namespace TestBedManager
 
 		public void Add(RemoteComputer computer)
 		{
+			if (TabControlContains(computer.hostname))
+				return;
 			TabItem newTab = CreateTabItemForComputer(computer);
 			computer.tabIndex = tabControl.Items.Add(newTab);
 			selectedTab = newTab; // Bring the new tab into focus.
@@ -56,7 +57,7 @@ namespace TestBedManager
 			try {
 				tabControl.Items.Remove(tabControl.Items[computer.tabIndex]);
 			} catch (Exception ex) {
-				DebugLog.Log(ex);
+				DebugLog.DebugLog.Log(ex);
 			}
 		}
 
@@ -74,8 +75,17 @@ namespace TestBedManager
 					}
 				}));
 			} catch (Exception ex) {
-				DebugLog.Log(ex);
+				DebugLog.DebugLog.Log(ex);
 			}
+		}
+
+		public bool TabControlContains(string hostname)
+		{
+			foreach (TabItem item in tabControl.Items) {
+				if (item.Header.ToString().Equals(hostname, StringComparison.InvariantCultureIgnoreCase))
+					return true;
+			}
+			return false;
 		}
 
 		private void close_Click(object sender, RoutedEventArgs e)
@@ -89,6 +99,7 @@ namespace TestBedManager
 		}
 
 		#region Create custom GUI elements
+
 		private TabItem CreateTabItemForComputer(RemoteComputer computer)
 		{
 			return new TabItem {
@@ -163,9 +174,11 @@ namespace TestBedManager
 
 			return menu;
 		}
-		#endregion
+
+		#endregion Create custom GUI elements
 
 		#region Textbox formatting options
+
 		private void clear_Click(object sender, RoutedEventArgs e)
 		{
 			((RichTextBox)selectedTab.Content).Document.Blocks.Clear();
@@ -173,7 +186,7 @@ namespace TestBedManager
 
 		private void copy_Click(object sender, RoutedEventArgs e)
 		{
-			Clipboard.SetText(new TextRange(((RichTextBox)selectedTab.Content).Document.ContentStart, 
+			Clipboard.SetText(new TextRange(((RichTextBox)selectedTab.Content).Document.ContentStart,
 				((RichTextBox)selectedTab.Content).Document.ContentEnd).Text);
 		}
 
@@ -192,7 +205,7 @@ namespace TestBedManager
 		private void fontDialog_Apply(object sender, EventArgs e)
 		{
 			foreach (TabItem tab in tabControl.Items) {
-				var range = new TextRange(((RichTextBox)tab.Content).Document.ContentStart, 
+				var range = new TextRange(((RichTextBox)tab.Content).Document.ContentStart,
 					((RichTextBox)tab.Content).Document.ContentEnd);
 				range.ApplyPropertyValue(TextElement.FontSizeProperty, (double)fontDialog.Font.Size * 1.5);
 				range.ApplyPropertyValue(TextElement.FontFamilyProperty, new FontFamily(fontDialog.Font.FontFamily.Name));
@@ -231,11 +244,12 @@ namespace TestBedManager
 		private void saveOutputDialog_FileOk(object sender, CancelEventArgs e)
 		{
 			using (FileStream fs = File.OpenWrite(saveOutputDialog.FileName)) {
-				TextRange text = new TextRange(((RichTextBox)selectedTab.Content).Document.ContentStart, 
+				TextRange text = new TextRange(((RichTextBox)selectedTab.Content).Document.ContentStart,
 					((RichTextBox)selectedTab.Content).Document.ContentEnd);
 				text.Save(fs, DataFormats.Text);
 			}
 		}
-		#endregion
+
+		#endregion Textbox formatting options
 	}
 }

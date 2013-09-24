@@ -14,9 +14,9 @@ namespace TestBedManager
 			try {
 				scope.Connect();
 				if (scope.IsConnected)
-                    computer.status = NetworkStatus.WmiConnected;
+					computer.status = NetworkStatus.WmiConnected;
 			} catch (Exception ex) {
-				DebugLog.Log(ex);
+				DebugLog.DebugLog.Log(ex);
 			}
 		}
 
@@ -25,12 +25,16 @@ namespace TestBedManager
 			string serverPath = String.Format(@"\\{0}\root\cimv2", computer.hostname);
 			ConnectionOptions connectionOptions;
 
-			if (computer.hostname == "localhost" || computer.ipAddressStr.Equals("127.0.0.1")) {
+			if (computer.hostname.Equals("localhost", StringComparison.InvariantCultureIgnoreCase) ||
+				computer.ipAddressStr.Equals("127.0.0.1", StringComparison.InvariantCultureIgnoreCase)) {
 				connectionOptions = new ConnectionOptions {
+					EnablePrivileges = true,
 					Impersonation = ImpersonationLevel.Impersonate
 				};
 			} else {
 				connectionOptions = new ConnectionOptions {
+					EnablePrivileges = true,
+					Authentication = AuthenticationLevel.PacketPrivacy,
 					Impersonation = ImpersonationLevel.Impersonate,
 					Username = computer.credentials.UserName,
 					Password = computer.credentials.Password

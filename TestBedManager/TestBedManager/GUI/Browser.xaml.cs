@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using TestBedManagerDB;
 
 namespace TestBedManager
 {
@@ -14,23 +15,32 @@ namespace TestBedManager
 
 		private void WindowListBrowserWindow_Loaded(object sender, RoutedEventArgs e)
 		{
-			List<Testbed> lists = Master.databaseManager.GetAllSavedLists();
-			if (lists.Count == 0)
-				goto loadAllComputers; // yeah I seriously just used a goto
+		//	List<Testbed> lists = Master.databaseManager.GetAllSavedLists();
+		//	if (lists.Count == 0)
+		//		goto loadAllComputers; // yeah I seriously just used a goto
 
-			foreach (Testbed testbed in lists) {
-                Testbed listContents = Master.databaseManager.GetListContents(testbed.ID.ToString());
+			//List<string> titles = new DBTestbedHandler().GetAllTitles();
+			//foreach (string title in titles) {
+			//	int id = new DBTestbedHandler().Find(title);
+			//	Testbed testbed = new DBTestbedRelationsHandler().GetTestbedByID(id);
+			//	listTree.AddList(title, testbed);
+			//}
+			//List<string> hostnames = new DBComputerHandler().GetAllHostnames();
+			//foreach (string hostname in hostnames)
+			//	masterList.Items.Add(hostname);
 
-				if (listContents.items.Count == 1 && listContents.items[0] == null)
-					continue;
-				listTree.AddList(testbed.title, listContents);
-			}
+			//foreach (Testbed testbed in lists) {
+			//	Testbed listContents = Master.databaseManager.GetListContents(testbed.ID.ToString());
 
-		loadAllComputers:
-            Testbed master = Master.databaseManager.GetAllComputers();
-            foreach (RemoteComputer computer in master.items) {
-                masterList.Items.Add(computer.hostname);
-            }
+			//	if (listContents.items.Count == 1 && listContents.items[0] == null)
+			//		continue;
+			//	listTree.AddList(testbed.title, listContents);
+			//}
+
+			//Testbed master = Master.databaseManager.GetAllComputers();
+			//foreach (RemoteComputer computer in master.items) {
+			//	masterList.Items.Add(computer.hostname);
+			//}
 		}
 
 		private void ButtonLoad_Click(object sender, RoutedEventArgs e)
@@ -40,7 +50,7 @@ namespace TestBedManager
 			if (item == null || !item.HasItems)
 				return;
 
-            TestbedEditor.Load((string)item.Header);
+			TestbedEditor.Load((string)item.Header);
 
 			Close();
 		}
@@ -53,12 +63,12 @@ namespace TestBedManager
 				return;
 
 			listTree.treeview.Items.Remove(listTree.treeview.SelectedItem);
-            TestbedEditor.Delete((string)item.Header);
+			TestbedEditor.Delete((string)item.Header);
 		}
 
-        #region Expand/Collapse/Enter key
+		#region Expand/Collapse/Enter key
 
-        private void expandImage_MouseDown(object sender, MouseButtonEventArgs e)
+		private void expandImage_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			ExpandAll();
 		}
@@ -84,8 +94,8 @@ namespace TestBedManager
 		{
 			if (e.Key == Key.Enter)
 				ButtonLoad_Click(sender, e);
-        }
+		}
 
-        #endregion
-    }
+		#endregion Expand/Collapse/Enter key
+	}
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace TestBedManager
+﻿namespace TestBedManager
 {
 	public class CreateProcessTask : RemoteTask
 	{

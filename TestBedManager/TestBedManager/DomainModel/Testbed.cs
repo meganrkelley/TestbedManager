@@ -8,13 +8,13 @@ namespace TestBedManager
 	public class Testbed : IComputerObserver
 	{
 		#region Private members
-		
+
 		private List<ITestbedObserver> observers = new List<ITestbedObserver>();
 		private List<RemoteComputer> _items = new List<RemoteComputer>();
 		private int _ID;
 		private string _title;
 
-		#endregion
+		#endregion Private members
 
 		#region Accessors
 
@@ -36,30 +36,34 @@ namespace TestBedManager
 			set { _title = value; }
 		}
 
-		#endregion
+		#endregion Accessors
 
 		#region Constructor/Destructor
-		
+
 		public Testbed()
 		{
 			Attach(Master.table);
-			Attach(Master.databaseManager);
 		}
 
 		public Testbed(string title)
 		{
 			this.title = title;
 			Attach(Master.table);
-			Attach(Master.databaseManager);
+		}
+
+		public Testbed(int id, string title)
+		{
+			this.ID = id;
+			this.title = title;
+			Attach(Master.table);		
 		}
 
 		~Testbed()
 		{
 			Detach(Master.table);
-			Detach(Master.databaseManager);
 		}
 
-		#endregion
+		#endregion Constructor/Destructor
 
 		#region Observing
 
@@ -84,7 +88,7 @@ namespace TestBedManager
 				observer.Update(this);
 		}
 
-		#endregion
+		#endregion Observing
 
 		/// <summary>
 		/// Add a computer to this testbed. Attach this testbed as an observer of the computer.

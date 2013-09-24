@@ -18,12 +18,10 @@ namespace TestBedManager
 			RemoteComputer computer = checker.GetValidRemoteComputer(
 				TextBoxHostnameIp.Text,
 				TextBoxUsername.Text,
-				PasswordBoxPassword.Password
-			);
+				PasswordBoxPassword.Password);
 
 			if (computer != null) {
-				Master.activeTestbed.Add(computer);
-				Master.logManager.Add(computer); // also called when loading a list... need to fix logmanager update()
+				ActiveTestbed.Add(computer);
 			}
 
 			Close();

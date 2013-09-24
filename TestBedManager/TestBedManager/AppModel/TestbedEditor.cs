@@ -1,71 +1,83 @@
-﻿using TestBedManager.Properties;
+﻿using System.Data;
+using TestBedManager.Properties;
+using TestBedManagerDB;
 
 namespace TestBedManager
 {
 	public class TestbedEditor
 	{
-        static DBTestbedRelationsHandler testbedRelationsHandler = new DBTestbedRelationsHandler();
-        static DBTestbedHandler testbedHandler = new DBTestbedHandler();
+	//	private static DBTestbedRelationsHandler testbedRelationsHandler = new DBTestbedRelationsHandler();
+	//	private static DBTestbedHandler testbedHandler = new DBTestbedHandler();
 
+		private static TestbedRelations relationsTable = new TestbedRelations();
+		private static Testbeds testbedsTable = new Testbeds();
+
+		// 1. Input validation
+		// 2. Generate a new testbed ID
+		// 3. Add the items in the GUI to the relations table with this new ID
 		public static void Save(string name = "")
 		{
-			if (Master.activeTestbed.items.Count == 0)
+			if (ActiveTestbed.IsEmpty())
 				return;
-			name = (name == "" ? Resources.DefaultTestbedName : name);
 
-            testbedHandler.Add(name);
+			if (name == "")
+				name = Resources.DefaultTestbedName;
 
-            int newTestbedID = testbedHandler.Find(name);
-            Testbed newTestbed = new Testbed { ID = newTestbedID, title = name };
+			int nextTestbedID = testbedsTable.GetNextID();
+			foreach (RemoteComputer item in Master.table.dataGrid.Items) {
+				relationsTable.Insert(item.ID, nextTestbedID);
+			}
+		//	testbedHandler.Add(name);
 
-            foreach (var item in Master.activeTestbed.items)
-                testbedRelationsHandler.AddComputerToTestbed(item, newTestbed);
+		//	int newTestbedID = testbedHandler.Find(name);
+		//	Testbed newTestbed = new Testbed(newTestbedID, name);
+
+		//	foreach (var item in ActiveTestbed.items)
+		//		testbedRelationsHandler.AddComputerToTestbed(item, newTestbed);
 		}
 
-
-
-        // fix this duplication----------
-        public static void Load(string title)
-        {
-            int testbedID = testbedHandler.Find(title);
-            Testbed testbed = testbedRelationsHandler.GetTestbedByID(testbedID);
-            foreach (RemoteComputer computer in testbed.items) {
-                Master.activeTestbed.Add(computer);
-                Master.logManager.Add(computer);
-            }
-
-            Settings.Default.MostRecentList = testbedID;
-            Settings.Default.Save();
-        }
-
+		// 1. Get a list of all the computers with this ID in the relations table
+		// 2. Add each of these to the activetestbed
+		// 3. Save the "most recent list" setting.
 		public static void Load(int id)
 		{
-            Testbed testbed = testbedRelationsHandler.GetTestbedByID(id);
-            foreach (RemoteComputer computer in testbed.items) {
-				Master.activeTestbed.Add(computer);
-				Master.logManager.Add(computer);
+			DataTable table = relationsTable.FindByTestbedID(id);
+			foreach (DataRow row in table.Rows) {
+				RemoteComputer computer = new RemoteComputer(row);
+				ActiveTestbed.Add(computer);
 			}
+		//	Testbed testbed = testbedRelationsHandler.GetTestbedByID(id);
+		//	testbed.ID = id;
+
+		//	foreach (RemoteComputer computer in testbed.items) {
+		//		ActiveTestbed.Add(computer);
+		//		Master.logManager.Add(computer);
+		//	}
 
 			Settings.Default.MostRecentList = id;
 			Settings.Default.Save();
 		}
 
-
-		
-		public static void Delete(int id)
+		public static void Load(string title)
 		{
-            testbedHandler.Remove(id);
-            testbedRelationsHandler.RemoveEntireTestbed(id);
+		//	int testbedID = testbedHandler.Find(title);
+		//	Load(testbedID);
 		}
 
-        public static void Delete(string title)
-        {
-            int testbedID = testbedHandler.Find(title);
-            testbedHandler.Remove(testbedID);
-            testbedRelationsHandler.RemoveEntireTestbed(testbedID);
-        }
+		// 1. Remove this testbed from the relations table and the testbed table
+		public static void Delete(int id)
+		{
+			testbedsTable.Delete(id);
+			relationsTable.DeleteTestbed(id);
+		//	testbedHandler.Remove(id);
+		//	testbedRelationsHandler.RemoveEntireTestbed(id);
+		}
 
+		public static void Delete(string title)
+		{
+		//	int testbedID = testbedHandler.Find(title);
+		//	Delete(testbedID);
+		}
 
-        // --------------------------------
 	}
 }

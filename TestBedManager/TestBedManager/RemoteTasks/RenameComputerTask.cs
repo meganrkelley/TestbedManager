@@ -10,13 +10,16 @@
 
 		public override void Run(string newHostname)
 		{
+			remoteComputer.Log("Attempting to rename computer from " + remoteComputer.hostname + " to " + newHostname + " and restart.");
+
 			var inParams = mgmtClass.GetMethodParameters("Rename");
-			inParams["Name"] = newHostname;
-			inParams["UserName"] = remoteComputer.credentials.UserName;
-			inParams["Password"] = remoteComputer.credentials.Password;
+			inParams.SetPropertyValue("Name", newHostname);
+			inParams.SetPropertyValue("UserName", remoteComputer.credentials.UserName);
+			inParams.SetPropertyValue("Password", remoteComputer.credentials.Password);
 			var outParams = mgmtClass.InvokeMethod("Rename", inParams, null);
 
-			//TODO: Reboot: invoke "Reboot" from Win32_OperatingSystem (or just run shutdown -r)
+			RemoteTask task = new CreateProcessTask(remoteComputer);
+			task.Run("shutdown -r");
 		}
 	}
 }

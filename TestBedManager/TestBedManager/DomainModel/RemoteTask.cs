@@ -32,12 +32,10 @@ namespace TestBedManager
 			ManagementScope scope = WmiConnectionHandler.SetUpScope(remoteComputer);
 			mgmtClass = new ManagementClass(scope, mgmtPath, new ObjectGetOptions());
 
-            Thread connectionThread = new Thread(new ParameterizedThreadStart(WmiConnectionHandler.ConnectToScope));
-            connectionThread.Start(new List<object> { scope, remoteComputer });
+			Thread connectionThread = new Thread(new ParameterizedThreadStart(WmiConnectionHandler.ConnectToScope));
+			connectionThread.Start(new List<object> { scope, remoteComputer });
 		}
 	}
 
-	//PowerStateTask // sleep states
 	//PowerSettingsTask // powerplan
-	//BeepTask or EjectCdRomTask
 }
