@@ -21,40 +21,40 @@ namespace TestBedManager
 		{
 			if (Master.table.TableContains(computer.hostname))
 				return;
+
 			Master.table.dataGrid.Items.Add(computer);
 
-
-			DebugLog.DebugLog.Log("Added new computer (" + computer.hostname + ", " + computer.ipAddressStr + ") to the GUI table.");
-
 			Master.logManager.Add(computer);
-
-			DebugLog.DebugLog.Log("Added new computer (" + computer.hostname + ", " + computer.ipAddressStr + ") to the tab control.");
 
 			if (computersTable.Find(computer.hostname).Rows.Count > 0)
 				return;
 
-			int id = computersTable.Insert(
-				computer.hostname, 
-				computer.ipAddressStr, 
+			computer.ID = computersTable.Insert(
+				computer.hostname,
+				computer.ipAddressStr,
 				computer.credentials.UserName,
 				computer.credentials.Password);
 
-			computer.ID = id;
-
 			DebugLog.DebugLog.Log("Added new computer (" + computer.ID + ", " + computer.hostname + ", " + computer.ipAddressStr + ") to the database.");
+
+			new ConnectionMonitor(computer);
 		}
 
 		// 1. Update the GUI table
 		// 2. Update the database
 		public static void Update(RemoteComputer computer)
 		{
-			int index = Master.table.dataGrid.Items.IndexOf(computer);
-			if (index < 0) {
-				System.Diagnostics.Trace.WriteLine("Hit ActiveTestBed.Update and could not find the given computer in the GUI table. Hostname: " + computer.hostname);
-				return;
+			List<RemoteComputer> items = new List<RemoteComputer>();
+			foreach (RemoteComputer item in Master.table.dataGrid.Items)
+				items.Add(item); // Copy so we don't modify the collection
+
+			foreach (RemoteComputer item in items) {
+				if (item.hostname == computer.hostname &&
+					item.ipAddressStr == computer.ipAddressStr) {
+					Master.table.dataGrid.Items.Remove(item);
+					Master.table.dataGrid.Items.Add(computer);
+				}
 			}
-			Master.table.dataGrid.Items.RemoveAt(index);
-			Master.table.dataGrid.Items.Insert(index, computer);
 
 			computersTable.Update(computer.ID,
 				computer.hostname,

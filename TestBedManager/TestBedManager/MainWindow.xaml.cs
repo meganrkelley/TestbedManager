@@ -1,6 +1,17 @@
 using System.Windows;
 using System.Windows.Controls;
 using TestBedManager.Properties;
+using TestBedManagerDB;
+
+// Delete logs after certain amount of time
+
+// [x] System Events - give option to select level and search for source
+// [x] Annoying ass tooltip on outputlog
+// [x] Put more stuff under FILE tab
+// [x] Run command - don't make it a scrolling textbox.
+// [x] Rename + Reboot -- only rename option
+// [x] Gray out tasks if a machine is not selected
+// [x] Spacing in outputlog
 
 namespace TestBedManager
 {
@@ -11,7 +22,13 @@ namespace TestBedManager
 			InitializeComponent();
 
 			SetUpStaticReferences();
+
+			ConnectionManager.Connect();
+
 			ApplyUserSettings();
+
+			//if (Settings.Default.ShowStartupWarning)
+			//	new StartupWindow();
 		}
 
 		private void ApplyUserSettings()
@@ -25,23 +42,6 @@ namespace TestBedManager
 			Master.main = this;
 			Master.table = TestbedTable;
 			Master.logManager = new OutputLogManager();
-			TestBedManagerDB.ConnectionManager.Connect();
-		//	Master.activeTestbed = new Testbed { ID = -1 };
-		}
-
-		private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
-		{
-			new AboutWindow();
-		}
-
-		private void MenuItemAddNewComputer_Click(object sender, RoutedEventArgs e)
-		{
-			new AddComputerWindow();
-		}
-
-		private void MenuItemExit_Click(object sender, RoutedEventArgs e)
-		{
-			Application.Current.Shutdown();
 		}
 
 		#region Settings
@@ -61,20 +61,6 @@ namespace TestBedManager
 		// Set Ping Interval
 
 		#endregion Settings
-
-		#region Save/load testbeds
-
-		private void MenuItemSaveCurrentList_Click(object sender, RoutedEventArgs e)
-		{
-			new SaveListWindow();
-		}
-
-		private void MenuItemLoadSavedList_Click(object sender, RoutedEventArgs e)
-		{
-			Master.browser.Show();
-		}
-
-		#endregion Save/load testbeds
 
 		#region Remote commands
 
@@ -112,7 +98,8 @@ namespace TestBedManager
 
 		private void MenuItemSleep_Click(object sender, RoutedEventArgs e)
 		{
-			//rundll?
+			//TODO Sleep
+			MenuItemHibernate_Click(sender, e);
 		}
 
 		private void MenuItemComputerProduct_Click(object sender, RoutedEventArgs e)
@@ -159,6 +146,8 @@ namespace TestBedManager
 		{
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
 				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
+				MenuItem selectedMenuItem = e.Source as MenuItem;
+				remoteTaskManager.PowerPlan(selectedMenuItem.Header.ToString());
 			}
 		}
 
@@ -174,7 +163,7 @@ namespace TestBedManager
 
 		private void MenuItemEventViewer_Click(object sender, RoutedEventArgs e)
 		{
-			new EventCodeWindow();
+			new EventViewerWindow();
 		}
 
 		private void MenuItemRunningPrograms_Click(object sender, RoutedEventArgs e)
@@ -263,7 +252,38 @@ namespace TestBedManager
 
 		#endregion Driver Classes
 
-		#region Local commands
+		#region Local commands/windows
+
+		private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
+		{
+			new AboutWindow();
+		}
+
+		private void MenuItemAddNewComputer_Click(object sender, RoutedEventArgs e)
+		{
+			new AddComputerWindow();
+		}
+
+		private void MenuItemExit_Click(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
+
+		private void MenuItemRestartApp_Click(object sender, RoutedEventArgs e)
+		{
+			System.Windows.Forms.Application.Restart();
+			Application.Current.Shutdown();
+		}
+
+		private void MenuItemSaveCurrentList_Click(object sender, RoutedEventArgs e)
+		{
+			new SaveListWindow();
+		}
+
+		private void MenuItemLoadSavedList_Click(object sender, RoutedEventArgs e)
+		{
+			Master.browser.Show();
+		}
 
 		private void MenuItemRemoteDesktop_Click(object sender, RoutedEventArgs e)
 		{
@@ -283,21 +303,12 @@ namespace TestBedManager
 			DebugLog.DebugLog.ClearLogs();
 		}
 
-		#endregion Local commands
+		#endregion Local commands/windows
 
-		// copied from TestbedTable.xaml.cs
-		private void Button_Click_1(object sender, RoutedEventArgs e)
+		private void WindowMainWindow_Closed(object sender, System.EventArgs e)
 		{
-		//	Testbed list;
-		//	if (Settings.Default.MostRecentList == -1) {
-		//		list = Master.databaseManager.GetAllComputers();
-		//	} else {
-		//		list = Master.databaseManager.GetListContents(Settings.Default.MostRecentList.ToString());
-		//	}
-		//	foreach (RemoteComputer item in list.items) {
-		//		Master.activeTestbed.Add(item);
-		//		Master.logManager.Add(item);
-		//	}
+			ConnectionManager.Disconnect();
+			App.Current.Shutdown();
 		}
 	}
 }

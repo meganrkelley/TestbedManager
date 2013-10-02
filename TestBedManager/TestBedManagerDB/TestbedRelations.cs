@@ -8,7 +8,7 @@ namespace TestBedManagerDB
 		public DataTable FindByTestbedID(int ID)
 		{
 			DataTable queryResultTable = new DataTable();
-			var adapter = new SqlCeDataAdapter("select * from TestbedRelations where TestbedID = " 
+			var adapter = new SqlCeDataAdapter("select * from TestbedRelations where TestbedID = "
 				+ ID, ConnectionManager.connection);
 			adapter.Fill(queryResultTable);
 			return queryResultTable;
@@ -27,7 +27,7 @@ namespace TestBedManagerDB
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "update TestbedRelations set ComputerID = " + ComputerID +
-				", ListID = " + TestbedID + " where ID = " + ID;
+				", TestbedID = " + TestbedID + " where ID = " + ID;
 			command.ExecuteNonQuery();
 			command.Dispose();
 		}
@@ -52,7 +52,7 @@ namespace TestBedManagerDB
 		public void DeleteComputer(int ComputerID)
 		{
 			var command = ConnectionManager.connection.CreateCommand();
-			command.CommandText = "delete from TestbedRelations where TestbedID = " + ComputerID;
+			command.CommandText = "delete from TestbedRelations where ComputerID = " + ComputerID;
 			command.ExecuteNonQuery();
 			command.Dispose();
 		}

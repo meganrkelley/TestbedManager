@@ -23,16 +23,6 @@ namespace TestBedManager.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\TestBedManagerDB.sdf")]
-        public string TestBedManagerDBConnectionString {
-            get {
-                return ((string)(this["TestBedManagerDBConnectionString"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -90,6 +80,18 @@ namespace TestBedManager.Properties {
             }
             set {
                 this["PingInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
+        public global::System.Windows.Media.Color BackgroundColor {
+            get {
+                return ((global::System.Windows.Media.Color)(this["BackgroundColor"]));
+            }
+            set {
+                this["BackgroundColor"] = value;
             }
         }
     }

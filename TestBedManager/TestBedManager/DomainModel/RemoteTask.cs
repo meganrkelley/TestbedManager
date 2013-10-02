@@ -21,21 +21,32 @@ namespace TestBedManager
 			set { _remoteComputer = value; }
 		}
 
-		public abstract void Run(string parameter);
+		public virtual void Run(string parameter)
+		{
+		}
+
+		public virtual void Run(string[] parameters)
+		{
+		}
 
 		protected void SetUpWmiConnection(string wmiClass)
 		{
 			if (remoteComputer.credentials == null || remoteComputer.hostname == null)
 				return;
 
+			if (remoteComputer.credentials.UserName == "" ||
+				remoteComputer.credentials.Password == "") {
+				string msg = "Username or password was empty for " + remoteComputer.ipAddressStr + "; cannot create a connection.";
+				DebugLog.DebugLog.Log(msg);
+				remoteComputer.Log(msg);
+			}
+
 			ManagementPath mgmtPath = new ManagementPath(wmiClass);
-			ManagementScope scope = WmiConnectionHandler.SetUpScope(remoteComputer);
+			ManagementScope scope = WmiConnectionHandler.SetUpScope(remoteComputer, wmiClass);
 			mgmtClass = new ManagementClass(scope, mgmtPath, new ObjectGetOptions());
 
 			Thread connectionThread = new Thread(new ParameterizedThreadStart(WmiConnectionHandler.ConnectToScope));
 			connectionThread.Start(new List<object> { scope, remoteComputer });
 		}
 	}
-
-	//PowerSettingsTask // powerplan
 }

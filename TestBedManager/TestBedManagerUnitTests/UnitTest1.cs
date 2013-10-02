@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data;
-using TestBedManagerDB;
 using TestBedManager;
+using TestBedManagerDB;
 
 namespace TestBedManagerUnitTests
 {
@@ -26,6 +26,30 @@ namespace TestBedManagerUnitTests
 		 */
 
 		[TestMethod]
+		public void EncryptDecrypt()
+		{
+			string password, encrypted, decrypted;
+
+			password = "abcdefg";
+			encrypted = Encryption.Encrypt(password);
+			decrypted = Encryption.Decrypt(encrypted);
+			Assert.AreEqual(password, decrypted);
+			encrypted = Encryption.Encrypt(decrypted);
+			decrypted = Encryption.Decrypt(encrypted);
+			Assert.AreEqual(password, decrypted);
+
+			password = "a b c d e f g";
+			encrypted = Encryption.Encrypt(password);
+			decrypted = Encryption.Decrypt(encrypted);
+			Assert.AreEqual(password, decrypted);
+
+			password = "~!@#$%^&*()-+";
+			encrypted = Encryption.Encrypt(password);
+			decrypted = Encryption.Decrypt(encrypted);
+			Assert.AreEqual(password, decrypted);
+		}
+
+		[TestMethod]
 		public void AddRemoveTest()
 		{
 			// init database connection
@@ -33,27 +57,27 @@ namespace TestBedManagerUnitTests
 			Computers computersInterface = new Computers();
 
 			// add localhost/127.0.0.1 to db
-			computersInterface.Insert("localhost", "127.0.0.1", "", "");
+			computersInterface.Insert("dummy", "127.0.0.1", "", "");
 
 			// check the db to see if it's there
-			bool found = false; 
+			bool found = false;
 			DataTable all = computersInterface.SelectAll();
 			Assert.AreNotEqual(0, all.Rows.Count);
 			foreach (DataRow row in all.Rows) {
-				if (row["Hostname"].ToString().Equals("localhost"))
+				if (row["Hostname"].ToString().Equals("dummy"))
 					found = true;
 			}
 
 			Assert.IsTrue(found);
 
 			// delete it from the db
-			computersInterface.Delete("localhost", "127.0.0.1");
+			computersInterface.Delete("dummy", "127.0.0.1");
 
 			// check the db to see if it's there (it shouldn't be)
 			found = false;
 			all = computersInterface.SelectAll();
 			foreach (DataRow row in all.Rows) {
-				if (row["Hostname"].ToString().Equals("localhost"))
+				if (row["Hostname"].ToString().Equals("dummy"))
 					found = true;
 			}
 
@@ -68,14 +92,14 @@ namespace TestBedManagerUnitTests
 			Computers computersInterface = new Computers();
 
 			// add localhost/127.0.0.1 to db
-			int computerID = computersInterface.Insert("localhost", "127.0.0.1", "", "");
+			int computerID = computersInterface.Insert("dummy", "127.0.0.1", "", "");
 
 			// check the db to see if it's there
 			bool found = false;
 			DataTable all = computersInterface.SelectAll();
 			Assert.AreNotEqual(0, all.Rows.Count);
 			foreach (DataRow row in all.Rows) {
-				if (row["Hostname"].ToString().Equals("localhost"))
+				if (row["Hostname"].ToString().Equals("dummy"))
 					found = true;
 			}
 
@@ -94,6 +118,9 @@ namespace TestBedManagerUnitTests
 			}
 
 			Assert.IsTrue(foundInTestbed);
+
+			new TestbedRelations().DeleteTestbed(testbedID);
+			new Testbeds().Delete(testbedID);
 		}
 
 		//[TestMethod]

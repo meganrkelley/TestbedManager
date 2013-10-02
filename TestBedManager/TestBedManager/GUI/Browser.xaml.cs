@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,40 +13,44 @@ namespace TestBedManager
 			InitializeComponent();
 		}
 
+		// 1. Get list of testbed titles
+		// 2. Get list of computers for each testbed
+		// 3. Add each list and its contents to the tree
+		// 4. Add all of the computers in the DB to the master tree
 		private void WindowListBrowserWindow_Loaded(object sender, RoutedEventArgs e)
 		{
-		//	List<Testbed> lists = Master.databaseManager.GetAllSavedLists();
-		//	if (lists.Count == 0)
-		//		goto loadAllComputers; // yeah I seriously just used a goto
+			Testbeds testbedsTable = new Testbeds();
+			TestbedRelations relationsTable = new TestbedRelations();
+			Computers computersTable = new Computers();
 
-			//List<string> titles = new DBTestbedHandler().GetAllTitles();
-			//foreach (string title in titles) {
-			//	int id = new DBTestbedHandler().Find(title);
-			//	Testbed testbed = new DBTestbedRelationsHandler().GetTestbedByID(id);
-			//	listTree.AddList(title, testbed);
-			//}
-			//List<string> hostnames = new DBComputerHandler().GetAllHostnames();
-			//foreach (string hostname in hostnames)
-			//	masterList.Items.Add(hostname);
+			DataTable table_testbeds = testbedsTable.SelectAll();
+			foreach (DataRow row_testbed in table_testbeds.Rows) {
+				// Loop through each testbed
+				Testbed testbed = new Testbed((int)row_testbed["ID"], (string)row_testbed["Title"]);
 
-			//foreach (Testbed testbed in lists) {
-			//	Testbed listContents = Master.databaseManager.GetListContents(testbed.ID.ToString());
+				// Find all of the relations for this testbed ID
+				DataTable table_relations = relationsTable.FindByTestbedID((int)row_testbed["ID"]);
+				foreach (DataRow row_relation in table_relations.Rows) {
+					// Get the computer information for this ID
+					DataTable table_computer = computersTable.Find((int)row_relation["ComputerID"]);
+					foreach (DataRow row_computer in table_computer.Rows) {
+						testbed.Add(new RemoteComputer(row_computer));
+					}
+				}
 
-			//	if (listContents.items.Count == 1 && listContents.items[0] == null)
-			//		continue;
-			//	listTree.AddList(testbed.title, listContents);
-			//}
+				listTree.AddList((string)row_testbed["Title"], testbed);
+			}
 
-			//Testbed master = Master.databaseManager.GetAllComputers();
-			//foreach (RemoteComputer computer in master.items) {
-			//	masterList.Items.Add(computer.hostname);
-			//}
+			// Get all the hostnames in the DB and display them on the right pane.
+			DataTable table_allComputers = computersTable.SelectAll();
+			foreach (DataRow row_computer in table_allComputers.Rows) {
+				masterList.Items.Add((string)row_computer["Hostname"]);
+			}
 		}
 
 		private void ButtonLoad_Click(object sender, RoutedEventArgs e)
 		{
 			TreeViewItem item = (TreeViewItem)listTree.treeview.SelectedItem;
-
 			if (item == null || !item.HasItems)
 				return;
 

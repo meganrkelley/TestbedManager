@@ -20,9 +20,11 @@ namespace TestBedManager
 			}
 		}
 
-		public static ManagementScope SetUpScope(RemoteComputer computer)
+		public static ManagementScope SetUpScope(RemoteComputer computer, string wmiClass = "none")
 		{
-			string serverPath = String.Format(@"\\{0}\root\cimv2", computer.hostname);
+			string serverPath = String.Format(@"\\{0}\root\cimv2", computer.ipAddressStr);
+			if (wmiClass == WmiClass.PowerPlan)
+				serverPath = String.Format(@"\\{0}\root\cimv2\power", computer.ipAddressStr);
 			ConnectionOptions connectionOptions;
 
 			if (computer.hostname.Equals("localhost", StringComparison.InvariantCultureIgnoreCase) ||
@@ -32,12 +34,14 @@ namespace TestBedManager
 					Impersonation = ImpersonationLevel.Impersonate
 				};
 			} else {
+				string decryptedPassword = Encryption.Decrypt(computer.credentials.Password);
+
 				connectionOptions = new ConnectionOptions {
 					EnablePrivileges = true,
 					Authentication = AuthenticationLevel.PacketPrivacy,
 					Impersonation = ImpersonationLevel.Impersonate,
 					Username = computer.credentials.UserName,
-					Password = computer.credentials.Password
+					Password = decryptedPassword
 				};
 			}
 

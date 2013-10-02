@@ -4,11 +4,6 @@ using System.IO;
 
 namespace DebugLog
 {
-	class Program
-	{
-		static void Main(string[] args) {}
-	}
-
 	public class DebugLog
 	{
 		private static string logFilePath;

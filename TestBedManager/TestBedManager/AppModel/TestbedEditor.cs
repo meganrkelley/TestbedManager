@@ -6,15 +6,14 @@ namespace TestBedManager
 {
 	public class TestbedEditor
 	{
-	//	private static DBTestbedRelationsHandler testbedRelationsHandler = new DBTestbedRelationsHandler();
-	//	private static DBTestbedHandler testbedHandler = new DBTestbedHandler();
-
 		private static TestbedRelations relationsTable = new TestbedRelations();
 		private static Testbeds testbedsTable = new Testbeds();
+		private static Computers computersTable = new Computers();
 
 		// 1. Input validation
 		// 2. Generate a new testbed ID
-		// 3. Add the items in the GUI to the relations table with this new ID
+		// 3. Insert the new testbed
+		// 4. Add the items in the GUI to the relations table with this new ID
 		public static void Save(string name = "")
 		{
 			if (ActiveTestbed.IsEmpty())
@@ -24,16 +23,12 @@ namespace TestBedManager
 				name = Resources.DefaultTestbedName;
 
 			int nextTestbedID = testbedsTable.GetNextID();
+
+			testbedsTable.Insert(name);
+
 			foreach (RemoteComputer item in Master.table.dataGrid.Items) {
 				relationsTable.Insert(item.ID, nextTestbedID);
 			}
-		//	testbedHandler.Add(name);
-
-		//	int newTestbedID = testbedHandler.Find(name);
-		//	Testbed newTestbed = new Testbed(newTestbedID, name);
-
-		//	foreach (var item in ActiveTestbed.items)
-		//		testbedRelationsHandler.AddComputerToTestbed(item, newTestbed);
 		}
 
 		// 1. Get a list of all the computers with this ID in the relations table
@@ -43,25 +38,23 @@ namespace TestBedManager
 		{
 			DataTable table = relationsTable.FindByTestbedID(id);
 			foreach (DataRow row in table.Rows) {
-				RemoteComputer computer = new RemoteComputer(row);
-				ActiveTestbed.Add(computer);
+				DataTable table_computer = computersTable.Find((int)row["ComputerID"]);
+				foreach (DataRow row_computer in table_computer.Rows) {
+					ActiveTestbed.Add(new RemoteComputer(row_computer));
+				}
 			}
-		//	Testbed testbed = testbedRelationsHandler.GetTestbedByID(id);
-		//	testbed.ID = id;
-
-		//	foreach (RemoteComputer computer in testbed.items) {
-		//		ActiveTestbed.Add(computer);
-		//		Master.logManager.Add(computer);
-		//	}
 
 			Settings.Default.MostRecentList = id;
 			Settings.Default.Save();
 		}
 
-		public static void Load(string title)
+		public static void Load(string name)
 		{
-		//	int testbedID = testbedHandler.Find(title);
-		//	Load(testbedID);
+			DataTable table = testbedsTable.Find(name);
+			foreach (DataRow row in table.Rows) {
+				Load((int)row["ID"]);
+			}
+			DebugLog.DebugLog.Log("Could not find a matching testbed ID in table Testbeds for name " + name);
 		}
 
 		// 1. Remove this testbed from the relations table and the testbed table
@@ -69,15 +62,15 @@ namespace TestBedManager
 		{
 			testbedsTable.Delete(id);
 			relationsTable.DeleteTestbed(id);
-		//	testbedHandler.Remove(id);
-		//	testbedRelationsHandler.RemoveEntireTestbed(id);
 		}
 
-		public static void Delete(string title)
+		public static void Delete(string name)
 		{
-		//	int testbedID = testbedHandler.Find(title);
-		//	Delete(testbedID);
+			DataTable table = testbedsTable.Find(name);
+			foreach (DataRow row in table.Rows) {
+				Delete((int)row["ID"]);
+			}
+			DebugLog.DebugLog.Log("Could not find a matching testbed ID in table Testbeds for name " + name);
 		}
-
 	}
 }

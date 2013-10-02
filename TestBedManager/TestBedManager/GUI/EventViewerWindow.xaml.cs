@@ -2,9 +2,9 @@
 
 namespace TestBedManager
 {
-	public partial class EventCodeWindow : Window
+	public partial class EventViewerWindow : Window
 	{
-		public EventCodeWindow()
+		public EventViewerWindow()
 		{
 			InitializeComponent();
 			TextBoxEventID.Focus();
@@ -13,12 +13,13 @@ namespace TestBedManager
 
 		private void ButtonSearch_Click(object sender, RoutedEventArgs e)
 		{
-			if (string.IsNullOrEmpty(TextBoxEventID.Text.Trim()))
-				return;
+			string ID = TextBoxEventID.Text.Trim();
+			string source = TextBoxSource.Text.Trim();
+			string level = ComboBoxLevel.Text;
 
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
 				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.QueryEventViewer(TextBoxEventID.Text);
+				remoteTaskManager.QueryEventViewer(ID, source, level);
 			}
 			Close();
 		}

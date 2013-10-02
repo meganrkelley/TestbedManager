@@ -7,8 +7,8 @@ namespace TestBedManager
 	{
 		public RunningProcessesQueryTask(RemoteComputer computer)
 		{
-			this.remoteComputer = computer;
-			base.SetUpWmiConnection(WmiClass.Process);
+			remoteComputer = computer;
+			SetUpWmiConnection(WmiClass.Process);
 		}
 
 		public override void Run(string parameter)
@@ -17,10 +17,15 @@ namespace TestBedManager
 
 			remoteComputer.Log("Querying running processes...");
 
-			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
-				foreach (var item in wmiObjectSearcher.Get()) {
-					remoteComputer.Log(item["Caption"].ToString(), false);
+			try {
+				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
+					foreach (var item in wmiObjectSearcher.Get()) {
+						remoteComputer.Log(item["Caption"].ToString(), false);
+					}
 				}
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Error when executing WMI query/method on " + remoteComputer.ipAddressStr + ": " + ex);
+				remoteComputer.Log("Error: " + ex.Message);
 			}
 
 			remoteComputer.Log("End of running processes.");

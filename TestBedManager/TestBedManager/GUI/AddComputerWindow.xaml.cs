@@ -14,15 +14,16 @@ namespace TestBedManager
 
 		private void ButtonAdd_Click(object sender, RoutedEventArgs e)
 		{
+			string encryptedPassword = Encryption.Encrypt(PasswordBoxPassword.Password);
+
 			ConnectionInfoChecker checker = new ConnectionInfoChecker();
 			RemoteComputer computer = checker.GetValidRemoteComputer(
 				TextBoxHostnameIp.Text,
 				TextBoxUsername.Text,
-				PasswordBoxPassword.Password);
+				encryptedPassword);
 
-			if (computer != null) {
+			if (computer != null)
 				ActiveTestbed.Add(computer);
-			}
 
 			Close();
 		}

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace TestBedManager
 {
@@ -9,16 +8,17 @@ namespace TestBedManager
 
 		public RemoteTaskManager(RemoteComputer computer)
 		{
-			this.remoteComputer = computer;
+			remoteComputer = computer;
 		}
 
 		private void RunRemoteTask(RemoteTask task, string parameter = "")
 		{
-			try {
-				Task.Factory.StartNew(() => task.Run(parameter));
-			} catch (Exception ex) {
-				DebugLog.DebugLog.Log(ex);
-			}
+			Task.Factory.StartNew(() => task.Run(parameter));
+		}
+
+		private void RunRemoteTask(RemoteTask task, string[] parameters)
+		{
+			Task.Factory.StartNew(() => task.Run(parameters));
 		}
 
 		public void CreateProcess(string command)
@@ -69,10 +69,10 @@ namespace TestBedManager
 			RunRemoteTask(task);
 		}
 
-		public void QueryEventViewer(string eventID)
+		public void QueryEventViewer(string eventID, string source, string level)
 		{
 			RemoteTask task = new EventViewerQueryTask(remoteComputer);
-			RunRemoteTask(task, eventID);
+			RunRemoteTask(task, new string[] { eventID, source, level });
 		}
 
 		public void QueryNetworkData()
@@ -85,6 +85,12 @@ namespace TestBedManager
 		{
 			RemoteTask task = new RenameComputerTask(remoteComputer);
 			RunRemoteTask(task, newHostname);
+		}
+
+		public void PowerPlan(string planName)
+		{
+			RemoteTask task = new PowerPlanTask(remoteComputer);
+			RunRemoteTask(task, planName);
 		}
 	}
 }

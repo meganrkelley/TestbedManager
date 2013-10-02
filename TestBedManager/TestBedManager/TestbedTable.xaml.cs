@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,10 @@ namespace TestBedManager
 		{
 			get
 			{
+				if (dataGrid.SelectedItems.Count == 0)
+					Master.main.MenuItemTasks.IsEnabled = false;
+				else
+					Master.main.MenuItemTasks.IsEnabled = true;
 				List<RemoteComputer> selected = new List<RemoteComputer>();
 				foreach (RemoteComputer computer in dataGrid.SelectedItems)
 					selected.Add(computer);
@@ -53,20 +58,24 @@ namespace TestBedManager
 		private void TestbedTableDataGrid_Loaded(object sender, RoutedEventArgs e)
 		{
 			if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) // Don't try to populate the list in design mode.
-			    return;
+				return;
 
 			Testbed testbed = new Testbed();
-			if (Settings.Default.MostRecentList == -1) {
+
+			if (Settings.Default.MostRecentList == -1) { // Load everything if a list hasn't been loaded.
 				DataTable table = new Computers().SelectAll();
 				foreach (DataRow row in table.Rows) {
 					RemoteComputer computer = new RemoteComputer(row);
 					testbed.Add(computer);
 				}
-			} else {
+			} else { // Otherwise, load the computers from the most recent list.
 				DataTable table = new TestbedRelations().FindByTestbedID(Settings.Default.MostRecentList);
 				foreach (DataRow row in table.Rows) {
-					RemoteComputer computer = new RemoteComputer(row);
-					testbed.Add(computer);
+					DataTable table_computer = new Computers().Find((int)row["ComputerID"]);
+					foreach (DataRow row_computer in table_computer.Rows) {
+						RemoteComputer computer = new RemoteComputer(row_computer);
+						testbed.Add(computer);
+					}
 				}
 			}
 
@@ -78,7 +87,8 @@ namespace TestBedManager
 		public bool TableContains(string hostname)
 		{
 			foreach (RemoteComputer item in dataGrid.Items)
-				if (item.hostname.Equals(hostname, System.StringComparison.InvariantCultureIgnoreCase))
+				if (item.hostname.Equals(hostname, 
+					StringComparison.InvariantCultureIgnoreCase))
 					return true;
 			return false;
 		}
@@ -89,23 +99,18 @@ namespace TestBedManager
 		/// <param name="computer"></param>
 		public void Update(Testbed testbed)
 		{
+			//Console.WriteLine("TestbedTable.Update() called");
 			//dataGrid.Dispatcher.Invoke((Action)(() => {
-			//	//? This task can be made more efficient.
 			//	foreach (var computer in items) {
 			//		if (!testbed.items.Contains(computer)) {
-			//		//	dataGrid.Items.Remove(computer);
 			//			ActiveTestbed.Remove(computer);
-			//		//	Master.activeTestbed.Remove(computer);
 			//		}
 			//	}
 			//	foreach (var computer in testbed.items) {
 			//		if (!dataGrid.Items.Contains(computer)) {
-			//		//	dataGrid.Items.Add(computer);
 			//			ActiveTestbed.Add(computer);
-			//			ConnectionMonitor connMon = new ConnectionMonitor(computer);
 			//		}
 			//	}
-			//	dataGrid.Items.Refresh();
 			//}));
 		}
 
@@ -130,7 +135,6 @@ namespace TestBedManager
 		{
 			Testbed selected = Testbed.ToTestbed(selectedItems);
 			foreach (RemoteComputer computer in selected.items) {
-
 				ActiveTestbed.Remove(computer);
 
 				new TestbedRelations().DeleteComputer(computer.ID);
@@ -171,6 +175,13 @@ namespace TestBedManager
 				AccountInfoView accountInfo = new AccountInfoView();
 				accountInfo.InitializeInfo(item);
 			}
+		}
+
+		// Enable the TASKS menu when an item is selected.
+		private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (dataGrid.SelectedItems.Count > 0)
+				Master.main.MenuItemTasks.IsEnabled = true;
 		}
 	}
 }

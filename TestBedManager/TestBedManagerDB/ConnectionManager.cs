@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlServerCe;
-using System.Diagnostics;
 using TestBedManagerDB.Properties;
 
 namespace TestBedManagerDB

@@ -6,65 +6,65 @@
 			 xmlns:local="clr-namespace:TestBedManager"
 			 mc:Ignorable="d"
 			 d:DesignHeight="300" d:DesignWidth="250" Height="300">
-    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <DataGrid Grid.Row="0" Grid.Column="0" x:Name="dataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="Visible" BorderThickness="1" Background="#FFD4D4D4" Foreground="#FF272727" IsTextSearchEnabled="True" AlternatingRowBackground="White" RowBackground="White" AreRowDetailsFrozen="True" CanUserAddRows="False" CanUserResizeRows="False" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" CanUserDeleteRows="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsSynchronizedWithCurrentItem="False"
-			d:DataContext="{d:DesignInstance {x:Type local:RemoteComputer}, CreateList=True}" Loaded="TestbedTableDataGrid_Loaded" MinColumnWidth="25">
-            <DataGrid.ContextMenu>
-                <ContextMenu Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Padding="3" BorderThickness="0">
-                    <MenuItem x:Name="MenuItemAdd" Header="Add New Computer" Click="MenuItemAdd_Click">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/monitor_add.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem x:Name="MenuItemSave" Header="Save This List" Click="MenuItemSave_Click">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/list_add.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem x:Name="MenuItemLoad" Header="List Browser" Click="MenuItemLoad_Click">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/documentZoom.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem x:Name="MenuItemAccountInfo" Header="View Account Info" Click="MenuItemAccountInfo_Click">
-                        <MenuItem.Icon>
-                            <Image Width="16" Height="16" Source="Icons/account.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem x:Name="MenuItemSelectAll" Header="Select All" Click="MenuItemSelectAll_Click">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/selectAll.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem x:Name="MenuItemRemove" Header="Remove From List" Click="MenuItemRemove_Click">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/remove_small.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem x:Name="MenuItemRemoveFromDB" Header="Remove From Program" Click="MenuItemRemoveFromDb_Click">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/monitor_delete.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem x:Name="MenuItemRemoveAll" Header="Remove All From List" Click="MenuItemRemoveAll_Click">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/remove.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-            <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="StatusColumn" Width="SizeToCells" IsReadOnly="True" CanUserResize="False">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image x:Name="StatusImage" Source="{Binding statusImage}" ToolTip="{Binding statusToolTip}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn MinWidth="80" x:Name="HostnameColumn" Binding="{Binding hostname}" Header="Hostname" IsReadOnly="True" />
-                <DataGridTextColumn MinWidth="95" x:Name="IpAddressColumn" Binding="{Binding ipAddressStr}" Header="IP Address" IsReadOnly="True" />
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+	<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+		<DataGrid Grid.Row="0" Grid.Column="0" x:Name="dataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="Visible" BorderThickness="1" Background="#FFD4D4D4" Foreground="#FF272727" IsTextSearchEnabled="True" AlternatingRowBackground="White" RowBackground="White" AreRowDetailsFrozen="True" CanUserAddRows="False" CanUserResizeRows="False" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" CanUserDeleteRows="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsSynchronizedWithCurrentItem="False"
+			d:DataContext="{d:DesignInstance {x:Type local:RemoteComputer}, CreateList=True}" Loaded="TestbedTableDataGrid_Loaded" MinColumnWidth="25" SelectionChanged="dataGrid_SelectionChanged">
+			<DataGrid.ContextMenu>
+				<ContextMenu Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Padding="3" BorderThickness="0">
+					<MenuItem x:Name="MenuItemAdd" Header="Add New Computer" Click="MenuItemAdd_Click">
+						<MenuItem.Icon>
+							<Image Source="Icons/monitor_add.png" />
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenuItemSave" Header="Save This List" Click="MenuItemSave_Click">
+						<MenuItem.Icon>
+							<Image Source="Icons/list_add.png" />
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenuItemLoad" Header="List Browser" Click="MenuItemLoad_Click">
+						<MenuItem.Icon>
+							<Image Source="Icons/documentZoom.png" />
+						</MenuItem.Icon>
+					</MenuItem>
+					<Separator />
+					<MenuItem x:Name="MenuItemAccountInfo" Header="View Account Info" Click="MenuItemAccountInfo_Click">
+						<MenuItem.Icon>
+							<Image Width="16" Height="16" Source="Icons/account.png" />
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenuItemSelectAll" Header="Select All" Click="MenuItemSelectAll_Click">
+						<MenuItem.Icon>
+							<Image Source="Icons/selectAll.png" />
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenuItemRemove" Header="Remove From List" Click="MenuItemRemove_Click">
+						<MenuItem.Icon>
+							<Image Source="Icons/remove_small.png" />
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenuItemRemoveFromDB" Header="Remove From Program" Click="MenuItemRemoveFromDb_Click">
+						<MenuItem.Icon>
+							<Image Source="Icons/monitor_delete.png" />
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenuItemRemoveAll" Header="Remove All From List" Click="MenuItemRemoveAll_Click">
+						<MenuItem.Icon>
+							<Image Source="Icons/remove.png" />
+						</MenuItem.Icon>
+					</MenuItem>
+				</ContextMenu>
+			</DataGrid.ContextMenu>
+			<DataGrid.Columns>
+				<DataGridTemplateColumn x:Name="StatusColumn" Width="SizeToCells" IsReadOnly="True" CanUserResize="False">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Image x:Name="StatusImage" Source="{Binding statusImage}" ToolTip="{Binding statusToolTip}" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				<DataGridTextColumn MinWidth="80" x:Name="HostnameColumn" Binding="{Binding hostname}" Header="Hostname" IsReadOnly="True" />
+				<DataGridTextColumn MinWidth="95" x:Name="IpAddressColumn" Binding="{Binding ipAddressStr}" Header="IP Address" IsReadOnly="True" />
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
 </UserControl>

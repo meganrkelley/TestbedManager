@@ -2,12 +2,12 @@
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:local="clr-namespace:TestBedManager" x:Name="WindowMainWindow" x:Class="TestBedManager.MainWindow"
-		Title="Test Bed Manager" Height="400" Width="740" MinHeight="385" MinWidth="385" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Icon="batman.ico">
+		Title="Testbed Manager" Height="400" Width="740" MinHeight="385" MinWidth="385" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Icon="batman.ico" Closed="WindowMainWindow_Closed">
 
-	<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2">
+	<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RowSpan="2" ColumnSpan="2">
 
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="63*" MaxWidth="300" />
+			<ColumnDefinition Width="63*" MaxWidth="400" MinWidth="50" />
 			<ColumnDefinition Width="118*" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
@@ -17,9 +17,6 @@
 
 		<Menu Grid.Row="0" Grid.ColumnSpan="2" x:Name="MenuMain" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="23" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderThickness="0,0,0,1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
 			<MenuItem x:Name="MenuItemFile" Header="FILE">
-				<MenuItem x:Name="MenuItemExit" Header="Exit" Click="MenuItemExit_Click" />
-			</MenuItem>
-			<MenuItem x:Name="MenuItemTestbeds" Header="TESTBEDS">
 				<MenuItem x:Name="MenuItemAddNewComputer" Header="Add a New Computer" Click="MenuItemAddNewComputer_Click" FontWeight="Bold">
 					<MenuItem.Icon>
 						<Image Source="Icons/monitor_add.png" />
@@ -37,18 +34,20 @@
 					</MenuItem.Icon>
 				</MenuItem>
 				<Separator />
-				<MenuItem IsEnabled="False" x:Name="MenuItemExportList" Header="Export Current List to XML">
+				<!--<MenuItem IsEnabled="False" x:Name="MenuItemExportList" Header="Export Current List to XML">
 					<MenuItem.Icon>
 						<Image Source="Icons/list_export.png" />
 					</MenuItem.Icon>
 				</MenuItem>
-                <MenuItem IsEnabled="False" x:Name="MenuItemImportList" Header="Import List from XML">
+				<MenuItem IsEnabled="False" x:Name="MenuItemImportList" Header="Import List from XML">
 					<MenuItem.Icon>
 						<Image Source="Icons/list_import.png" />
 					</MenuItem.Icon>
-				</MenuItem>
+				</MenuItem>-->
+				<MenuItem x:Name="MenuItemRestartApp" Header="Restart" Click="MenuItemRestartApp_Click" />
+				<MenuItem x:Name="MenuItemExit" Header="Exit" Click="MenuItemExit_Click" />
 			</MenuItem>
-			<MenuItem x:Name="MenuItemTasks" Header="TASKS">
+			<MenuItem x:Name="MenuItemTasks" Header="TASKS" IsEnabled="False">
 				<MenuItem x:Name="MenuItemRun" Header="Run Shell Command" Click="MenuItemRun_Click">
 					<MenuItem.Icon>
 						<Image Width="16" Height="16" Source="Icons/terminal.png" />
@@ -63,10 +62,14 @@
 					<MenuItem x:Name="MenuItemHibernate" Header="Hibernate" Click="MenuItemHibernate_Click" />
 					<MenuItem x:Name="MenuItemSleep" Header="Sleep" Click="MenuItemSleep_Click" FontStyle="Italic" FontWeight="Bold" />
 				</MenuItem>
-				<MenuItem x:Name="MenuItemBeep" Header="Beep" Click="MenuItemBeep_Click"/>
+				<MenuItem x:Name="MenuItemBeep" Header="Beep" Click="MenuItemBeep_Click" IsEnabled="False" />
 				<MenuItem x:Name="MenuItemRename" Header="Rename Computer" Click="MenuItemRename_Click">
 				</MenuItem>
-				<MenuItem x:Name="MenuItemPowerSettings" Header="Adjust Power Plan" Click="MenuItemPowerSettings_Click" />
+				<MenuItem x:Name="MenuItemPowerSettings" Header="Adjust Power Plan">
+					<MenuItem x:Name="MenuItemBalanced" Header="Balanced" Click="MenuItemPowerSettings_Click" />
+					<MenuItem x:Name="MenuItemPowerSaver" Header="Power Saver" Click="MenuItemPowerSettings_Click" />
+					<MenuItem x:Name="MenuItemHighPerformance" Header="High Performance" Click="MenuItemPowerSettings_Click" />
+				</MenuItem>
 				<MenuItem x:Name="MenuItemRemoteDesktop" Header="Start Remote Desktop Session" Click="MenuItemRemoteDesktop_Click" />
 				<Separator />
 				<MenuItem x:Name="MenuItemNetworkData" Header="View Network Data" Click="MenuItemNetworkData_Click" />
@@ -80,8 +83,8 @@
 					<MenuItem x:Name="MenuItemDrivers_system" Header="System" Click="MenuItemDrivers_system_Click" />
 					<MenuItem x:Name="MenuItemDrivers_usb" Header="USB" Click="MenuItemDrivers_usb_Click" />
 				</MenuItem>
-                <MenuItem x:Name="MenuItemEventViewer" Header="Query System Events" Click="MenuItemEventViewer_Click" />
-                <MenuItem x:Name="MenuItemLocalTime" Header="View System Time" Click="MenuItemLocalTime_Click" />
+				<MenuItem x:Name="MenuItemEventViewer" Header="Query System Events" Click="MenuItemEventViewer_Click" />
+				<MenuItem x:Name="MenuItemLocalTime" Header="View System Time" Click="MenuItemLocalTime_Click" />
 				<MenuItem x:Name="MenuItemComputerSystem" Header="View OS and Architecture" Click="MenuItemComputerSystem_Click" />
 				<MenuItem x:Name="MenuItemComputerProduct" Header="View Computer Model Information" Click="MenuItemComputerProduct_Click" />
 				<MenuItem x:Name="MenuItemInstalledPrograms" Header="View Installed Programs" Click="MenuItemInstalledPrograms_Click" />
@@ -95,19 +98,19 @@
 			</MenuItem>
 			<MenuItem x:Name="MenuItemHelp" Header="HELP">
 				<MenuItem x:Name="MenuItemAbout" Header="About" Click="MenuItemAbout_Click" />
-                <Separator />
-                <MenuItem x:Name="MenuItemOpenLogs" Header="Open Logs Folder" Click="MenuItemOpenLogs_Click" />
-                <MenuItem x:Name="MenuItemClearLogs" Header="Clear Log Files" Click="MenuItemClearLogs_Click" />
+				<Separator />
+				<MenuItem x:Name="MenuItemOpenLogs" Header="Open Logs Folder" Click="MenuItemOpenLogs_Click" />
+				<MenuItem x:Name="MenuItemClearLogs" Header="Clear Log Files" Click="MenuItemClearLogs_Click" />
 			</MenuItem>
 		</Menu>
 
-		<Grid x:Name="StackPanelComputerTable" Grid.Column="0" Margin="10" Grid.Row="1" Height="325">
+		<Grid x:Name="StackPanelComputerTable" Grid.Column="0" Margin="10" Grid.Row="1" Height="325" VerticalAlignment="Stretch">
 			<local:TestbedTable x:Name="TestbedTable" VerticalAlignment="Top" Height="315" />
-            <Button Visibility="Hidden" Content="Load Most Recent" HorizontalAlignment="Left" Margin="67,300,0,0" VerticalAlignment="Top" Width="99" Height="25" Click="Button_Click_1" />
-        </Grid>
+		</Grid>
 
 		<Grid x:Name="StackPanelOutputLog" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Grid.Row="1">
 			<TabControl x:Name="mainTabControl" />
 		</Grid>
+		<GridSplitter HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Grid.Column="0" Grid.Row="1" ResizeDirection="Columns" />
 	</Grid>
 </Window>

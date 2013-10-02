@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlServerCe;
 
 namespace TestBedManagerDB
@@ -17,7 +18,7 @@ namespace TestBedManagerDB
 		public DataTable Find(string title)
 		{
 			DataTable queryResultTable = new DataTable();
-			var adapter = new SqlCeDataAdapter("select * from Testbeds where Title = '" 
+			var adapter = new SqlCeDataAdapter("select * from Testbeds where Title = '"
 				+ title + "'", ConnectionManager.connection);
 			adapter.Fill(queryResultTable);
 			return queryResultTable;
@@ -34,7 +35,7 @@ namespace TestBedManagerDB
 		public void Update(int ID, string title)
 		{
 			var command = ConnectionManager.connection.CreateCommand();
-			command.CommandText = "update Testbeds set Title = '" + title + "' where ID = " + 
+			command.CommandText = "update Testbeds set Title = '" + title + "' where ID = " +
 				ID;
 			command.ExecuteNonQuery();
 			command.Dispose();
@@ -48,10 +49,12 @@ namespace TestBedManagerDB
 			command.Dispose();
 
 			DataTable findResults = Find(title);
-			if (findResults.Rows.Count == 0)
-				return -1;
-			foreach (DataRow row in findResults.Rows)
-				return int.Parse(row["ID"].ToString());
+			foreach (DataRow row in findResults.Rows) {
+				if (row["ID"] is DBNull)
+					return -1;
+				return (int)row["ID"];
+			}
+
 			return -1;
 		}
 
@@ -63,17 +66,29 @@ namespace TestBedManagerDB
 			command.Dispose();
 		}
 
+		// alter table Testbeds alter column ID identity (0,1)
+		// There must be one entry in the Testbeds table or the ID will start over at 0.
 		public int GetNextID()
 		{
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select max(ID) as maxID from Testbeds", ConnectionManager.connection);
 			adapter.Fill(queryResultTable);
 			foreach (DataRow row in queryResultTable.Rows) {
-				if (string.IsNullOrEmpty(row["maxID"].ToString()))
+				if (row["maxID"] is DBNull) {
+					ResetIDSeed();
 					return 0;
-				return int.Parse(row["maxID"].ToString());
+				}
+				return (int)row["maxID"] + 1;
 			}
 			return -1;
+		}
+
+		private void ResetIDSeed()
+		{
+			var command = ConnectionManager.connection.CreateCommand();
+			command.CommandText = "alter table Testbeds alter column ID identity (0,1)";
+			command.ExecuteNonQuery();
+			command.Dispose();
 		}
 	}
 }

@@ -7,28 +7,41 @@ namespace TestBedManager
 	{
 		public EventViewerQueryTask(RemoteComputer computer)
 		{
-			this.remoteComputer = computer;
-			base.SetUpWmiConnection(WmiClass.EventViewer);
+			remoteComputer = computer;
+			SetUpWmiConnection(WmiClass.EventViewer);
 		}
 
-		public override void Run(string parameter)
+		public override void Run(string[] parameters)
 		{
-			ObjectQuery query = new ObjectQuery(String.Format("select * from {0} where Logfile='System' and EventCode={1}", WmiClass.EventViewer, parameter));
+			string queryStr = "select * from " + WmiClass.EventViewer + " where LogFile='System' ";
+			if (parameters[0] != "")
+				queryStr += "and EventCode=" + parameters[0] + " ";
+			if (parameters[1] != "")
+				queryStr += "and SourceName like '%" + parameters[1] + "%' ";
+			if (parameters[2] != "")
+				queryStr += "and Type='" + parameters[2] + "'";
 
-			remoteComputer.Log("Querying Event Viewer for events with ID " + parameter + "...");
+			ObjectQuery query = new ObjectQuery(queryStr);
 
-			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
-				foreach (var item in wmiObjectSearcher.Get()) {
-					string msg = (string)item["Message"];
-					string timeGenerated = (string)item["TimeGenerated"];
-					DateTime date = ManagementDateTimeConverter.ToDateTime(timeGenerated);
-					remoteComputer.Log("Event ID: " + parameter + Environment.NewLine +
-						"Time Generated: " + date + Environment.NewLine +
-						"Message: " + msg, false);
+			remoteComputer.Log("Querying Event Viewer...");// for events with ID " + parameters[0] + "...");
+
+			try {
+				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
+					foreach (var item in wmiObjectSearcher.Get()) {
+						string msg = (string)item["Message"];
+						string timeGenerated = (string)item["TimeGenerated"];
+						DateTime date = ManagementDateTimeConverter.ToDateTime(timeGenerated);
+						remoteComputer.Log("Event ID: " + parameters[0] + Environment.NewLine +
+							"Time Generated: " + date + Environment.NewLine +
+							"Message: " + msg, false);
+					}
 				}
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Error when executing WMI query/method on " + remoteComputer.ipAddressStr + ": " + ex);
+				remoteComputer.Log("Error: " + ex.Message);
 			}
 
-			remoteComputer.Log("End " + parameter + " events.");
+			remoteComputer.Log("End events.");// + parameters[0] + " events.");
 		}
 	}
 }

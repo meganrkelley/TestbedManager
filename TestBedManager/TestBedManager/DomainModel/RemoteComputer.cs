@@ -17,42 +17,26 @@ namespace TestBedManager
 		private RemoteConnectionInfo _connectionInfo;
 		private List<IComputerObserver> observers = new List<IComputerObserver>();
 
-		private int _tabIndex;
-
 		#endregion Instance Variables
 
 		#region Constructors/Destructor
 
-		public RemoteComputer(string hostname, IPAddress ipAddress, NetworkCredential credentials)
-		{
-			_connectionInfo = new RemoteConnectionInfo(hostname, ipAddress, credentials);
-		//	Attach(Master.activeTestbed);
-		}
-
 		public RemoteComputer(string hostname, IPAddress ipAddress, string username, string password)
 		{
 			_connectionInfo = new RemoteConnectionInfo(hostname, ipAddress, new NetworkCredential(username, password));
-		//	Attach(Master.activeTestbed);
 		}
 
 		public RemoteComputer(string hostname, string ipAddress, string username, string password)
 		{
 			_connectionInfo = new RemoteConnectionInfo(hostname, IPAddress.Parse(ipAddress), new NetworkCredential(username, password));
-		//	Attach(Master.activeTestbed);
-		}
-
-		public RemoteComputer()
-		{
-			_connectionInfo = new RemoteConnectionInfo(Resources.DefaultHostname, IPAddress.None, new NetworkCredential());
-		//	Attach(Master.activeTestbed);
 		}
 
 		public RemoteComputer(System.Data.DataRow row)
 		{
 			ID = (int)row["ID"];
 			_connectionInfo = new RemoteConnectionInfo(
-				(string)row["Hostname"], 
-				System.Net.IPAddress.Parse((string)row["Address"]), 
+				(string)row["Hostname"],
+				System.Net.IPAddress.Parse((string)row["Address"]),
 				new System.Net.NetworkCredential(
 					(string)row["Username"],
 					(string)row["Password"]
@@ -141,8 +125,6 @@ namespace TestBedManager
 				_connectionInfo.status = value;
 			}
 		}
-
-		public int tabIndex { get { return _tabIndex; } set { _tabIndex = value; } }
 
 		#endregion Accessors
 

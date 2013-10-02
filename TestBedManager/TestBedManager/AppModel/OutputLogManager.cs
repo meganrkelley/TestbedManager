@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TestBedManager.Properties;
 
 namespace TestBedManager
 {
@@ -18,7 +19,6 @@ namespace TestBedManager
 	{
 		#region Private fields
 
-		private System.Windows.Forms.ColorDialog colorDialog;
 		private System.Windows.Forms.FontDialog fontDialog;
 		private SaveFileDialog saveOutputDialog;
 		private TabControl tabControl = Master.main.mainTabControl;
@@ -36,26 +36,27 @@ namespace TestBedManager
 			set { tabControl.SelectedItem = value; }
 		}
 
-		#endregion Private members
+		#endregion Private fields
 
-		//public void Update(RemoteComputer computer)
-		//{
-		//	//tabs.Dispatcher.Invoke((Action)(() => { }));
-		//}
+		public TabControl tabs
+		{
+			get { return tabControl; }
+			set { tabControl = value; }
+		}
 
 		public void Add(RemoteComputer computer)
 		{
 			if (TabControlContains(computer.hostname))
 				return;
 			TabItem newTab = CreateTabItemForComputer(computer);
-			computer.tabIndex = tabControl.Items.Add(newTab);
+			tabControl.Items.Add(newTab);
 			selectedTab = newTab; // Bring the new tab into focus.
 		}
 
 		public void Remove(RemoteComputer computer)
 		{
 			try {
-				tabControl.Items.Remove(tabControl.Items[computer.tabIndex]);
+				tabControl.Items.Remove(GetTabItem(computer));
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log(ex);
 			}
@@ -65,12 +66,14 @@ namespace TestBedManager
 		{
 			try {
 				tabControl.Dispatcher.Invoke((Action)(() => {
-					RichTextBox textBox = ((RichTextBox)(((TabItem)tabControl.Items[computer.tabIndex]).Content));
+					TabItem thisTab = GetTabItem(computer);
+					tabControl.SelectedItem = thisTab;
+					RichTextBox textBox = ((RichTextBox)(((TabItem)thisTab).Content));
 					if (textBox != null) {
 						if (printTimestamp)
-							textBox.AppendText("[" + DateTime.Now + "] " + text + "\n");
+							textBox.AppendText("[" + DateTime.Now + "] " + text + Environment.NewLine);
 						else
-							textBox.AppendText(text + "\n");
+							textBox.AppendText(text + Environment.NewLine);
 						textBox.ScrollToEnd();
 					}
 				}));
@@ -86,6 +89,16 @@ namespace TestBedManager
 					return true;
 			}
 			return false;
+		}
+
+		private TabItem GetTabItem(RemoteComputer computer)
+		{
+			foreach (TabItem item in tabControl.Items) {
+				if (item.Header.ToString().Equals(computer.hostname, StringComparison.InvariantCultureIgnoreCase) ||
+					item.Header.ToString().Equals(computer.ipAddressStr, StringComparison.InvariantCultureIgnoreCase))
+					return item;
+			}
+			return null;
 		}
 
 		private void close_Click(object sender, RoutedEventArgs e)
@@ -105,21 +118,21 @@ namespace TestBedManager
 			return new TabItem {
 				Header = computer.hostname,
 				Content = CreateTextBox(),
-				ContextMenu = CreateTabItemMenu(),
-				ToolTip = new ToolTip {
-					Content = computer.ipAddressStr
-				}
+				ContextMenu = CreateTabItemMenu()
 			};
 		}
 
 		private RichTextBox CreateTextBox()
 		{
-			return new RichTextBox {
+			RichTextBox rtb = new RichTextBox {
 				IsReadOnly = true,
 				VerticalScrollBarVisibility = ScrollBarVisibility.Visible,
 				ContextMenu = CreateTextboxMenu(),
-				FontFamily = new FontFamily("Segoe UI")
+				FontFamily = new FontFamily("Segoe UI"),
+				Background = new SolidColorBrush(Settings.Default.BackgroundColor)
 			};
+			rtb.SetValue(Paragraph.LineHeightProperty, 1.0);
+			return rtb;
 		}
 
 		private MenuItem CreateMenuItem(string header, string iconPath)
@@ -215,19 +228,7 @@ namespace TestBedManager
 
 		private void paint_Click(object sender, RoutedEventArgs e)
 		{
-			colorDialog = new System.Windows.Forms.ColorDialog();
-			if (colorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-				Color color = new Color {
-					R = colorDialog.Color.R,
-					G = colorDialog.Color.G,
-					B = colorDialog.Color.B
-				};
-
-				foreach (TabItem tab in tabControl.Items) {
-					RichTextBox textBox = (RichTextBox)tab.Content;
-					textBox.Background = new SolidColorBrush(color); //! Why doesn't this change it?!
-				}
-			}
+			new ColorWindow();
 		}
 
 		private void save_Click(object sender, RoutedEventArgs e)

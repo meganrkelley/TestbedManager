@@ -1,13 +1,13 @@
 ﻿<Window x:Class="TestBedManager.RenameComputerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Rename Computer..." Height="104" Width="196" MinHeight="104" MinWidth="196" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" WindowStyle="ToolWindow">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" x:Name="TextBoxNewHostname" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Text="" Margin="5" VerticalAlignment="Top" MaxLines="1" MaxLength="63" UndoLimit="10" />
-        <Button Grid.Row="1" x:Name="ButtonRename" Content="Rename + Reboot" HorizontalAlignment="Center" Margin="32,5,33,5" VerticalAlignment="Stretch" Click="ButtonRename_Click" Width="112" />
-    </Grid>
+        Title="Rename Computer..." Height="31" Width="200" MinHeight="104" MinWidth="196" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" WindowStyle="ToolWindow">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<TextBox Grid.Row="0" x:Name="TextBoxNewHostname" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Text="" Margin="5" VerticalAlignment="Top" MaxLines="1" MaxLength="63" UndoLimit="10" />
+		<Button Grid.Row="1" x:Name="ButtonRename" Content="Rename" HorizontalAlignment="Center" Margin="32,5,33,5" VerticalAlignment="Stretch" Click="ButtonRename_Click" Width="112" />
+	</Grid>
 </Window>

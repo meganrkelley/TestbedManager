@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Documents;
 
 namespace TestBedManager
 {
@@ -8,20 +7,23 @@ namespace TestBedManager
 		public RunCmdWindow()
 		{
 			InitializeComponent();
-			RichTextBoxCommand.Focus();
+			TextBoxCommand.Focus();
 			Show();
 		}
 
 		private void ButtonRun_Click(object sender, RoutedEventArgs e)
 		{
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
-				var textRange = new TextRange(RichTextBoxCommand.Document.ContentStart,
-					RichTextBoxCommand.Document.ContentEnd);
-
 				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.CreateProcess(textRange.Text + " > C:\\Users\\Megan\\Desktop\\output.txt");
+				remoteTaskManager.CreateProcess(TextBoxCommand.Text);
 			}
-			Close();
+		//	Close();
+		}
+
+		private void TextBoxCommand_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
+			if (e.Key == System.Windows.Input.Key.Enter)
+				ButtonRun_Click(sender, e);
 		}
 	}
 }

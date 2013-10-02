@@ -6,19 +6,19 @@ namespace TestBedManagerDB
 {
 	public class Computers
 	{
-		//public DataTable Find(int ID)
-		//{
-		//	DataTable queryResultTable = new DataTable();
-		//	var adapter = new SqlCeDataAdapter("select * from Computers where ID = " + ID,
-		//		ConnectionManager.connection);
-		//	adapter.Fill(queryResultTable);
-		//	return queryResultTable;
-		//}
+		public DataTable Find(int computerID)
+		{
+			DataTable queryResultTable = new DataTable();
+			var adapter = new SqlCeDataAdapter("select * from Computers where ID = " + computerID,
+				ConnectionManager.connection);
+			adapter.Fill(queryResultTable);
+			return queryResultTable;
+		}
 
 		public DataTable Find(IPAddress ipAddress)
 		{
 			DataTable queryResultTable = new DataTable();
-			var adapter = new SqlCeDataAdapter("select * from Computers where Address = '" 
+			var adapter = new SqlCeDataAdapter("select * from Computers where Address = '"
 				+ ipAddress.ToString() + "'", ConnectionManager.connection);
 			adapter.Fill(queryResultTable);
 			return queryResultTable;
@@ -44,8 +44,8 @@ namespace TestBedManagerDB
 		public void Update(int ID, string hostname, string ipAddress, string username, string password)
 		{
 			var command = ConnectionManager.connection.CreateCommand();
-			command.CommandText = "update Computers set Hostname = '" + hostname + 
-				"', Address = '" + ipAddress + "', Username = '" + username + "', Password = '" 
+			command.CommandText = "update Computers set Hostname = '" + hostname +
+				"', Address = '" + ipAddress + "', Username = '" + username + "', Password = '"
 				+ password + "' where ID = " + ID;
 			command.ExecuteNonQuery();
 			command.Dispose();
@@ -54,7 +54,7 @@ namespace TestBedManagerDB
 		public int Insert(string hostname, string ipAddress, string username, string password)
 		{
 			var command = ConnectionManager.connection.CreateCommand();
-			command.CommandText = "insert into Computers (Hostname, Address, Username, Password) values ('" 
+			command.CommandText = "insert into Computers (Hostname, Address, Username, Password) values ('"
 				+ hostname + "', '" + ipAddress + "', '" + username + "', '" + password + "')";
 			command.ExecuteNonQuery();
 			command.Dispose();

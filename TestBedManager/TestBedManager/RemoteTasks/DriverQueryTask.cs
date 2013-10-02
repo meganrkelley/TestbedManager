@@ -7,8 +7,8 @@ namespace TestBedManager
 	{
 		public DriverQueryTask(RemoteComputer computer)
 		{
-			this.remoteComputer = computer;
-			base.SetUpWmiConnection(WmiClass.PnPSignedDriver);
+			remoteComputer = computer;
+			SetUpWmiConnection(WmiClass.PnPSignedDriver);
 		}
 
 		public override void Run(string deviceClass)
@@ -17,12 +17,17 @@ namespace TestBedManager
 
 			remoteComputer.Log("Querying " + deviceClass + " drivers...");
 
-			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
-				foreach (var item in wmiObjectSearcher.Get()) {
-					string deviceName = (string)item["DeviceName"];
-					string driverVersion = (string)item["DriverVersion"];
-					remoteComputer.Log(deviceName + " " + driverVersion, false);
+			try {
+				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
+					foreach (var item in wmiObjectSearcher.Get()) {
+						string deviceName = (string)item["DeviceName"];
+						string driverVersion = (string)item["DriverVersion"];
+						remoteComputer.Log(deviceName + " " + driverVersion, false);
+					}
 				}
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Error when executing WMI query/method on " + remoteComputer.ipAddressStr + ": " + ex);
+				remoteComputer.Log("Error: " + ex.Message);
 			}
 
 			remoteComputer.Log("End of " + deviceClass + " drivers.");

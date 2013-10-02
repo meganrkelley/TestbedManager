@@ -14,7 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>C:\Users\Megan\Desktop\test\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -24,9 +24,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -55,6 +56,18 @@
   <PropertyGroup>
     <ApplicationIcon>batman.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>86E18685EBE6707DC46D003250776A0E074F7D0B</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>TestBedManager_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -77,16 +90,22 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\..\..\..\..\Downloads\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppModel\ActiveTestbed.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ColorWindow.xaml.cs">
+      <DependentUpon>ColorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DomainModel\ConnectionInfoChecker.cs" />
-    <Compile Include="AppModel\RemoteComputerEditor.cs" />
-    <Compile Include="GUI\EventCodeWindow.xaml.cs">
-      <DependentUpon>EventCodeWindow.xaml</DependentUpon>
+    <Compile Include="DomainModel\Encryption.cs" />
+    <Compile Include="GUI\EventViewerWindow.xaml.cs">
+      <DependentUpon>EventViewerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DomainModel\LocalProcessExecutor.cs" />
     <Compile Include="RemoteTasks\ComputerSystemProductQueryTask.cs" />
@@ -96,6 +115,7 @@
     <Compile Include="RemoteTasks\EventViewerQueryTask.cs" />
     <Compile Include="RemoteTasks\LocalTimeQueryTask.cs" />
     <Compile Include="RemoteTasks\NetworkQueryTask.cs" />
+    <Compile Include="RemoteTasks\PowerPlanTask.cs" />
     <Compile Include="RemoteTasks\ProgramsQueryTask.cs" />
     <Compile Include="RemoteTasks\RenameComputerTask.cs" />
     <Compile Include="RemoteTasks\RunningProcessesQueryTask.cs" />
@@ -159,7 +179,11 @@
     </Compile>
     <Compile Include="Services\WmiTools.cs" />
     <Compile Include="Services\WmiConnectionHandler.cs" />
-    <Page Include="GUI\EventCodeWindow.xaml">
+    <Page Include="GUI\ColorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\EventViewerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -254,7 +278,6 @@
     <Resource Include="Icons\remove.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Notes.txt" />
     <Resource Include="Icons\power.png" />
     <Resource Include="Icons\batman.gif" />
     <Resource Include="Icons\account.png" />
@@ -301,7 +324,6 @@
     <Resource Include="Icons\collapse.png" />
     <Resource Include="Icons\expand.png" />
     <Resource Include="batman.ico" />
-    <Resource Include="beep.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

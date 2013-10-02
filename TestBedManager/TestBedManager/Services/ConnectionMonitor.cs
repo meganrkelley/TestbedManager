@@ -28,7 +28,7 @@ namespace TestBedManager
 
 		private void CommonInitialize(RemoteComputer computer)
 		{
-			this.remoteComputer = computer;
+			remoteComputer = computer;
 			InitializeBackgroundWorker();
 			Start();
 		}

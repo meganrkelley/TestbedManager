@@ -7,8 +7,8 @@ namespace TestBedManager
 	{
 		public ScheduledJobsQueryTask(RemoteComputer computer)
 		{
-			this.remoteComputer = computer;
-			base.SetUpWmiConnection(WmiClass.ScheduledJob);
+			remoteComputer = computer;
+			SetUpWmiConnection(WmiClass.ScheduledJob);
 		}
 
 		public override void Run(string parameter)
@@ -17,10 +17,15 @@ namespace TestBedManager
 
 			remoteComputer.Log("Querying scheduled tasks...");
 
-			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
-				foreach (var item in wmiObjectSearcher.Get()) {
-					remoteComputer.Log((string)item["Name"], false);
+			try {
+				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
+					foreach (var item in wmiObjectSearcher.Get()) {
+						remoteComputer.Log((string)item["Name"], false);
+					}
 				}
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Error when executing WMI query/method on " + remoteComputer.ipAddressStr + ": " + ex);
+				remoteComputer.Log("Error: " + ex.Message);
 			}
 
 			remoteComputer.Log("End of scheduled tasks.");

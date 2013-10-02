@@ -7,20 +7,25 @@ namespace TestBedManager
 	{
 		public ComputerSystemProductQueryTask(RemoteComputer computer)
 		{
-			this.remoteComputer = computer;
-			base.SetUpWmiConnection(WmiClass.ComputerSystemProduct);
+			remoteComputer = computer;
+			SetUpWmiConnection(WmiClass.ComputerSystemProduct);
 		}
 
 		public override void Run(string parameter)
 		{
 			ObjectQuery query = new ObjectQuery(String.Format("select * from {0}", WmiClass.ComputerSystemProduct));
 
-			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
-				foreach (var item in wmiObjectSearcher.Get()) {
-					string name = (string)item["Name"];
-					string vendor = (string)item["Vendor"];
-					remoteComputer.Log(name + " " + vendor);
+			try {
+				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
+					foreach (var item in wmiObjectSearcher.Get()) {
+						string name = (string)item["Name"];
+						string vendor = (string)item["Vendor"];
+						remoteComputer.Log(name + " " + vendor);
+					}
 				}
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Error when executing WMI query/method on " + remoteComputer.ipAddressStr + ": " + ex);
+				remoteComputer.Log("Error: " + ex.Message);
 			}
 		}
 	}

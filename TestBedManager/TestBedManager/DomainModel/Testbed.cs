@@ -55,7 +55,7 @@ namespace TestBedManager
 		{
 			this.ID = id;
 			this.title = title;
-			Attach(Master.table);		
+			Attach(Master.table);
 		}
 
 		~Testbed()
