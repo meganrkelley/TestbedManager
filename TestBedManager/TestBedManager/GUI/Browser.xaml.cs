@@ -25,14 +25,18 @@ namespace TestBedManager
 
 			DataTable table_testbeds = testbedsTable.SelectAll();
 			foreach (DataRow row_testbed in table_testbeds.Rows) {
+
 				// Loop through each testbed
 				Testbed testbed = new Testbed((int)row_testbed["ID"], (string)row_testbed["Title"]);
 
 				// Find all of the relations for this testbed ID
 				DataTable table_relations = relationsTable.FindByTestbedID((int)row_testbed["ID"]);
+
 				foreach (DataRow row_relation in table_relations.Rows) {
+
 					// Get the computer information for this ID
 					DataTable table_computer = computersTable.Find((int)row_relation["ComputerID"]);
+
 					foreach (DataRow row_computer in table_computer.Rows) {
 						testbed.Add(new RemoteComputer(row_computer));
 					}

@@ -165,7 +165,7 @@ namespace TestBedManager
 		private ContextMenu CreateTextboxMenu()
 		{
 			MenuItem
-				copy = CreateMenuItem("Copy Text to Clipboard", "Icons/clipboard.png"),
+				copy = CreateMenuItem("Copy All Text to Clipboard", "Icons/clipboard.png"),
 				save = CreateMenuItem("Save Output to File", "Icons/disk.png"),
 				clear = CreateMenuItem("Clear Output", "Icons/clean.png"),
 				font = CreateMenuItem("Change Font", "Icons/font1.png"),

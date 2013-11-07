@@ -23,8 +23,10 @@ namespace TestBedManager
 		public static ManagementScope SetUpScope(RemoteComputer computer, string wmiClass = "none")
 		{
 			string serverPath = String.Format(@"\\{0}\root\cimv2", computer.ipAddressStr);
-			if (wmiClass == WmiClass.PowerPlan)
+
+			if (wmiClass == WmiClass.PowerPlan) // PowerPlan is a special case.
 				serverPath = String.Format(@"\\{0}\root\cimv2\power", computer.ipAddressStr);
+
 			ConnectionOptions connectionOptions;
 
 			if (computer.hostname.Equals("localhost", StringComparison.InvariantCultureIgnoreCase) ||

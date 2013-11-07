@@ -165,9 +165,6 @@
     <Compile Include="GUI\TestbedTree.xaml.cs">
       <DependentUpon>TestbedTree.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\StartupWindow.xaml.cs">
-      <DependentUpon>StartupWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DomainModel\Testbed.cs" />
     <Compile Include="DomainModel\WmiClass.cs" />
     <ApplicationDefinition Include="App.xaml">
@@ -228,10 +225,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\TestbedTree.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\StartupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

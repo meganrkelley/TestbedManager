@@ -13,24 +13,19 @@ namespace TestBedManager
 
 		public override void Run(string[] parameters)
 		{
-			string queryStr = "select * from " + WmiClass.EventViewer + " where LogFile='System' ";
-			if (parameters[0] != "")
-				queryStr += "and EventCode=" + parameters[0] + " ";
-			if (parameters[1] != "")
-				queryStr += "and SourceName like '%" + parameters[1] + "%' ";
-			if (parameters[2] != "")
-				queryStr += "and Type='" + parameters[2] + "'";
+			ObjectQuery query = new ObjectQuery(BuildQueryString(parameters));
 
-			ObjectQuery query = new ObjectQuery(queryStr);
-
-			remoteComputer.Log("Querying Event Viewer...");// for events with ID " + parameters[0] + "...");
+			remoteComputer.Log("Querying Event Viewer...");
 
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
+
 						string msg = (string)item["Message"];
 						string timeGenerated = (string)item["TimeGenerated"];
+
 						DateTime date = ManagementDateTimeConverter.ToDateTime(timeGenerated);
+
 						remoteComputer.Log("Event ID: " + parameters[0] + Environment.NewLine +
 							"Time Generated: " + date + Environment.NewLine +
 							"Message: " + msg, false);
@@ -41,7 +36,21 @@ namespace TestBedManager
 				remoteComputer.Log("Error: " + ex.Message);
 			}
 
-			remoteComputer.Log("End events.");// + parameters[0] + " events.");
+			remoteComputer.Log("End events.");
+		}
+
+		private static string BuildQueryString(string[] parameters)
+		{
+			string queryStr = "select * from " + WmiClass.EventViewer + " where LogFile='System' ";
+
+			if (parameters[0] != "")
+				queryStr += "and EventCode=" + parameters[0] + " ";
+			if (parameters[1] != "")
+				queryStr += "and SourceName like '%" + parameters[1] + "%' ";
+			if (parameters[2] != "")
+				queryStr += "and Type='" + parameters[2] + "'";
+
+			return queryStr;
 		}
 	}
 }

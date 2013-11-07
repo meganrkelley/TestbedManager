@@ -5,14 +5,6 @@ using TestBedManagerDB;
 
 // Delete logs after certain amount of time
 
-// [x] System Events - give option to select level and search for source
-// [x] Annoying ass tooltip on outputlog
-// [x] Put more stuff under FILE tab
-// [x] Run command - don't make it a scrolling textbox.
-// [x] Rename + Reboot -- only rename option
-// [x] Gray out tasks if a machine is not selected
-// [x] Spacing in outputlog
-
 namespace TestBedManager
 {
 	public partial class MainWindow : Window
@@ -20,21 +12,9 @@ namespace TestBedManager
 		public MainWindow()
 		{
 			InitializeComponent();
-
 			SetUpStaticReferences();
-
 			ConnectionManager.Connect();
-
 			ApplyUserSettings();
-
-			//if (Settings.Default.ShowStartupWarning)
-			//	new StartupWindow();
-		}
-
-		private void ApplyUserSettings()
-		{
-			MenuItemShowStartupWarning.IsChecked = Settings.Default.ShowStartupWarning;
-			MenuItemUseIpOverHostname.IsChecked = Settings.Default.UseIp;
 		}
 
 		private void SetUpStaticReferences()
@@ -46,10 +26,9 @@ namespace TestBedManager
 
 		#region Settings
 
-		private void MenuItemShowStartupWarning_Click(object sender, RoutedEventArgs e)
+		private void ApplyUserSettings()
 		{
-			Settings.Default.ShowStartupWarning = ((MenuItem)sender).IsChecked;
-			Settings.Default.Save();
+			MenuItemUseIpOverHostname.IsChecked = Settings.Default.UseIp;
 		}
 
 		private void MenuItemUseIpOverHostname_Click(object sender, RoutedEventArgs e)
@@ -68,7 +47,7 @@ namespace TestBedManager
 		{
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
 				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.CreateProcess("echo \a"); // Trying to send a bell
+				remoteTaskManager.CreateProcess("echo \a"); //TODO Trying to send a bell
 			}
 		}
 
@@ -303,12 +282,12 @@ namespace TestBedManager
 			DebugLog.DebugLog.ClearLogs();
 		}
 
-		#endregion Local commands/windows
-
 		private void WindowMainWindow_Closed(object sender, System.EventArgs e)
 		{
 			ConnectionManager.Disconnect();
 			App.Current.Shutdown();
 		}
+
+		#endregion Local commands/windows
 	}
 }

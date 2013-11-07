@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="LogDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Users\Megan\Desktop\LogFiles</Value>
+      <Value Profile="(Default)">C:\Users\Megan\Documents\LogFiles</Value>
     </Setting>
   </Settings>
 </SettingsFile>

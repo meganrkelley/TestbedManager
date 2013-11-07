@@ -92,7 +92,6 @@
 				<MenuItem x:Name="MenuItemScheduledTasks" Header="View Scheduled Tasks" Click="MenuItemScheduledTasks_Click" />
 			</MenuItem>
 			<MenuItem x:Name="MenuItemOptions" Header="OPTIONS">
-				<MenuItem x:Name="MenuItemShowStartupWarning" Header="Show Startup Warning" IsCheckable="True" Click="MenuItemShowStartupWarning_Click" />
 				<MenuItem x:Name="MenuItemUseIpOverHostname" Header="Use IP Address" ToolTip="Check this if you have DNS issues. If unchecked, connections will use hostnames." IsCheckable="True" Click="MenuItemUseIpOverHostname_Click" />
 				<MenuItem x:Name="MenuItemPingInterval" Header="Ping Interval..." ToolTip="Amount of time in seconds to wait between testing the remote connection(s)." IsEnabled="False" />
 			</MenuItem>
@@ -105,7 +104,7 @@
 		</Menu>
 
 		<Grid x:Name="StackPanelComputerTable" Grid.Column="0" Margin="10" Grid.Row="1" Height="325" VerticalAlignment="Stretch">
-			<local:TestbedTable x:Name="TestbedTable" VerticalAlignment="Top" Height="315" />
+			<local:TestbedTable x:Name="TestbedTable" VerticalAlignment="Top" MinHeight="315" VerticalContentAlignment="Stretch" />
 		</Grid>
 
 		<Grid x:Name="StackPanelOutputLog" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Grid.Row="1">

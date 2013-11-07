@@ -21,7 +21,6 @@ namespace TestBedManager
 				var inParams = mgmtClass.GetMethodParameters("Create");
 				inParams["CommandLine"] = fullCommand;
 				mgmtClass.InvokeMethod("Create", inParams, null);
-
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Error when executing WMI query/method on " + remoteComputer.ipAddressStr + ": " + ex);
 				remoteComputer.Log("Error: " + ex.Message);
@@ -34,7 +33,7 @@ namespace TestBedManager
 			// Wait for filepath to exist before trying to read it.
 			DateTime start = DateTime.Now;
 			while (!File.Exists(filepath)) {
-				if (start.AddSeconds(timeoutInSeconds) < DateTime.Now) {
+				if (TimeoutExceeded(timeoutInSeconds, start)) {
 					remoteComputer.Log("File was not created after " + timeoutInSeconds + " seconds.");
 					return;
 				}
@@ -44,14 +43,37 @@ namespace TestBedManager
 			// Wait for file to be unlocked before trying to read it.
 			start = DateTime.Now;
 			while (IsFileLocked(new FileInfo(filepath))) {
-				if (start.AddSeconds(timeoutInSeconds) < DateTime.Now) {
+				if (TimeoutExceeded(timeoutInSeconds, start)) {
 					remoteComputer.Log("File was not unlocked after " + timeoutInSeconds + " seconds.");
 					return;
 				}
 				Thread.Sleep(1000);
 			}
 
-			// Finally read the file and print to GUI.
+			ReadFileAndPrint(filepath);
+
+			if (!delete) 
+				return;
+
+			// Wait for it to unlock again.
+			while (IsFileLocked(new FileInfo(filepath))) {
+				if (TimeoutExceeded(timeoutInSeconds, start)) {
+					remoteComputer.Log("File was not unlocked after " + timeoutInSeconds + " seconds.");
+					return;
+				}
+				Thread.Sleep(1000);
+			}
+
+			DeleteFile(filepath);
+		}
+
+		private static bool TimeoutExceeded(int timeoutInSeconds, DateTime start)
+		{
+			return start.AddSeconds(timeoutInSeconds) < DateTime.Now;
+		}
+
+		private void ReadFileAndPrint(string filepath)
+		{
 			try {
 				remoteComputer.Log(File.ReadAllText(filepath));
 				remoteComputer.Log("End of output.");
@@ -60,19 +82,10 @@ namespace TestBedManager
 					ex is IOException)
 					remoteComputer.Log("Error when attempting to read file: " + ex.Message);
 			}
+		}
 
-			if (!delete) return;
-
-			// Wait for it to unlock again.
-			while (IsFileLocked(new FileInfo(filepath))) {
-				if (start.AddSeconds(timeoutInSeconds) < DateTime.Now) {
-					remoteComputer.Log("File was not unlocked after " + timeoutInSeconds + " seconds.");
-					return;
-				}
-				Thread.Sleep(1000);
-			}
-
-			// Delete the file.
+		private void DeleteFile(string filepath)
+		{
 			try {
 				File.Delete(filepath);
 			} catch (Exception ex) {

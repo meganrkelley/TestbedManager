@@ -62,11 +62,6 @@
   <ItemGroup>
     <Compile Include="Computers.cs" />
     <Compile Include="ConnectionManager.cs" />
-    <Compile Include="ds.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ds.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -78,17 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ds.xsc">
-      <DependentUpon>ds.xsd</DependentUpon>
-    </None>
-    <None Include="ds.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ds.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ds.xss">
-      <DependentUpon>ds.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

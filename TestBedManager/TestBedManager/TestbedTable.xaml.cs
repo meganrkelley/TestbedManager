@@ -63,31 +63,40 @@ namespace TestBedManager
 			Testbed testbed = new Testbed();
 
 			if (Settings.Default.MostRecentList == -1) { // Load everything if a list hasn't been loaded.
-				DataTable table = new Computers().SelectAll();
-				foreach (DataRow row in table.Rows) {
-					RemoteComputer computer = new RemoteComputer(row);
-					testbed.Add(computer);
-				}
+				AddAllComputersTo(testbed);
 			} else { // Otherwise, load the computers from the most recent list.
-				DataTable table = new TestbedRelations().FindByTestbedID(Settings.Default.MostRecentList);
-				foreach (DataRow row in table.Rows) {
-					DataTable table_computer = new Computers().Find((int)row["ComputerID"]);
-					foreach (DataRow row_computer in table_computer.Rows) {
-						RemoteComputer computer = new RemoteComputer(row_computer);
-						testbed.Add(computer);
-					}
-				}
+				AddMostRecentListTo(testbed);
 			}
 
-			foreach (RemoteComputer item in testbed.items) {
+			foreach (RemoteComputer item in testbed.items)
 				ActiveTestbed.Add(item);
+		}
+
+		private static void AddMostRecentListTo(Testbed testbed)
+		{
+			DataTable table = new TestbedRelations().FindByTestbedID(Settings.Default.MostRecentList);
+			foreach (DataRow row in table.Rows) {
+				DataTable table_computer = new Computers().Find((int)row["ComputerID"]);
+				foreach (DataRow row_computer in table_computer.Rows) {
+					RemoteComputer computer = new RemoteComputer(row_computer);
+					testbed.Add(computer);
+				}
+			}
+		}
+
+		private static void AddAllComputersTo(Testbed testbed)
+		{
+			DataTable table = new Computers().SelectAll();
+			foreach (DataRow row in table.Rows) {
+				RemoteComputer computer = new RemoteComputer(row);
+				testbed.Add(computer);
 			}
 		}
 
 		public bool TableContains(string hostname)
 		{
 			foreach (RemoteComputer item in dataGrid.Items)
-				if (item.hostname.Equals(hostname, 
+				if (item.hostname.Equals(hostname,
 					StringComparison.InvariantCultureIgnoreCase))
 					return true;
 			return false;

@@ -32,19 +32,23 @@ namespace TestBedManagerUnitTests
 
 			password = "abcdefg";
 			encrypted = Encryption.Encrypt(password);
+			Assert.AreNotEqual(password, encrypted);
 			decrypted = Encryption.Decrypt(encrypted);
 			Assert.AreEqual(password, decrypted);
 			encrypted = Encryption.Encrypt(decrypted);
+			Assert.AreNotEqual(password, encrypted);
 			decrypted = Encryption.Decrypt(encrypted);
 			Assert.AreEqual(password, decrypted);
 
 			password = "a b c d e f g";
 			encrypted = Encryption.Encrypt(password);
+			Assert.AreNotEqual(password, encrypted);
 			decrypted = Encryption.Decrypt(encrypted);
 			Assert.AreEqual(password, decrypted);
 
 			password = "~!@#$%^&*()-+";
 			encrypted = Encryption.Encrypt(password);
+			Assert.AreNotEqual(password, encrypted);
 			decrypted = Encryption.Decrypt(encrypted);
 			Assert.AreEqual(password, decrypted);
 		}
