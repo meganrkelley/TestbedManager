@@ -21,14 +21,15 @@ namespace TestBedManager
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
 
+						UInt16 eventCode = (UInt16)item["EventCode"];
 						string msg = (string)item["Message"];
 						string timeGenerated = (string)item["TimeGenerated"];
 
 						DateTime date = ManagementDateTimeConverter.ToDateTime(timeGenerated);
 
-						remoteComputer.Log("Event ID: " + parameters[0] + Environment.NewLine +
+						remoteComputer.Log("Event ID: " + eventCode + Environment.NewLine +
 							"Time Generated: " + date + Environment.NewLine +
-							"Message: " + msg, false);
+							"Message: " + msg + Environment.NewLine, false);
 					}
 				}
 			} catch (Exception ex) {

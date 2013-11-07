@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,9 +30,11 @@ namespace TestBedManager
 					Master.main.MenuItemTasks.IsEnabled = false;
 				else
 					Master.main.MenuItemTasks.IsEnabled = true;
+
 				List<RemoteComputer> selected = new List<RemoteComputer>();
 				foreach (RemoteComputer computer in dataGrid.SelectedItems)
 					selected.Add(computer);
+
 				return selected;
 			}
 		}
@@ -57,16 +60,16 @@ namespace TestBedManager
 		/// </summary>
 		private void TestbedTableDataGrid_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this)) // Don't try to populate the list in design mode.
+			// Don't try to populate the list in design mode.
+			if (DesignerProperties.GetIsInDesignMode(this)) 
 				return;
 
 			Testbed testbed = new Testbed();
 
-			if (Settings.Default.MostRecentList == -1) { // Load everything if a list hasn't been loaded.
+			if (Settings.Default.MostRecentList < 0)
 				AddAllComputersTo(testbed);
-			} else { // Otherwise, load the computers from the most recent list.
+			else 
 				AddMostRecentListTo(testbed);
-			}
 
 			foreach (RemoteComputer item in testbed.items)
 				ActiveTestbed.Add(item);
@@ -74,30 +77,31 @@ namespace TestBedManager
 
 		private static void AddMostRecentListTo(Testbed testbed)
 		{
-			DataTable table = new TestbedRelations().FindByTestbedID(Settings.Default.MostRecentList);
+			// Get all the computers in the most recent list.
+			DataTable table = new TestbedRelations().FindByTestbedID(
+				Settings.Default.MostRecentList);
+
+			// Get the information for each computer in the most recent list.
 			foreach (DataRow row in table.Rows) {
 				DataTable table_computer = new Computers().Find((int)row["ComputerID"]);
-				foreach (DataRow row_computer in table_computer.Rows) {
-					RemoteComputer computer = new RemoteComputer(row_computer);
-					testbed.Add(computer);
-				}
+
+				// Add each computer's information to the testbed object.
+				foreach (DataRow row_computer in table_computer.Rows)
+					testbed.Add(new RemoteComputer(row_computer));
 			}
 		}
 
 		private static void AddAllComputersTo(Testbed testbed)
 		{
 			DataTable table = new Computers().SelectAll();
-			foreach (DataRow row in table.Rows) {
-				RemoteComputer computer = new RemoteComputer(row);
-				testbed.Add(computer);
-			}
+			foreach (DataRow row in table.Rows)
+				testbed.Add(new RemoteComputer(row));
 		}
 
 		public bool TableContains(string hostname)
 		{
 			foreach (RemoteComputer item in dataGrid.Items)
-				if (item.hostname.Equals(hostname,
-					StringComparison.InvariantCultureIgnoreCase))
+				if (item.hostname.Equals(hostname, StringComparison.InvariantCultureIgnoreCase))
 					return true;
 			return false;
 		}
@@ -127,28 +131,26 @@ namespace TestBedManager
 
 		private void MenuItemRemove_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (RemoteComputer computer in selectedItems) {
+			foreach (RemoteComputer computer in selectedItems)
 				ActiveTestbed.Remove(computer);
-			}
 		}
 
 		private void MenuItemRemoveAll_Click(object sender, RoutedEventArgs e)
 		{
-			Testbed selected = Testbed.ToTestbed(selectedItems);
-			foreach (RemoteComputer computer in selected.items) {
+			foreach (RemoteComputer computer in items)
 				ActiveTestbed.Remove(computer);
-			}
+		}
+
+		public void ClearDataGrid()
+		{
+			dataGrid.Items.Clear();
 		}
 
 		private void MenuItemRemoveFromDb_Click(object sender, RoutedEventArgs e)
 		{
-			Testbed selected = Testbed.ToTestbed(selectedItems);
-			foreach (RemoteComputer computer in selected.items) {
+			foreach (RemoteComputer computer in selectedItems) {
 				ActiveTestbed.Remove(computer);
-
-				new TestbedRelations().DeleteComputer(computer.ID);
-
-				new Computers().Delete(computer.ID);
+				new GeneralUtils().DeleteComputerFromAllTables(computer.ID);
 			}
 		}
 
@@ -180,10 +182,8 @@ namespace TestBedManager
 
 		private void MenuItemAccountInfo_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (var item in selectedItems) {
-				AccountInfoView accountInfo = new AccountInfoView();
-				accountInfo.InitializeInfo(item);
-			}
+			foreach (var item in selectedItems)
+				new AccountInfoView().InitializeInfo(item);
 		}
 
 		// Enable the TASKS menu when an item is selected.

@@ -37,6 +37,21 @@ namespace TestBedManager
 			Settings.Default.Save();
 		}
 
+		private void MenuItemResetAllSettings_Click(object sender, RoutedEventArgs e)
+		{
+			Settings.Default.Reset();
+			Settings.Default.Save();
+
+			// Make immediate cosmetic changes
+			ColorWindow.ChangeTextBoxBg(System.Windows.Media.Colors.White);
+		}
+
+		private void MenuItemClearDatabase_Click(object sender, RoutedEventArgs e)
+		{
+			new TestBedManagerDB.GeneralUtils().ClearAllTables();
+			Master.table.ClearDataGrid();
+		}
+
 		// Set Ping Interval
 
 		#endregion Settings

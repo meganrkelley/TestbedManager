@@ -23,12 +23,19 @@ namespace TestBedManager
 
 		private void colorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
 		{
-			foreach (TabItem tab in Master.logManager.tabs.Items) {
-				System.Windows.Controls.RichTextBox textBox = (System.Windows.Controls.RichTextBox)tab.Content;
-				textBox.Background = new SolidColorBrush(e.NewValue);
-			}
+			Color newColor = e.NewValue;
+			newColor = ChangeTextBoxBg(newColor);
 			Settings.Default.BackgroundColor = e.NewValue;
 			Settings.Default.Save();
+		}
+
+		public static Color ChangeTextBoxBg(Color newColor)
+		{
+			foreach (TabItem tab in Master.logManager.tabs.Items) {
+				System.Windows.Controls.RichTextBox textBox = (System.Windows.Controls.RichTextBox)tab.Content;
+				textBox.Background = new SolidColorBrush(newColor);
+			}
+			return newColor;
 		}
 	}
 }
