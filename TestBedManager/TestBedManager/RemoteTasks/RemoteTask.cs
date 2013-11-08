@@ -21,22 +21,25 @@ namespace TestBedManager
 			set { _remoteComputer = value; }
 		}
 
-		public virtual void Run(string parameter)
+		public RemoteTask(RemoteComputer computer)
 		{
+			remoteComputer = computer;
 		}
 
-		public virtual void Run(string[] parameters)
-		{
-		}
+		public virtual void Run() { }
+		public virtual void Run(string parameter) { }
+		public virtual void Run(string[] parameters) { }
 
 		protected void SetUpWmiConnection(string wmiClass)
 		{
-			if (remoteComputer.credentials == null || remoteComputer.hostname == null)
+			if (remoteComputer.credentials == null || 
+				remoteComputer.hostname == null)
 				return;
 
 			if (remoteComputer.credentials.UserName == "" ||
 				remoteComputer.credentials.Password == "") {
-				string msg = "Username or password was empty for " + remoteComputer.ipAddressStr + "; cannot create a connection.";
+					string msg = string.Format("Username or password was empty for {0}; cannot create connection.", 
+						remoteComputer.ipAddressStr);
 				DebugLog.DebugLog.Log(msg);
 				remoteComputer.Log(msg);
 			}

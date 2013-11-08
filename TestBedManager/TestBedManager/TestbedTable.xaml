@@ -37,21 +37,21 @@
 							<Image Source="Icons/selectAll.png" />
 						</MenuItem.Icon>
 					</MenuItem>
-					<MenuItem x:Name="MenuItemRemove" Header="Remove From List" Click="MenuItemRemove_Click">
+					<MenuItem x:Name="MenuItemRemove" Header="Remove" Click="MenuItemRemove_Click">
 						<MenuItem.Icon>
 							<Image Source="Icons/remove_small.png" />
 						</MenuItem.Icon>
 					</MenuItem>
-					<MenuItem x:Name="MenuItemRemoveFromDB" Header="Remove From Program" Click="MenuItemRemoveFromDb_Click">
+					<!--<MenuItem x:Name="MenuItemRemoveFromDB" Header="Remove From Program" Click="MenuItemRemoveFromDb_Click">
 						<MenuItem.Icon>
 							<Image Source="Icons/monitor_delete.png" />
 						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="MenuItemRemoveAll" Header="Remove All From List" Click="MenuItemRemoveAll_Click">
+					</MenuItem>-->
+					<!--<MenuItem x:Name="MenuItemRemoveAll" Header="Remove All From List" Click="MenuItemRemoveAll_Click">
 						<MenuItem.Icon>
 							<Image Source="Icons/remove.png" />
 						</MenuItem.Icon>
-					</MenuItem>
+					</MenuItem>-->
 				</ContextMenu>
 			</DataGrid.ContextMenu>
 			<DataGrid.Columns>

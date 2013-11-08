@@ -1,0 +1,1 @@
+for /F "usebackq tokens=6" %%i in (`vol %1:`) do if "" neq "%%i" rsm eject /pf%%i

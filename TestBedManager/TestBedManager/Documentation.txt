@@ -1,0 +1,44 @@
+﻿----- Contents -----
+1. Requirements
+2. Adding and Removing Computers
+3. Saving and Loading Lists
+4. Performing Tasks
+5. Settings
+6. Common Problems and Solutions
+
+----- 1. Requirements -----
+
+Each machine added requires:
+	- Windows XP/2000 or greater
+	- Administrator account credentials
+	- WMI Control enabled: see http://www.poweradmin.com/help/enablewmi.aspx. For more help, see section 6: Common Problems and Solutions.
+
+----- 2. Adding and Removing Computers -----
+
+	To add a new computer, either right-click on the pane on the left or choose "Add a New Computer" from the "FILE" menu. Enter either the hostname or IP address of the desired machine along with the username and password for a privileged user account.
+
+	To remove a computer, select one or more computers in the left pane, right-click and choose "Remove".
+
+----- 3. Saving and Loading Lists -----
+
+	To save the current list of computers, either right-click in the left pane or choose "Save Current List" from the "FILE" menu and give your list a name. Your list can be viewed, deleted, and loaded from the List Browser. The List Browser can be accessed by either right-clicking the left pane or choosing "List Browser" from the "FILE" menu.
+
+	From the List Browser, you can use the icons at the top of the window to load or delete lists you have selected.
+
+----- 4. Performing Tasks -----
+
+	To perform a task on a computer or computers, select all of the desired computers and then choose a task from the "TASKS" menu.
+
+----- 5. Settings -----
+
+	Font family and background color may be adjusted by right-clicking the tabbed pane on the right side.
+
+----- 6. Common Problems and Solutions -----
+
+	Problem: WMI connection errors
+	Solution: http://www.poweradmin.com/help/enablewmi.aspx
+
+	Problem: Not getting output from shell commands
+	Solution: Make sure the user has permission to write to the \\machineName\C$ directory.
+
+	All other problems should be reported as bugs to the application developer: please attach the relevant log text files, which can be accessed from "HELP -> Open Logs Folder" and email them to meganrkelley@gmail.com.

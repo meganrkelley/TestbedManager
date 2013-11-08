@@ -11,6 +11,11 @@ namespace TestBedManager
 			remoteComputer = computer;
 		}
 
+		private void RunRemoteTask(RemoteTask task)
+		{
+			Task.Factory.StartNew(() => task.Run());
+		}
+
 		private void RunRemoteTask(RemoteTask task, string parameter = "")
 		{
 			Task.Factory.StartNew(() => task.Run(parameter));
@@ -91,6 +96,12 @@ namespace TestBedManager
 		{
 			RemoteTask task = new PowerPlanTask(remoteComputer);
 			RunRemoteTask(task, planName);
+		}
+
+		public void EjectDrive()
+		{
+			RemoteTask task = new EjectDriveTask(remoteComputer);
+			RunRemoteTask(task);
 		}
 	}
 }

@@ -83,7 +83,8 @@ namespace TestBedManager
 
 			// Get the information for each computer in the most recent list.
 			foreach (DataRow row in table.Rows) {
-				DataTable table_computer = new Computers().Find((int)row["ComputerID"]);
+				DataTable table_computer = new Computers().Find(
+					(int)row["ComputerID"]);
 
 				// Add each computer's information to the testbed object.
 				foreach (DataRow row_computer in table_computer.Rows)
@@ -101,7 +102,8 @@ namespace TestBedManager
 		public bool TableContains(string hostname)
 		{
 			foreach (RemoteComputer item in dataGrid.Items)
-				if (item.hostname.Equals(hostname, StringComparison.InvariantCultureIgnoreCase))
+				if (item.hostname.Equals(
+					hostname, StringComparison.InvariantCultureIgnoreCase))
 					return true;
 			return false;
 		}

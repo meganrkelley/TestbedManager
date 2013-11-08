@@ -60,11 +60,10 @@
 					<MenuItem x:Name="MenuItemRestart" Header="Restart" Click="MenuItemRestart_Click" />
 					<MenuItem x:Name="MenuItemShutdown" Header="Shutdown" Click="MenuItemShutdown_Click" />
 					<MenuItem x:Name="MenuItemHibernate" Header="Hibernate" Click="MenuItemHibernate_Click" />
-					<MenuItem x:Name="MenuItemSleep" Header="Sleep" Click="MenuItemSleep_Click" FontStyle="Italic" FontWeight="Bold" />
+					<MenuItem x:Name="MenuItemSleep" Header="Sleep" Click="MenuItemSleep_Click" />
 				</MenuItem>
-				<MenuItem x:Name="MenuItemBeep" Header="Beep" Click="MenuItemBeep_Click" IsEnabled="False" />
-				<MenuItem x:Name="MenuItemRename" Header="Rename Computer" Click="MenuItemRename_Click">
-				</MenuItem>
+				<MenuItem x:Name="MenuItemEjectDrive" Header="Eject CD Drive" Click="MenuItemEjectDrive_Click" />
+				<MenuItem x:Name="MenuItemRename" Header="Rename Computer" Click="MenuItemRename_Click" />
 				<MenuItem x:Name="MenuItemPowerSettings" Header="Adjust Power Plan">
 					<MenuItem x:Name="MenuItemBalanced" Header="Balanced" Click="MenuItemPowerSettings_Click" />
 					<MenuItem x:Name="MenuItemPowerSaver" Header="Power Saver" Click="MenuItemPowerSettings_Click" />
@@ -100,6 +99,7 @@
 			</MenuItem>
 			<MenuItem x:Name="MenuItemHelp" Header="HELP">
 				<MenuItem x:Name="MenuItemAbout" Header="About" Click="MenuItemAbout_Click" />
+				<MenuItem x:Name="MenuItemDocs" Header="Documentation" Click="MenuItemDocs_Click" />
 				<Separator />
 				<MenuItem x:Name="MenuItemOpenLogs" Header="Open Logs Folder" Click="MenuItemOpenLogs_Click" />
 				<MenuItem x:Name="MenuItemClearLogs" Header="Clear Log Files" Click="MenuItemClearLogs_Click" />

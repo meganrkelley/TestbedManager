@@ -99,6 +99,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RemoteTasks\EjectDriveTask.cs" />
     <Compile Include="GUI\ColorWindow.xaml.cs">
       <DependentUpon>ColorWindow.xaml</DependentUpon>
     </Compile>
@@ -151,13 +152,10 @@
     <Compile Include="AppModel\OutputLogManager.cs" />
     <Compile Include="DomainModel\RemoteComputer.cs" />
     <Compile Include="DomainModel\RemoteConnectionInfo.cs" />
-    <Compile Include="DomainModel\RemoteTask.cs" />
-    <Compile Include="DomainModel\RemoteTaskManager.cs" />
+    <Compile Include="RemoteTasks\RemoteTask.cs" />
+    <Compile Include="RemoteTasks\RemoteTaskManager.cs" />
     <Compile Include="GUI\SaveListWindow.xaml.cs">
       <DependentUpon>SaveListWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestbedTable.xaml.cs">
       <DependentUpon>TestbedTable.xaml</DependentUpon>
@@ -216,10 +214,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\SettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="TestbedTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -252,11 +246,15 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="ejectCD.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -352,6 +350,11 @@
       <Project>{94b77fc8-6de4-4d16-a623-bb977c5f12b6}</Project>
       <Name>TestBedManagerDB</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Documentation.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

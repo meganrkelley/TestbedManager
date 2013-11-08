@@ -6,9 +6,8 @@ namespace TestBedManager
 {
 	public class CreateProcessTask : RemoteTask
 	{
-		public CreateProcessTask(RemoteComputer computer)
+		public CreateProcessTask(RemoteComputer computer) : base(computer)
 		{
-			remoteComputer = computer;
 			SetUpWmiConnection(WmiClass.Process);
 		}
 
@@ -22,7 +21,8 @@ namespace TestBedManager
 				inParams["CommandLine"] = fullCommand;
 				mgmtClass.InvokeMethod("Create", inParams, null);
 			} catch (Exception ex) {
-				DebugLog.DebugLog.Log("Error when executing WMI query/method on " + remoteComputer.ipAddressStr + ": " + ex);
+				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 
+					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
 			}
 			ReadPrintDelete(outputFilePath, 60);
@@ -30,41 +30,43 @@ namespace TestBedManager
 
 		private void ReadPrintDelete(string filepath, int timeoutInSeconds = 10, bool delete = true)
 		{
-			// Wait for filepath to exist before trying to read it.
-			DateTime start = DateTime.Now;
-			while (!File.Exists(filepath)) {
-				if (TimeoutExceeded(timeoutInSeconds, start)) {
-					remoteComputer.Log("File was not created after " + timeoutInSeconds + " seconds.");
-					return;
-				}
-				Thread.Sleep(1000);
-			}
-
-			// Wait for file to be unlocked before trying to read it.
-			start = DateTime.Now;
-			while (IsFileLocked(new FileInfo(filepath))) {
-				if (TimeoutExceeded(timeoutInSeconds, start)) {
-					remoteComputer.Log("File was not unlocked after " + timeoutInSeconds + " seconds.");
-					return;
-				}
-				Thread.Sleep(1000);
-			}
+			WaitForFileExist(filepath, timeoutInSeconds);
+			WaitForFileUnlock(filepath, timeoutInSeconds);
 
 			ReadFileAndPrint(filepath);
 
 			if (!delete) 
 				return;
 
-			// Wait for it to unlock again.
+			WaitForFileUnlock(filepath, timeoutInSeconds);
+
+			DeleteFile(filepath);
+		}
+
+		private bool WaitForFileUnlock(string filepath, int timeoutInSeconds) 
+		{
+			DateTime start = DateTime.Now;
 			while (IsFileLocked(new FileInfo(filepath))) {
 				if (TimeoutExceeded(timeoutInSeconds, start)) {
 					remoteComputer.Log("File was not unlocked after " + timeoutInSeconds + " seconds.");
-					return;
+					return false;
 				}
 				Thread.Sleep(1000);
 			}
+			return true;
+		}
 
-			DeleteFile(filepath);
+		private bool WaitForFileExist(string filepath, int timeoutInSeconds)
+		{
+			DateTime start = DateTime.Now;
+			while (!File.Exists(filepath)) {
+				if (TimeoutExceeded(timeoutInSeconds, start)) {
+					remoteComputer.Log("File was not created after " + timeoutInSeconds + " seconds.");
+					return false;
+				}
+				Thread.Sleep(1000);
+			}
+			return true;
 		}
 
 		private static bool TimeoutExceeded(int timeoutInSeconds, DateTime start)

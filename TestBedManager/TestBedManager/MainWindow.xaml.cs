@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using TestBedManager.Properties;
@@ -58,11 +60,11 @@ namespace TestBedManager
 
 		#region Remote commands
 
-		private void MenuItemBeep_Click(object sender, RoutedEventArgs e)
+		private void MenuItemEjectDrive_Click(object sender, RoutedEventArgs e)
 		{
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
 				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.CreateProcess("echo \a"); //TODO Trying to send a bell
+				remoteTaskManager.EjectDrive();
 			}
 		}
 
@@ -301,6 +303,16 @@ namespace TestBedManager
 		{
 			ConnectionManager.Disconnect();
 			App.Current.Shutdown();
+		}
+
+		private void MenuItemDocs_Click(object sender, RoutedEventArgs e)
+		{
+			Process proc = new Process();
+			proc.StartInfo.FileName = "notepad.exe";
+			proc.StartInfo.Arguments = Path.Combine(
+				Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
+				"Documentation.txt");
+			proc.Start();
 		}
 
 		#endregion Local commands/windows

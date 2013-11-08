@@ -5,9 +5,8 @@ namespace TestBedManager
 {
 	public class EventViewerQueryTask : RemoteTask
 	{
-		public EventViewerQueryTask(RemoteComputer computer)
+		public EventViewerQueryTask(RemoteComputer computer) : base(computer)
 		{
-			remoteComputer = computer;
 			SetUpWmiConnection(WmiClass.EventViewer);
 		}
 
@@ -21,19 +20,19 @@ namespace TestBedManager
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
 
-						UInt16 eventCode = (UInt16)item["EventCode"];
-						string msg = (string)item["Message"];
-						string timeGenerated = (string)item["TimeGenerated"];
+						DateTime date = ManagementDateTimeConverter.ToDateTime(
+							item["TimeGenerated"].ToString());
 
-						DateTime date = ManagementDateTimeConverter.ToDateTime(timeGenerated);
-
-						remoteComputer.Log("Event ID: " + eventCode + Environment.NewLine +
+						remoteComputer.Log(
+							"Event ID: " + (UInt16)item["EventCode"] + Environment.NewLine +
 							"Time Generated: " + date + Environment.NewLine +
-							"Message: " + msg + Environment.NewLine, false);
+							"Message: " + (string)item["Message"] + Environment.NewLine, 
+							false);
 					}
 				}
 			} catch (Exception ex) {
-				DebugLog.DebugLog.Log("Error when executing WMI query/method on " + remoteComputer.ipAddressStr + ": " + ex);
+				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
+					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
 			}
 

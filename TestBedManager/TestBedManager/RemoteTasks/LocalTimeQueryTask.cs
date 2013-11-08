@@ -5,9 +5,8 @@ namespace TestBedManager
 {
 	public class LocalTimeQueryTask : RemoteTask
 	{
-		public LocalTimeQueryTask(RemoteComputer computer)
+		public LocalTimeQueryTask(RemoteComputer computer) : base(computer)
 		{
-			remoteComputer = computer;
 			SetUpWmiConnection(WmiClass.LocalTime);
 		}
 
@@ -21,7 +20,8 @@ namespace TestBedManager
 						remoteComputer.Log(FormatDateTime(wmiObjectSearcher, query));
 				}
 			} catch (Exception ex) {
-				DebugLog.DebugLog.Log("Error when executing WMI query/method on " + remoteComputer.ipAddressStr + ": " + ex);
+				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 
+					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
 			}
 		}
