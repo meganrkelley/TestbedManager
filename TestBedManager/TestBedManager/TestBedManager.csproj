@@ -99,6 +99,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RemoteTasks\BatteryInfoTask.cs" />
+    <Compile Include="RemoteTasks\BiosVersionTask.cs" />
+    <Compile Include="RemoteTasks\DriveInfoTask.cs" />
     <Compile Include="RemoteTasks\EjectDriveTask.cs" />
     <Compile Include="GUI\ColorWindow.xaml.cs">
       <DependentUpon>ColorWindow.xaml</DependentUpon>
@@ -151,7 +154,7 @@
     <Compile Include="Services\NetUtils.cs" />
     <Compile Include="AppModel\OutputLogManager.cs" />
     <Compile Include="DomainModel\RemoteComputer.cs" />
-    <Compile Include="DomainModel\RemoteConnectionInfo.cs" />
+    <Compile Include="DomainModel\ConnectionInfo.cs" />
     <Compile Include="RemoteTasks\RemoteTask.cs" />
     <Compile Include="RemoteTasks\RemoteTaskManager.cs" />
     <Compile Include="GUI\SaveListWindow.xaml.cs">
@@ -169,10 +172,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GUI\WmiErrorWindow.xaml.cs">
-      <DependentUpon>WmiErrorWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Services\WmiTools.cs" />
     <Compile Include="Services\WmiConnectionHandler.cs" />
     <Page Include="GUI\ColorWindow.xaml">
       <SubType>Designer</SubType>
@@ -222,10 +221,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\WmiErrorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -263,9 +258,6 @@
     <Resource Include="Icons\add.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\hub.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\remove.png" />
   </ItemGroup>
   <ItemGroup>
@@ -273,24 +265,20 @@
     <Resource Include="Icons\batman.gif" />
     <Resource Include="Icons\account.png" />
     <Resource Include="Icons\key.png" />
-    <Resource Include="Icons\lock_small.png" />
+    <Resource Include="Icons\lock.png" />
     <Resource Include="Icons\batman_small.png" />
     <Resource Include="Icons\bullet_black.png" />
     <Resource Include="Icons\bullet_green.png" />
     <Resource Include="Icons\bullet_red.png" />
     <Resource Include="Icons\bullet_yellow.png" />
-    <Resource Include="Icons\check.png" />
     <Resource Include="Icons\clean.png" />
     <Resource Include="Icons\disk.png" />
-    <Resource Include="Icons\ip.png" />
     <Resource Include="Icons\list_add.png" />
     <Resource Include="Icons\list_delete.png" />
     <Resource Include="Icons\list_edit.png" />
     <Resource Include="Icons\list_multiple.png" />
-    <Resource Include="Icons\monitor.png" />
     <Resource Include="Icons\monitor_add.png" />
     <Resource Include="Icons\monitor_delete.png" />
-    <Resource Include="Icons\monitor_edit.png" />
     <Resource Include="Icons\refresh.png" />
     <Resource Include="Icons\settings.png" />
     <Resource Include="Icons\terminal.png" />
@@ -302,15 +290,7 @@
     <Resource Include="Icons\documentZoom.png" />
     <Resource Include="Icons\list_export.png" />
     <Resource Include="Icons\list_import.png" />
-    <Resource Include="Icons\key_small.png" />
-    <Resource Include="Icons\eye.png" />
-    <Resource Include="Icons\check_small.png" />
-    <Resource Include="Icons\disk_small.png" />
-    <Resource Include="Icons\key_hd.png" />
     <Resource Include="Icons\cancel.png" />
-    <Resource Include="Icons\check2.png" />
-    <Resource Include="Icons\exclamation.png" />
-    <Resource Include="Icons\vial.png" />
     <Resource Include="Icons\selectAll.png" />
     <Resource Include="Icons\collapse.png" />
     <Resource Include="Icons\expand.png" />

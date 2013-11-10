@@ -33,6 +33,7 @@ namespace TestBedManager
 		{
 			if (ip == "0.0.0.0")
 				return false;
+
 			IPAddress outIp;
 			return IPAddress.TryParse(ip, out outIp);
 		}

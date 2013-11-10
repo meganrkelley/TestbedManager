@@ -14,7 +14,7 @@ namespace TestBedManager
 		#region Instance Variables
 
 		private int _ID;
-		private RemoteConnectionInfo _connectionInfo;
+		private ConnectionInfo _connectionInfo;
 		private List<IComputerObserver> observers = new List<IComputerObserver>();
 
 		#endregion Instance Variables
@@ -23,18 +23,18 @@ namespace TestBedManager
 
 		public RemoteComputer(string hostname, IPAddress ipAddress, string username, string password)
 		{
-			_connectionInfo = new RemoteConnectionInfo(hostname, ipAddress, new NetworkCredential(username, password));
+			_connectionInfo = new ConnectionInfo(hostname, ipAddress, new NetworkCredential(username, password));
 		}
 
 		public RemoteComputer(string hostname, string ipAddress, string username, string password)
 		{
-			_connectionInfo = new RemoteConnectionInfo(hostname, IPAddress.Parse(ipAddress), new NetworkCredential(username, password));
+			_connectionInfo = new ConnectionInfo(hostname, IPAddress.Parse(ipAddress), new NetworkCredential(username, password));
 		}
 
 		public RemoteComputer(System.Data.DataRow row)
 		{
 			ID = (int)row["ID"];
-			_connectionInfo = new RemoteConnectionInfo(
+			_connectionInfo = new ConnectionInfo(
 				(string)row["Hostname"],
 				System.Net.IPAddress.Parse((string)row["Address"]),
 				new System.Net.NetworkCredential(
@@ -66,7 +66,7 @@ namespace TestBedManager
 		/// <summary>
 		/// Holds network info for the computer like IP, hostname, and credentials.
 		/// </summary>
-		public RemoteConnectionInfo connectionInfo
+		public ConnectionInfo connectionInfo
 		{
 			get { return _connectionInfo; }
 			set

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Management;
 
+
 namespace TestBedManager
 {
 	public class NetworkQueryTask : RemoteTask
@@ -10,7 +11,7 @@ namespace TestBedManager
 			SetUpWmiConnection(WmiClass.NetworkConfig);
 		}
 
-		public override void Run(string parameter)
+		public override void Run()
 		{
 			ObjectQuery query = new ObjectQuery(
 				String.Format("select * from {0} where MACAddress is not null",

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Management;
 
+
 namespace TestBedManager
 {
 	public class LocalTimeQueryTask : RemoteTask
@@ -10,7 +11,7 @@ namespace TestBedManager
 			SetUpWmiConnection(WmiClass.LocalTime);
 		}
 
-		public override void Run(string parameter)
+		public override void Run()
 		{
 			ObjectQuery query = new ObjectQuery(String.Format("select * from {0}", WmiClass.LocalTime));
 

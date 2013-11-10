@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Management;
 
-
 namespace TestBedManager
 {
-	public class RunningProcessesQueryTask : RemoteTask
+	public class BiosVersionTask : RemoteTask
 	{
-		public RunningProcessesQueryTask(RemoteComputer computer) : base(computer)
+		public BiosVersionTask(RemoteComputer computer) : base(computer)
 		{
-			SetUpWmiConnection(WmiClass.Process);
+			SetUpWmiConnection(WmiClass.BIOS);
 		}
 
 		public override void Run()
 		{
-			ObjectQuery query = new ObjectQuery(String.Format("select * from {0}", WmiClass.Process));
-
-			remoteComputer.Log("Querying running processes...");
+			ObjectQuery query = new ObjectQuery(String.Format("select Version from {0}", WmiClass.BIOS));
 
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
-						remoteComputer.Log(item["Caption"].ToString(), false);
+						remoteComputer.Log("BIOS version: " + item["Version"].ToString());
 					}
 				}
 			} catch (Exception ex) {
@@ -28,8 +25,6 @@ namespace TestBedManager
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
 			}
-
-			remoteComputer.Log("End of running processes.");
 		}
 	}
 }

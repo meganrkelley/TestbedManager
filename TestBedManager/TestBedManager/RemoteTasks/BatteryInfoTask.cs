@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Management;
 
-
 namespace TestBedManager
 {
-	public class RunningProcessesQueryTask : RemoteTask
+	public class BatteryInfoTask : RemoteTask
 	{
-		public RunningProcessesQueryTask(RemoteComputer computer) : base(computer)
+		public BatteryInfoTask(RemoteComputer computer) : base(computer)
 		{
-			SetUpWmiConnection(WmiClass.Process);
+			SetUpWmiConnection(WmiClass.Battery);
 		}
 
 		public override void Run()
 		{
-			ObjectQuery query = new ObjectQuery(String.Format("select * from {0}", WmiClass.Process));
-
-			remoteComputer.Log("Querying running processes...");
+			ObjectQuery query = new ObjectQuery(String.Format("select EstimatedChargeRemaining, Status from {0}", WmiClass.Battery));
 
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
-						remoteComputer.Log(item["Caption"].ToString(), false);
+						remoteComputer.Log("Battery: " + 
+							((UInt16)item["EstimatedChargeRemaining"]).ToString() + 
+							"% remaining. Status: " + item["Status"].ToString());
 					}
 				}
 			} catch (Exception ex) {
@@ -28,8 +27,6 @@ namespace TestBedManager
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
 			}
-
-			remoteComputer.Log("End of running processes.");
 		}
 	}
 }

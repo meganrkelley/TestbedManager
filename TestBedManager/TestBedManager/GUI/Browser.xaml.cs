@@ -19,16 +19,16 @@ namespace TestBedManager
 		// 4. Add all of the computers in the DB to the master tree
 		private void WindowListBrowserWindow_Loaded(object sender, RoutedEventArgs e)
 		{
-			DataTable table_testbeds = new Testbeds().SelectAll();
-			foreach (DataRow row_testbed in table_testbeds.Rows) {
+			DataTable allTestbeds = new Testbeds().SelectAll();
+			foreach (DataRow row_testbed in allTestbeds.Rows) {
 
 				// Loop through each testbed
 				Testbed testbed = new Testbed((int)row_testbed["ID"], (string)row_testbed["Title"]);
 
 				// Find all of the relations for this testbed ID
-				DataTable table_relations = new TestbedRelations().FindByTestbedID((int)row_testbed["ID"]);
+				DataTable testbedRelations = new TestbedRelations().FindByTestbedID((int)row_testbed["ID"]);
 
-				foreach (DataRow row_relation in table_relations.Rows) {
+				foreach (DataRow row_relation in testbedRelations.Rows) {
 
 					// Get the computer information for this ID
 					DataTable table_computer = new Computers().Find((int)row_relation["ComputerID"]);
@@ -46,9 +46,9 @@ namespace TestBedManager
 		// Get all the hostnames in the DB and display them on the right pane.
 		private void DisplayAllInMasterList()
 		{
-			DataTable table_allComputers = new Computers().SelectAll();
-			foreach (DataRow row_computer in table_allComputers.Rows) {
-				masterList.Items.Add((string)row_computer["Hostname"]);
+			DataTable all = new Computers().SelectAll();
+			foreach (DataRow row in all.Rows) {
+				masterList.Items.Add(row["Hostname"]);
 			}
 		}
 

@@ -78,6 +78,7 @@ namespace TestBedManager
 				} catch (System.Exception ex) {
 					DebugLog.DebugLog.Log(ex);
 				}
+
 				Thread.Sleep(interval * 1000);
 			}
 		}

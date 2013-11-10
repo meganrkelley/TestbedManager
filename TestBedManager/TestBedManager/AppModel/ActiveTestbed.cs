@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TestBedManagerDB;
 
+
 namespace TestBedManager
 {
 	/// <summary>
@@ -16,7 +17,8 @@ namespace TestBedManager
 		// 1. Check if it already exists
 		// 2. Add to the GUI table
 		// 3. Add to the GUI tabs
-		// 4. Add to the database and set its ID.
+		// 4. Add to the database and set its ID
+		// 5. Start monitoring the network connection
 		public static void Add(RemoteComputer computer)
 		{
 			if (Master.table.TableContains(computer.hostname))
@@ -26,16 +28,15 @@ namespace TestBedManager
 
 			Master.logManager.Add(computer);
 
-			if (computersTable.Find(computer.hostname).Rows.Count > 0)
-				return;
+			if (computersTable.Find(computer.hostname).Rows.Count == 0) {
+				computer.ID = computersTable.Insert(
+					computer.hostname,
+					computer.ipAddressStr,
+					computer.credentials.UserName,
+					computer.credentials.Password);
 
-			computer.ID = computersTable.Insert(
-				computer.hostname,
-				computer.ipAddressStr,
-				computer.credentials.UserName,
-				computer.credentials.Password);
-
-			DebugLog.DebugLog.Log("Added new computer (" + computer.ID + ", " + computer.hostname + ", " + computer.ipAddressStr + ") to the database.");
+				DebugLog.DebugLog.Log("Added new computer (" + computer.ID + ", " + computer.hostname + ", " + computer.ipAddressStr + ") to the database.");
+			}
 
 			new ConnectionMonitor(computer);
 		}
@@ -73,7 +74,7 @@ namespace TestBedManager
 
 		public static bool IsEmpty()
 		{
-			return Master.table.dataGrid.Items.Count == 0;
+			return Master.table.dataGrid.Items.IsEmpty;
 		}
 	}
 }

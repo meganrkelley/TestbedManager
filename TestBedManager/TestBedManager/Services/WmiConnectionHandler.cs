@@ -17,6 +17,7 @@ namespace TestBedManager
 					computer.status = NetworkStatus.WmiConnected;
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log(ex);
+				computer.Log("There was a problem connecting to WMI. Error message: " + ex.Message);
 			}
 		}
 

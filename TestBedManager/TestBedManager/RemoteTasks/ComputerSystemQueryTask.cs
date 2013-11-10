@@ -10,7 +10,7 @@ namespace TestBedManager
 			SetUpWmiConnection(WmiClass.ComputerSystem);
 		}
 
-		public override void Run(string parameter)
+		public override void Run()
 		{
 			ObjectQuery query = new ObjectQuery(String.Format("select * from {0}", WmiClass.OS));
 

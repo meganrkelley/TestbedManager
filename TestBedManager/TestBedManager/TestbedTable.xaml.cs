@@ -64,18 +64,13 @@ namespace TestBedManager
 			if (DesignerProperties.GetIsInDesignMode(this)) 
 				return;
 
-			Testbed testbed = new Testbed();
-
 			if (Settings.Default.MostRecentList < 0)
-				AddAllComputersTo(testbed);
+				AddAllComputersTo();
 			else 
-				AddMostRecentListTo(testbed);
-
-			foreach (RemoteComputer item in testbed.items)
-				ActiveTestbed.Add(item);
+				AddMostRecentListTo();
 		}
 
-		private static void AddMostRecentListTo(Testbed testbed)
+		private static void AddMostRecentListTo()
 		{
 			// Get all the computers in the most recent list.
 			DataTable table = new TestbedRelations().FindByTestbedID(
@@ -88,15 +83,15 @@ namespace TestBedManager
 
 				// Add each computer's information to the testbed object.
 				foreach (DataRow row_computer in table_computer.Rows)
-					testbed.Add(new RemoteComputer(row_computer));
+					ActiveTestbed.Add(new RemoteComputer(row_computer));
 			}
 		}
 
-		private static void AddAllComputersTo(Testbed testbed)
+		private static void AddAllComputersTo()
 		{
 			DataTable table = new Computers().SelectAll();
 			foreach (DataRow row in table.Rows)
-				testbed.Add(new RemoteComputer(row));
+				ActiveTestbed.Add(new RemoteComputer(row));
 		}
 
 		public bool TableContains(string hostname)

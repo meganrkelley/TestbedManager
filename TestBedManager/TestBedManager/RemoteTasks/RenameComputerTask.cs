@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace TestBedManager
 {
 	public class RenameComputerTask : RemoteTask

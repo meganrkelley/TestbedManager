@@ -178,6 +178,30 @@ namespace TestBedManager
 			}
 		}
 
+		private void MenuItemBios_Click(object sender, RoutedEventArgs e)
+		{
+			foreach (RemoteComputer computer in Master.table.selectedItems) {
+				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
+				remoteTaskManager.QueryBiosVersion();
+			}
+		}
+
+		private void MenuItemBatteryInfo_Click(object sender, RoutedEventArgs e)
+		{
+			foreach (RemoteComputer computer in Master.table.selectedItems) {
+				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
+				remoteTaskManager.QueryBatteryInfo();
+			}
+		}
+
+		private void MenuItemDriveInfo_Click(object sender, RoutedEventArgs e)
+		{
+			foreach (RemoteComputer computer in Master.table.selectedItems) {
+				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
+				remoteTaskManager.QueryDriveInfo();
+			}
+		}
+
 		#endregion Remote commands
 
 		#region Driver Classes
@@ -307,14 +331,14 @@ namespace TestBedManager
 
 		private void MenuItemDocs_Click(object sender, RoutedEventArgs e)
 		{
-			Process proc = new Process();
-			proc.StartInfo.FileName = "notepad.exe";
-			proc.StartInfo.Arguments = Path.Combine(
-				Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
-				"Documentation.txt");
-			proc.Start();
+			LocalProcessExecutor executor = new LocalProcessExecutor();
+			executor.OpenDocumentationFile();
 		}
 
 		#endregion Local commands/windows
+
+
+		
+		
 	}
 }

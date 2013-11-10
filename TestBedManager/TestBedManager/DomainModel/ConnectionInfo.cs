@@ -5,7 +5,7 @@ namespace TestBedManager
 	/// <summary>
 	/// Holds state information about the network connection to a computer.
 	/// </summary>
-	public class RemoteConnectionInfo
+	public class ConnectionInfo
 	{
 		#region Instance Variables
 
@@ -16,25 +16,13 @@ namespace TestBedManager
 
 		#endregion Instance Variables
 
-		#region Constructors
-
-		public RemoteConnectionInfo(string hostname, IPAddress ipAddress)
-		{
-			_hostname = hostname;
-			_ipAddress = ipAddress;
-			_credentials = new NetworkCredential();
-			_status = NetworkStatus.Unknown;
-		}
-
-		public RemoteConnectionInfo(string hostname, IPAddress ipAddress, NetworkCredential credentials)
+		public ConnectionInfo(string hostname, IPAddress ipAddress, NetworkCredential credentials)
 		{
 			_hostname = hostname;
 			_ipAddress = ipAddress;
 			_credentials = credentials;
 			_status = NetworkStatus.Unknown;
 		}
-
-		#endregion Constructors
 
 		#region Accessors
 

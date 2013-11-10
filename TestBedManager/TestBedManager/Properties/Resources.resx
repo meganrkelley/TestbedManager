@@ -144,4 +144,13 @@
   <data name="WmiConnected" xml:space="preserve">
     <value>Icons/bullet_green.png</value>
   </data>
+  <data name="WmiErrorMsg" xml:space="preserve">
+    <value>Could not contact the Windows Management Instrumentation (WMI) service on the remote computer.
+
+Possible solutions:
+	- Verify that the username and password are correct.
+	- Ensure that the supplied user is a member of the Administrators group.
+	- Make sure that WMI Control is allowed on the remote machine.
+	- The minimum OS required is Windows 2000; only Windows is supported.</value>
+  </data>
 </root>

@@ -103,5 +103,23 @@ namespace TestBedManager
 			RemoteTask task = new EjectDriveTask(remoteComputer);
 			RunRemoteTask(task);
 		}
+
+		internal void QueryBiosVersion()
+		{
+			RemoteTask task = new BiosVersionTask(remoteComputer);
+			RunRemoteTask(task);
+		}
+
+		internal void QueryBatteryInfo()
+		{
+			RemoteTask task = new BatteryInfoTask(remoteComputer);
+			RunRemoteTask(task);
+		}
+
+		internal void QueryDriveInfo()
+		{
+			RemoteTask task = new DriveInfoTask(remoteComputer);
+			RunRemoteTask(task);
+		}
 	}
 }
