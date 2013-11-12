@@ -11,8 +11,9 @@
 			<ColumnDefinition Width="118*" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="23*" />
+			<RowDefinition Height="23" />
 			<RowDefinition Height="338*" />
+			<RowDefinition Height="20" />
 		</Grid.RowDefinitions>
 
 		<Menu Grid.Row="0" Grid.ColumnSpan="2" x:Name="MenuMain" HorizontalAlignment="Stretch" VerticalAlignment="Top" MinHeight="23" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderThickness="0,0,0,1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
@@ -121,5 +122,14 @@
 			<TabControl x:Name="mainTabControl" />
 		</Grid>
 		<GridSplitter HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Grid.Column="0" Grid.Row="1" ResizeDirection="Columns" />
+		
+		<Grid Grid.ColumnSpan="2" Grid.Row="3">
+			<StatusBar x:Name="MainStatusBar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+				<StatusBarItem HorizontalAlignment="Right">
+					<TextBlock x:Name="StatusBarText" FontSize="8pt">Memory usage: </TextBlock>
+				</StatusBarItem>
+			</StatusBar>
+		</Grid>
+		
 	</Grid>
 </Window>

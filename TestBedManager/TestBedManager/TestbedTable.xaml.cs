@@ -103,6 +103,13 @@ namespace TestBedManager
 			return false;
 		}
 
+		public void RefreshItems()
+		{
+			dataGrid.Dispatcher.Invoke((Action)(() => {
+				dataGrid.Items.Refresh();
+			}));
+		}
+
 		/// <summary>
 		/// When a Testbed changes its state, update the GUI.
 		/// </summary>

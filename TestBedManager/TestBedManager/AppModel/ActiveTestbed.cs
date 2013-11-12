@@ -39,6 +39,8 @@ namespace TestBedManager
 			}
 
 			new ConnectionMonitor(computer);
+
+			Master.table.RefreshItems();
 		}
 
 		// 1. Update the GUI table
@@ -62,6 +64,9 @@ namespace TestBedManager
 				computer.ipAddressStr,
 				computer.credentials.UserName,
 				computer.credentials.Password);
+
+
+			Master.table.RefreshItems();
 		}
 
 		// 1. Remove from the GUI table
@@ -70,6 +75,9 @@ namespace TestBedManager
 		{
 			Master.table.dataGrid.Items.Remove(computer);
 			Master.logManager.Remove(computer);
+
+
+			Master.table.RefreshItems();
 		}
 
 		public static bool IsEmpty()

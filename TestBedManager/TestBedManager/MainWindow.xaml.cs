@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -16,6 +17,8 @@ namespace TestBedManager
 			InitializeComponent();
 			SetUpStaticReferences();
 			ConnectionManager.Connect();
+			AppStats appStatus = new AppStats(StatusBarText);
+
 			ApplyUserSettings();
 		}
 
