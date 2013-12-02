@@ -263,10 +263,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\power.png" />
-    <Resource Include="Icons\batman.gif" />
     <Resource Include="Icons\account.png" />
-    <Resource Include="Icons\key.png" />
-    <Resource Include="Icons\lock.png" />
     <Resource Include="Icons\batman_small.png" />
     <Resource Include="Icons\bullet_black.png" />
     <Resource Include="Icons\bullet_green.png" />
@@ -280,8 +277,6 @@
     <Resource Include="Icons\list_multiple.png" />
     <Resource Include="Icons\monitor_add.png" />
     <Resource Include="Icons\monitor_delete.png" />
-    <Resource Include="Icons\refresh.png" />
-    <Resource Include="Icons\settings.png" />
     <Resource Include="Icons\terminal.png" />
     <Resource Include="Icons\remove2.png" />
     <Resource Include="Icons\font1.png" />

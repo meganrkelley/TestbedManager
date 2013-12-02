@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace TestBedManager
 {
 	public class RenameComputerTask : RemoteTask
@@ -24,6 +23,7 @@ namespace TestBedManager
 				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
+				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 
 			remoteComputer.Log("You must restart this machine for the change to take effect.");

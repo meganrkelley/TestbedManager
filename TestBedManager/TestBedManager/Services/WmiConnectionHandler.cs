@@ -30,6 +30,7 @@ namespace TestBedManager
 
 			ConnectionOptions connectionOptions;
 
+			// localhost case
 			if (computer.hostname.Equals("localhost", StringComparison.InvariantCultureIgnoreCase) ||
 				computer.ipAddressStr.Equals("127.0.0.1", StringComparison.InvariantCultureIgnoreCase)) {
 				connectionOptions = new ConnectionOptions {
@@ -49,6 +50,17 @@ namespace TestBedManager
 			}
 
 			return new ManagementScope(serverPath, connectionOptions);
+		}
+
+		public static void AttemptReconnect(ManagementScope scope, int numberOfTries = 3)
+		{
+			try {
+				for (int i = 0; i < numberOfTries; i++) {
+					scope.Connect();
+				}
+			} catch (Exception ex) {
+				System.Diagnostics.Trace.WriteLine(ex);
+			}
 		}
 	}
 }

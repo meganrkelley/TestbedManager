@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading;
 
-
 namespace TestBedManager
 {
 	public class CreateProcessTask : RemoteTask
@@ -24,7 +23,8 @@ namespace TestBedManager
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 
 					remoteComputer.ipAddressStr, ex));
-				remoteComputer.Log("Error: " + ex.Message);
+				remoteComputer.Log("There was a problem executing the task: " + ex.Message);
+				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 			ReadPrintDelete(outputFilePath, 60);
 		}
@@ -44,12 +44,12 @@ namespace TestBedManager
 			DeleteFile(filepath);
 		}
 
-		private bool WaitForFileUnlock(string filepath, int timeoutInSeconds) 
+		private bool WaitForFileExist(string filepath, int timeoutInSeconds)
 		{
 			DateTime start = DateTime.Now;
-			while (IsFileLocked(new FileInfo(filepath))) {
+			while (!File.Exists(filepath)) {
 				if (TimeoutExceeded(timeoutInSeconds, start)) {
-					remoteComputer.Log("File was not unlocked after " + timeoutInSeconds + " seconds.");
+					remoteComputer.Log("File was not created after " + timeoutInSeconds + " seconds.");
 					return false;
 				}
 				Thread.Sleep(1000);
@@ -57,12 +57,12 @@ namespace TestBedManager
 			return true;
 		}
 
-		private bool WaitForFileExist(string filepath, int timeoutInSeconds)
+		private bool WaitForFileUnlock(string filepath, int timeoutInSeconds)
 		{
 			DateTime start = DateTime.Now;
-			while (!File.Exists(filepath)) {
+			while (IsFileLocked(new FileInfo(filepath))) {
 				if (TimeoutExceeded(timeoutInSeconds, start)) {
-					remoteComputer.Log("File was not created after " + timeoutInSeconds + " seconds.");
+					remoteComputer.Log("File was not unlocked after " + timeoutInSeconds + " seconds.");
 					return false;
 				}
 				Thread.Sleep(1000);

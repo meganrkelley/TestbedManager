@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Management;
 
-
 namespace TestBedManager
 {
 	public class DriverQueryTask : RemoteTask
@@ -30,6 +29,7 @@ namespace TestBedManager
 				DebugLog.DebugLog.Log("Error when executing WMI query/method on " + 
 					remoteComputer.ipAddressStr + ": " + ex);
 				remoteComputer.Log("Error: " + ex.Message);
+				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 
 			remoteComputer.Log("End of " + deviceClass + " drivers." + Environment.NewLine);

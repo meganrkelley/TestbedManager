@@ -2,7 +2,6 @@
 using TestBedManager.Properties;
 using TestBedManagerDB;
 
-
 namespace TestBedManager
 {
 	public class TestbedEditor
@@ -54,6 +53,7 @@ namespace TestBedManager
 			DataTable table = testbedsTable.Find(name);
 			foreach (DataRow row in table.Rows) {
 				Load((int)row["ID"]);
+				return;
 			}
 			DebugLog.DebugLog.Log("Could not find a matching testbed ID in table Testbeds for name " + name);
 		}
@@ -70,6 +70,7 @@ namespace TestBedManager
 			DataTable table = testbedsTable.Find(name);
 			foreach (DataRow row in table.Rows) {
 				Delete((int)row["ID"]);
+				return;
 			}
 			DebugLog.DebugLog.Log("Could not find a matching testbed ID in table Testbeds for name " + name);
 		}

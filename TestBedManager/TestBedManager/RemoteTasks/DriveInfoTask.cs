@@ -29,6 +29,7 @@ namespace TestBedManager
 				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
+				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 		}
 	}

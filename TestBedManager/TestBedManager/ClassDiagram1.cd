@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="TestBedManager.App" Collapsed="true">
-    <Position X="9.5" Y="8.75" Width="1.5" />
+    <Position X="9.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App.xaml.cs</FileName>
@@ -45,7 +45,7 @@
   <Class Name="TestBedManager.LocalProcessExecutor" Collapsed="true">
     <Position X="4.75" Y="7.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DomainModel\LocalProcessExecutor.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -63,11 +63,11 @@
       <FileName>DomainModel\RemoteComputer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TestBedManager.RemoteConnectionInfo" Collapsed="true">
+  <Class Name="TestBedManager.ConnectionInfo" Collapsed="true">
     <Position X="7" Y="5.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AEQACAAAAAIAAIAAAAAAAAAAAAAAAAAABEAQAAAAAAA=</HashCode>
-      <FileName>DomainModel\RemoteConnectionInfo.cs</FileName>
+      <FileName>DomainModel\ConnectionInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TestBedManager.RemoteTask" Collapsed="true">
@@ -80,7 +80,7 @@
   <Class Name="TestBedManager.RemoteTaskManager" Collapsed="true">
     <Position X="5.25" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAADIAIAAQAAAAAAgAKgAIAIAAAAAAIAgAAAQAAQ=</HashCode>
+      <HashCode>AAAAAADIAIAAQCAAAAAgAKgAYAIAAAAAAIAgAAASAAQ=</HashCode>
       <FileName>RemoteTasks\RemoteTaskManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -93,9 +93,9 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="TestBedManager.WmiClass" Collapsed="true">
-    <Position X="7.25" Y="6.75" Width="1.5" />
+    <Position X="7.25" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACABgAAAAABAEAAgAAAIBAggEAAAgAAAABAAhEAEE=</HashCode>
+      <HashCode>AAACAAgAAAAABAEAAgAAAIBAAgEAAAgAAAABAEhAAEE=</HashCode>
       <FileName>DomainModel\WmiClass.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -123,7 +123,7 @@
   <Class Name="TestBedManager.Browser" Collapsed="true">
     <Position X="9.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gQAACBAAAAACAIAAQAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gQAACBAAAAACAIAARAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>GUI\Browser.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -169,17 +169,10 @@
       <FileName>GUI\TestbedTree.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TestBedManager.WmiErrorWindow" Collapsed="true">
-    <Position X="9.5" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GUI\WmiErrorWindow.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="TestBedManager.MainWindow" Collapsed="true">
     <Position X="9.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAKAAAADAAMCBgBAAAACCIgEBAQMCQQEJUEgIUARgEA=</HashCode>
+      <HashCode>EAKAAAADAAMCBgBAAAACCIgEBAwMCQQEJUEgIUYRgEA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -200,7 +193,7 @@
   <Class Name="TestBedManager.CreateProcessTask" Collapsed="true">
     <Position X="1" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAACAABAAAAAAACAAAAAAAAAAAAAAAAAEAAAAAAAI=</HashCode>
+      <HashCode>QAAAACAABAAAAAAACAAAAAAAABAAAAAAAAEAAAAgAAI=</HashCode>
       <FileName>RemoteTasks\CreateProcessTask.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -291,19 +284,19 @@
   <Class Name="TestBedManager.TestbedTable" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="0.75" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAQACAAAAAJgAAAAAAoAQAAAAIAEAAAQAAAAgAAEAAg=</HashCode>
+      <HashCode>EAQACAAAAAJgAAAAAAoAQAAACIAEAAAQAAAAgAAEAAg=</HashCode>
       <FileName>TestbedTable.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="TestBedManager.Properties.Resources" Collapsed="true">
-    <Position X="9.5" Y="9" Width="1.5" />
+    <Position X="9.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAAAwAAAAAABEAEIAQAAQAAEAAAAAgAAAJA=</HashCode>
+      <HashCode>AAAAIAAAAAAAwAAAAAABEAEIQQAAQAAEAAAAAgAAAJA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="TestBedManager.Properties.Settings" Collapsed="true">
-    <Position X="9.5" Y="9.25" Width="1.5" />
+    <Position X="9.5" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAgAAAAACAIAAACAABAAAAAAAAAAAAIAA=</HashCode>
     </TypeIdentifier>

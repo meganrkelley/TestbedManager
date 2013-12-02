@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using TestBedManagerDB;
 
-
 namespace TestBedManager
 {
 	/// <summary>
@@ -75,7 +74,6 @@ namespace TestBedManager
 		{
 			Master.table.dataGrid.Items.Remove(computer);
 			Master.logManager.Remove(computer);
-
 
 			Master.table.RefreshItems();
 		}

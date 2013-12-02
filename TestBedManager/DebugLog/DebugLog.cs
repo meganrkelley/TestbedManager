@@ -31,15 +31,22 @@ namespace DebugLog
 			Initialize();
 
 			Trace.WriteLine(text);
-			File.AppendAllText(logFilePath, text.ToString() + Environment.NewLine);
+			try {
+				File.AppendAllText(logFilePath, text.ToString() + Environment.NewLine);
+			} catch (Exception ex) {
+				Trace.WriteLine("Failed to append text to log file: " + ex.Message);
+			}
 		}
 
 		public static void ClearLogs()
 		{
 			Initialize();
-
-			Directory.Delete(Settings.Default.LogDir, true);
-			Directory.CreateDirectory(Settings.Default.LogDir);
+			try {
+				Directory.Delete(Settings.Default.LogDir, true);
+				Directory.CreateDirectory(Settings.Default.LogDir);
+			} catch (Exception ex) {
+				Trace.WriteLine("Failed to delete and recreate log directory: " + ex.Message);
+			}
 		}
 
 		public static void OpenLogsFolderInExplorer()

@@ -9,7 +9,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TestBedManager.Properties;
 
-
 namespace TestBedManager
 {
 	/// <summary>

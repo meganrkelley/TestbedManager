@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Management;
 
-
 namespace TestBedManager
 {
 	public class ScheduledJobsQueryTask : RemoteTask
@@ -17,6 +16,8 @@ namespace TestBedManager
 
 			remoteComputer.Log("Querying scheduled tasks...");
 
+			// Note that this class can only return jobs that are created using either a script or AT.exe. It cannot return
+			// information about jobs that are either created by or modified by the Scheduled Task wizard.
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
@@ -27,6 +28,7 @@ namespace TestBedManager
 				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
+				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 
 			remoteComputer.Log("End of scheduled tasks.");

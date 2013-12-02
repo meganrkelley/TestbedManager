@@ -19,6 +19,7 @@ namespace TestBedManager
 				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
+				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 		}
 
@@ -43,8 +44,8 @@ namespace TestBedManager
 		private void ActivatePlan(string powerPlanName)
 		{
 			ObjectQuery selectGivenPlanQuery = new ObjectQuery(
-						String.Format("select * from {0} where upper(ElementName)='{1}'",
-						WmiClass.PowerPlan, powerPlanName.ToUpper()));
+						String.Format("select * from {0} where ElementName='{1}'",
+						WmiClass.PowerPlan, powerPlanName));
 
 			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, selectGivenPlanQuery)) {
 				foreach (ManagementObject item in wmiObjectSearcher.Get()) {

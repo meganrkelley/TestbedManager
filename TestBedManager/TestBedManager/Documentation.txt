@@ -44,4 +44,7 @@ Each machine added requires:
 	Problem: Not getting output from shell commands
 	Solution: Make sure the user provided has permission to write to the \\machineName\C$ directory.
 
+	Problem: Scheduled tasks returns nothing, but I have tasks.
+	Solution: This function can only return jobs that are created using either a script or AT.exe. It cannot return information about jobs that are either created by or modified by the Scheduled Task wizard.
+
 	All other problems should be reported as bugs to the application developer: please attach the relevant log text files, which can be accessed from "HELP -> Open Logs Folder" and e-mail them to meganrkelley@gmail.com.

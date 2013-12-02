@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using TestBedManager.Properties;
 using TestBedManagerDB;
-
 // Delete logs after certain amount of time
 
 namespace TestBedManager
@@ -55,9 +54,8 @@ namespace TestBedManager
 		{
 			new TestBedManagerDB.GeneralUtils().ClearAllTables();
 			Master.table.ClearDataGrid();
+			Master.logManager.tabs.Items.Clear();
 		}
-
-		// Set Ping Interval
 
 		#endregion Settings
 
@@ -97,8 +95,7 @@ namespace TestBedManager
 
 		private void MenuItemSleep_Click(object sender, RoutedEventArgs e)
 		{
-			//TODO Sleep
-			MenuItemHibernate_Click(sender, e);
+			MenuItemHibernate_Click(sender, e); //TODO Sleep
 		}
 
 		private void MenuItemComputerProduct_Click(object sender, RoutedEventArgs e)
@@ -150,21 +147,6 @@ namespace TestBedManager
 			}
 		}
 
-		private void MenuItemRename_Click(object sender, RoutedEventArgs e)
-		{
-			new RenameComputerWindow();
-		}
-
-		private void MenuItemRun_Click(object sender, RoutedEventArgs e)
-		{
-			new RunCmdWindow();
-		}
-
-		private void MenuItemEventViewer_Click(object sender, RoutedEventArgs e)
-		{
-			new EventViewerWindow();
-		}
-
 		private void MenuItemRunningPrograms_Click(object sender, RoutedEventArgs e)
 		{
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
@@ -204,6 +186,22 @@ namespace TestBedManager
 				remoteTaskManager.QueryDriveInfo();
 			}
 		}
+
+		private void MenuItemRename_Click(object sender, RoutedEventArgs e)
+		{
+			new RenameComputerWindow();
+		}
+
+		private void MenuItemRun_Click(object sender, RoutedEventArgs e)
+		{
+			new RunCmdWindow();
+		}
+
+		private void MenuItemEventViewer_Click(object sender, RoutedEventArgs e)
+		{
+			new EventViewerWindow();
+		}
+
 
 		#endregion Remote commands
 

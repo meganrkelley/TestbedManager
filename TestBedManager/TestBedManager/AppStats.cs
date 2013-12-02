@@ -3,8 +3,6 @@ using System.Windows.Controls;
 using System.Diagnostics;
 using System.Threading;
 using System.Collections.Generic;
-using System.Management;
-using System;
 
 namespace TestBedManager
 {
