@@ -17,12 +17,9 @@ namespace TestBedManager
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
-						remoteComputer.Log(
-							"Volume: " + item["Caption"].ToString() + Environment.NewLine +
-							"Name: " + item["VolumeName"].ToString() + Environment.NewLine +
-							"File system: " + item["FileSystem"].ToString() + Environment.NewLine +
-							"Free space (GB): " + ((ulong)item["FreeSpace"] / 1073741824).ToString() + Environment.NewLine +
-							"Total size (GB): " + ((ulong)item["Size"] / 1073741824).ToString());
+						if (item == null) 
+							continue;
+						remoteComputer.Log(FormatString(item));
 					}
 				}
 			} catch (Exception ex) {
@@ -31,6 +28,25 @@ namespace TestBedManager
 				remoteComputer.Log("Error: " + ex.Message);
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
+		}
+
+		private string FormatString(ManagementBaseObject item)
+		{
+			string result = "";
+			
+			if (!string.IsNullOrEmpty(item["Caption"].ToString()))
+				result += "Volume: " + item["Caption"].ToString() + Environment.NewLine;
+			if (!string.IsNullOrEmpty(item["VolumeName"].ToString()))
+				result += "Name: " + item["VolumeName"].ToString() + Environment.NewLine;
+			if (!string.IsNullOrEmpty(item["FileSystem"].ToString()))
+				result += "File system: " + item["FileSystem"].ToString() + Environment.NewLine;
+			if (!string.IsNullOrEmpty(item["FreeSpace"].ToString()))
+				result += "Free space (GB): " + ((ulong)item["FreeSpace"] / 1073741824).ToString() + Environment.NewLine;
+			if (!string.IsNullOrEmpty(item["Size"].ToString()))
+				result += "Total size (GB): " + ((ulong)item["Size"] / 1073741824).ToString();
+
+			return result;
+
 		}
 	}
 }

@@ -40,7 +40,7 @@ namespace TestBedManager
 			List<object> userStateObj = (List<object>)e.UserState;
 			long memorySize = (long)userStateObj[0];
 
-			statusText.Text = "Memory usage: " + memorySize + " MB";//  |  CPU usage: " + cpuUsage + "%";
+			statusText.Text = "Total memory usage: " + memorySize + " MB";
 		}
 
 

@@ -15,11 +15,14 @@ namespace TestBedManager
 
 		public void OpenDocumentationFile()
 		{
+			string documentationFilepath = Path.Combine(Directory.GetCurrentDirectory(), "Documentation.txt");
 			Process proc = new Process();
-			proc.StartInfo.FileName = Path.Combine(
-				Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
-				"Documentation.txt");
-			proc.Start();
+			proc.StartInfo.FileName = documentationFilepath;
+			try {
+				proc.Start();
+			} catch (System.Exception ex) {
+				DebugLog.DebugLog.Log("Couldn't open the documentation file at " + documentationFilepath + ": " + ex.Message);
+			}
 		}
 	}
 }

@@ -15,6 +15,9 @@ namespace DebugLog
 			if (isInitialized)
 				return;
 
+			Settings.Default.LogDir = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
+			Settings.Default.Save();
+
 			if (!Directory.Exists(Settings.Default.LogDir)) {
 				Trace.WriteLine("Creating log files directory " + Settings.Default.LogDir + ".");
 				Directory.CreateDirectory(Settings.Default.LogDir);
@@ -41,6 +44,7 @@ namespace DebugLog
 		public static void ClearLogs()
 		{
 			Initialize();
+
 			try {
 				Directory.Delete(Settings.Default.LogDir, true);
 				Directory.CreateDirectory(Settings.Default.LogDir);
@@ -56,7 +60,11 @@ namespace DebugLog
 			Process proc = new Process();
 			proc.StartInfo.FileName = "explorer.exe";
 			proc.StartInfo.Arguments = Settings.Default.LogDir;
-			proc.Start();
+			try {
+				proc.Start();
+			} catch (Exception ex) {
+				Trace.WriteLine(ex);
+			}
 		}
 
 		private static void SetLogFileUri()

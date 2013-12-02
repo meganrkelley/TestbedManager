@@ -116,19 +116,6 @@ namespace TestBedManager
 		/// <param name="computer"></param>
 		public void Update(Testbed testbed)
 		{
-			//Console.WriteLine("TestbedTable.Update() called");
-			//dataGrid.Dispatcher.Invoke((Action)(() => {
-			//	foreach (var computer in items) {
-			//		if (!testbed.items.Contains(computer)) {
-			//			ActiveTestbed.Remove(computer);
-			//		}
-			//	}
-			//	foreach (var computer in testbed.items) {
-			//		if (!dataGrid.Items.Contains(computer)) {
-			//			ActiveTestbed.Add(computer);
-			//		}
-			//	}
-			//}));
 		}
 
 		#region Removing computers

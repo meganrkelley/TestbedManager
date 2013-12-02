@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlServerCe;
+using System.IO;
 using TestBedManagerDB.Properties;
 
 namespace TestBedManagerDB
@@ -11,6 +12,8 @@ namespace TestBedManagerDB
 
 		public static SqlCeConnection Connect()
 		{
+			AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(Directory.GetCurrentDirectory(), "Database"));
+
 			try {
 				if (connection != null && connection.State == ConnectionState.Open)
 					return connection;
