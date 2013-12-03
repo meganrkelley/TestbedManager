@@ -66,10 +66,10 @@ namespace TestBedManagerDB
 				+ password + "' where ID = " + ID;
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Computers.Update failed: " + ex);
 			} 
-			command.Dispose();
 		}
 
 		public int Insert(string hostname, string ipAddress, string username, string password)
@@ -79,10 +79,10 @@ namespace TestBedManagerDB
 				+ hostname + "', '" + ipAddress + "', '" + username + "', '" + password + "')";
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Computers.Insert failed: " + ex);
 			} 
-			command.Dispose();
 
 			DataTable findResults = Find(hostname);
 			if (findResults.Rows.Count == 0)
@@ -98,10 +98,10 @@ namespace TestBedManagerDB
 			command.CommandText = "delete from Computers where ID = " + ID;
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Computers.Delete failed: " + ex);
 			} 
-			command.Dispose();
 		}
 
 		// Both address and hostname must match
@@ -110,12 +110,12 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from Computers where Address = '" + address +
 				"' and Hostname = '" + hostname + "'";
+			command.Dispose();
 			try {
 				command.ExecuteNonQuery();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Computers.Delete failed: " + ex);
 			} 
-			command.Dispose();
 		}
 	}
 }

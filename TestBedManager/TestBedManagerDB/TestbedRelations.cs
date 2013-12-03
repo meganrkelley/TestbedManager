@@ -37,12 +37,12 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "update TestbedRelations set ComputerID = " + ComputerID +
 				", TestbedID = " + TestbedID + " where ID = " + ID;
+			command.Dispose();
 			try {
 				command.ExecuteNonQuery();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.Update failed: " + ex);
 			} 
-			command.Dispose();
 		}
 
 		public void Insert(int ComputerID, int TestbedID)
@@ -50,36 +50,36 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "insert into TestbedRelations (ComputerID, TestbedID) values ("
 				+ ComputerID + ",  " + TestbedID + ")";
+			command.Dispose();
 			try {
 				command.ExecuteNonQuery();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.Insert failed: " + ex);
 			} 
-			command.Dispose();
 		}
 
 		public void DeleteTestbed(int TestbedID)
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from TestbedRelations where TestbedID = " + TestbedID;
+			command.Dispose(); 
 			try {
 				command.ExecuteNonQuery();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.DeleteTestbed failed: " + ex);
 			} 
-			command.Dispose();
 		}
 
 		public void DeleteComputer(int ComputerID)
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from TestbedRelations where ComputerID = " + ComputerID;
+			command.Dispose();
 			try {
 				command.ExecuteNonQuery();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.DeleteComputer failed: " + ex);
 			} 
-			command.Dispose();
 		}
 
 		public void DeleteComputerFromTestbed(int ComputerID, int TestbedID)
@@ -87,12 +87,12 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from TestbedRelations where TestbedID = " + TestbedID +
 				" and ComputerID = " + ComputerID;
+			command.Dispose();
 			try {
 				command.ExecuteNonQuery();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.DeleteComputerFromTestbed failed: " + ex);
 			} 
-			command.Dispose();
 		}
 	}
 }

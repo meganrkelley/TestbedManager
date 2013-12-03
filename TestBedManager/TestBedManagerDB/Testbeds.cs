@@ -49,8 +49,12 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "update Testbeds set Title = '" + title + "' where ID = " +
 				ID;
-			command.ExecuteNonQuery();
-			command.Dispose();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Testbeds.Update failed: " + ex);
+				command.Dispose();
+			}
 		}
 
 		public int Insert(string title)
@@ -59,10 +63,10 @@ namespace TestBedManagerDB
 			command.CommandText = "insert into Testbeds (Title) values ('" + title + "')";
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Testbeds.Insert failed: " + ex);
-			} 
-			command.Dispose();
+			}
 
 			DataTable findResults = Find(title);
 			foreach (DataRow row in findResults.Rows) {
@@ -82,8 +86,8 @@ namespace TestBedManagerDB
 				command.ExecuteNonQuery();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Testbeds.Delete failed: " + ex);
+				command.Dispose();
 			} 
-			command.Dispose();
 		}
 
 		// alter table Testbeds alter column ID identity (0,1)
@@ -113,10 +117,10 @@ namespace TestBedManagerDB
 			command.CommandText = "alter table Testbeds alter column ID identity (0,1)";
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Testbeds.ResetIDSeed failed: " + ex);
 			} 
-			command.Dispose();
 		}
 	}
 }

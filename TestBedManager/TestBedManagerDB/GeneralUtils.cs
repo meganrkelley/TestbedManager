@@ -51,8 +51,11 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = string.Format("alter table {0} alter column {1} identity (0,1)", 
 				tableName, identityColumnName);
-			command.ExecuteNonQuery();
-			command.Dispose();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("GeneralUtils.ResetIdentitySeed failed: " + ex);
+			} 
 		}
 	}
 }
