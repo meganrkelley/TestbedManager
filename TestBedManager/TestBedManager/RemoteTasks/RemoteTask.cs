@@ -38,7 +38,7 @@ namespace TestBedManager
 
 			if (remoteComputer.credentials.UserName == "" ||
 				remoteComputer.credentials.Password == "") {
-					string msg = string.Format("Username or password was empty for {0}; cannot create connection.", remoteComputer.ipAddressStr);
+					string msg = string.Format("Username or password was empty for {0}.", remoteComputer.ipAddressStr);
 				DebugLog.DebugLog.Log(msg);
 				remoteComputer.Log(msg);
 			}

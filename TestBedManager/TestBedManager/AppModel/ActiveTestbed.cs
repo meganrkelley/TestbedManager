@@ -64,7 +64,6 @@ namespace TestBedManager
 				computer.credentials.UserName,
 				computer.credentials.Password);
 
-
 			Master.table.RefreshItems();
 		}
 

@@ -11,7 +11,11 @@ namespace TestBedManagerDB
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select * from Testbeds where ID = " + ID,
 				ConnectionManager.connection);
-			adapter.Fill(queryResultTable);
+			try {
+				adapter.Fill(queryResultTable);
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Testbeds.Find failed: " + ex);
+			}
 			return queryResultTable;
 		}
 
@@ -20,7 +24,11 @@ namespace TestBedManagerDB
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select * from Testbeds where Title = '"
 				+ title + "'", ConnectionManager.connection);
-			adapter.Fill(queryResultTable);
+			try {
+				adapter.Fill(queryResultTable);
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Testbeds.Find failed: " + ex);
+			}
 			return queryResultTable;
 		}
 
@@ -28,7 +36,11 @@ namespace TestBedManagerDB
 		{
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select * from Testbeds", ConnectionManager.connection);
-			adapter.Fill(queryResultTable);
+			try {
+				adapter.Fill(queryResultTable);
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Testbeds.SelectAll failed: " + ex);
+			}
 			return queryResultTable;
 		}
 
@@ -45,7 +57,11 @@ namespace TestBedManagerDB
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "insert into Testbeds (Title) values ('" + title + "')";
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Testbeds.Insert failed: " + ex);
+			} 
 			command.Dispose();
 
 			DataTable findResults = Find(title);
@@ -62,7 +78,11 @@ namespace TestBedManagerDB
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from Testbeds where ID = " + ID;
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Testbeds.Delete failed: " + ex);
+			} 
 			command.Dispose();
 		}
 
@@ -72,7 +92,11 @@ namespace TestBedManagerDB
 		{
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select max(ID) as maxID from Testbeds", ConnectionManager.connection);
-			adapter.Fill(queryResultTable);
+			try {
+				adapter.Fill(queryResultTable);
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Testbeds.GetNextID failed: " + ex);
+			}
 			foreach (DataRow row in queryResultTable.Rows) {
 				if (row["maxID"] is DBNull) {
 					ResetIDSeed();
@@ -87,7 +111,11 @@ namespace TestBedManagerDB
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "alter table Testbeds alter column ID identity (0,1)";
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Testbeds.ResetIDSeed failed: " + ex);
+			} 
 			command.Dispose();
 		}
 	}

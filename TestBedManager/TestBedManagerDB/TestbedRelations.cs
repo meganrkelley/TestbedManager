@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlServerCe;
 
 namespace TestBedManagerDB
@@ -10,7 +11,11 @@ namespace TestBedManagerDB
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select * from TestbedRelations where TestbedID = "
 				+ ID, ConnectionManager.connection);
-			adapter.Fill(queryResultTable);
+			try {
+				adapter.Fill(queryResultTable);
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("TestbedRelations.FindByTestbedID failed: " + ex);
+			}
 			return queryResultTable;
 		}
 
@@ -19,7 +24,11 @@ namespace TestBedManagerDB
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select * from TestbedRelations where ComputerID = "
 				+ ID, ConnectionManager.connection);
-			adapter.Fill(queryResultTable);
+			try {
+				adapter.Fill(queryResultTable);
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("TestbedRelations.FindByTestbedID failed: " + ex);
+			}
 			return queryResultTable;
 		}
 
@@ -28,7 +37,11 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "update TestbedRelations set ComputerID = " + ComputerID +
 				", TestbedID = " + TestbedID + " where ID = " + ID;
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("TestbedRelations.Update failed: " + ex);
+			} 
 			command.Dispose();
 		}
 
@@ -37,7 +50,11 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "insert into TestbedRelations (ComputerID, TestbedID) values ("
 				+ ComputerID + ",  " + TestbedID + ")";
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("TestbedRelations.Insert failed: " + ex);
+			} 
 			command.Dispose();
 		}
 
@@ -45,7 +62,11 @@ namespace TestBedManagerDB
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from TestbedRelations where TestbedID = " + TestbedID;
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("TestbedRelations.DeleteTestbed failed: " + ex);
+			} 
 			command.Dispose();
 		}
 
@@ -53,7 +74,11 @@ namespace TestBedManagerDB
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from TestbedRelations where ComputerID = " + ComputerID;
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("TestbedRelations.DeleteComputer failed: " + ex);
+			} 
 			command.Dispose();
 		}
 
@@ -62,7 +87,11 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from TestbedRelations where TestbedID = " + TestbedID +
 				" and ComputerID = " + ComputerID;
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("TestbedRelations.DeleteComputerFromTestbed failed: " + ex);
+			} 
 			command.Dispose();
 		}
 	}

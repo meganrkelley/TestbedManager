@@ -26,20 +26,25 @@ namespace TestBedManager
 				remoteComputer.Log("There was a problem executing the task: " + ex.Message);
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
-			ReadPrintDelete(outputFilePath, 60);
+
+			if (!command.Contains("shutdown"))
+				ReadPrintDelete(outputFilePath, 60);
 		}
 
 		private void ReadPrintDelete(string filepath, int timeoutInSeconds = 10, bool delete = true)
 		{
-			WaitForFileExist(filepath, timeoutInSeconds);
-			WaitForFileUnlock(filepath, timeoutInSeconds);
+			if (!WaitForFileExist(filepath, timeoutInSeconds)) 
+				return;
+			if (!WaitForFileUnlock(filepath, timeoutInSeconds))
+				return;
 
 			ReadFileAndPrint(filepath);
 
-			if (!delete) 
+			if (!delete)
 				return;
 
-			WaitForFileUnlock(filepath, timeoutInSeconds);
+			if (!WaitForFileUnlock(filepath, timeoutInSeconds))
+				return;
 
 			DeleteFile(filepath);
 		}
@@ -49,7 +54,8 @@ namespace TestBedManager
 			DateTime start = DateTime.Now;
 			while (!File.Exists(filepath)) {
 				if (TimeoutExceeded(timeoutInSeconds, start)) {
-					remoteComputer.Log("File was not created after " + timeoutInSeconds + " seconds.");
+					DebugLog.DebugLog.Log("File was not created after " + timeoutInSeconds + " seconds.");
+					remoteComputer.Log("There was a problem getting command output.");
 					return false;
 				}
 				Thread.Sleep(1000);
@@ -62,7 +68,8 @@ namespace TestBedManager
 			DateTime start = DateTime.Now;
 			while (IsFileLocked(new FileInfo(filepath))) {
 				if (TimeoutExceeded(timeoutInSeconds, start)) {
-					remoteComputer.Log("File was not unlocked after " + timeoutInSeconds + " seconds.");
+					DebugLog.DebugLog.Log("File " + filepath + " was not unlocked after " + timeoutInSeconds + " seconds.");
+					remoteComputer.Log("There was a problem getting command output.");
 					return false;
 				}
 				Thread.Sleep(1000);
@@ -82,8 +89,10 @@ namespace TestBedManager
 				remoteComputer.Log("End of output.");
 			} catch (Exception ex) {
 				if (ex is FileNotFoundException ||
-					ex is IOException)
-					remoteComputer.Log("Error when attempting to read file: " + ex.Message);
+					ex is IOException) {
+					DebugLog.DebugLog.Log("Error when attempting to read file: " + ex.Message);
+				}
+				remoteComputer.Log("There was a problem getting command output.");
 			}
 		}
 
@@ -94,7 +103,7 @@ namespace TestBedManager
 			} catch (Exception ex) {
 				if (ex is FileNotFoundException ||
 					ex is IOException)
-					remoteComputer.Log("Error when attempting to delete file: " + ex.Message);
+					DebugLog.DebugLog.Log("Error when attempting to delete file: " + ex.Message);
 			}
 		}
 

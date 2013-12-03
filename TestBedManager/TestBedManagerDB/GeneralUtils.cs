@@ -1,39 +1,49 @@
-﻿namespace TestBedManagerDB
+﻿using System;
+namespace TestBedManagerDB
 {
 	public class GeneralUtils
 	{
 		public void ClearAllTables()
 		{
-			var command = ConnectionManager.connection.CreateCommand();
+			try {
+				var command = ConnectionManager.connection.CreateCommand();
 
-			command.CommandText = "delete from Computers";
-			command.ExecuteNonQuery();
-			ResetIdentitySeed("Computers");
+				command.CommandText = "delete from Computers";
+				command.ExecuteNonQuery();
+				ResetIdentitySeed("Computers");
 
-			command.CommandText = "delete from Testbeds";
-			command.ExecuteNonQuery();
-			ResetIdentitySeed("Testbeds");
+				command.CommandText = "delete from Testbeds";
+				command.ExecuteNonQuery();
+				ResetIdentitySeed("Testbeds");
 
-			command.CommandText = "delete from TestbedRelations";
-			command.ExecuteNonQuery();
-			ResetIdentitySeed("TestbedRelations");
+				command.CommandText = "delete from TestbedRelations";
+				command.ExecuteNonQuery();
+				ResetIdentitySeed("TestbedRelations");
 
-			command.Dispose();
+				command.Dispose();
+
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("GeneralUtils.ClearAllTables failed: " + ex);
+			}
 
 			DebugLog.DebugLog.Log("All tables have been cleared and their identity seeds reset.");
 		}
 
 		public void DeleteComputerFromAllTables(int ID)
 		{
-			var command = ConnectionManager.connection.CreateCommand();
+			try {
+				var command = ConnectionManager.connection.CreateCommand();
 
-			command.CommandText = string.Format("delete from Computers where ID={0}", ID);
-			command.ExecuteNonQuery();
+				command.CommandText = string.Format("delete from Computers where ID={0}", ID);
+				command.ExecuteNonQuery();
 
-			command.CommandText = string.Format("delete from TestbedRelations where ComputerID={0}", ID);
-			command.ExecuteNonQuery();
+				command.CommandText = string.Format("delete from TestbedRelations where ComputerID={0}", ID);
+				command.ExecuteNonQuery();
 
-			command.Dispose();
+				command.Dispose();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("GeneralUtils.DeleteComputerFromAllTables failed: " + ex);
+			}
 		}
 
 		private void ResetIdentitySeed(string tableName, string identityColumnName = "ID")

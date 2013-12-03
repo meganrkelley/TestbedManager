@@ -17,7 +17,8 @@ namespace TestBedManager
 					computer.status = NetworkStatus.WmiConnected;
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log(ex);
-				computer.Log("There was a problem connecting to WMI. Error message: " + ex.Message);
+				computer.Log("There was a problem connecting to WMI. Error message: " + ex.Message + 
+					Environment.NewLine + "Will now attempt to reconnect.");
 				AttemptReconnect(scope);
 			}
 		}
@@ -60,7 +61,7 @@ namespace TestBedManager
 					scope.Connect();
 				}
 			} catch (Exception ex) {
-				System.Diagnostics.Trace.WriteLine(ex);
+				System.Diagnostics.Trace.WriteLine("Tried to reconnect to scope on server " + scope.Path.Server + ". Error: " + ex);
 			}
 		}
 	}

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlServerCe;
 using System.Net;
 
@@ -11,7 +12,11 @@ namespace TestBedManagerDB
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select * from Computers where ID = " + computerID,
 				ConnectionManager.connection);
-			adapter.Fill(queryResultTable);
+			try {
+				adapter.Fill(queryResultTable);
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Computers.Find failed: " + ex);
+			}
 			return queryResultTable;
 		}
 
@@ -20,7 +25,11 @@ namespace TestBedManagerDB
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select * from Computers where Address = '"
 				+ ipAddress.ToString() + "'", ConnectionManager.connection);
-			adapter.Fill(queryResultTable);
+			try {
+				adapter.Fill(queryResultTable);
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Computers.Find failed: " + ex);
+			}
 			return queryResultTable;
 		}
 
@@ -29,7 +38,11 @@ namespace TestBedManagerDB
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select * from Computers where Hostname = '"
 				+ hostname + "'", ConnectionManager.connection);
-			adapter.Fill(queryResultTable);
+			try {
+				adapter.Fill(queryResultTable);
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Computers.Find failed: " + ex);
+			}
 			return queryResultTable;
 		}
 
@@ -37,7 +50,11 @@ namespace TestBedManagerDB
 		{
 			DataTable queryResultTable = new DataTable();
 			var adapter = new SqlCeDataAdapter("select * from Computers", ConnectionManager.connection);
-			adapter.Fill(queryResultTable);
+			try {
+				adapter.Fill(queryResultTable);
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Computers.SelectAll failed: " + ex);
+			}
 			return queryResultTable;
 		}
 
@@ -47,7 +64,11 @@ namespace TestBedManagerDB
 			command.CommandText = "update Computers set Hostname = '" + hostname +
 				"', Address = '" + ipAddress + "', Username = '" + username + "', Password = '"
 				+ password + "' where ID = " + ID;
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Computers.Update failed: " + ex);
+			} 
 			command.Dispose();
 		}
 
@@ -56,7 +77,11 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "insert into Computers (Hostname, Address, Username, Password) values ('"
 				+ hostname + "', '" + ipAddress + "', '" + username + "', '" + password + "')";
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Computers.Insert failed: " + ex);
+			} 
 			command.Dispose();
 
 			DataTable findResults = Find(hostname);
@@ -71,7 +96,11 @@ namespace TestBedManagerDB
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from Computers where ID = " + ID;
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Computers.Delete failed: " + ex);
+			} 
 			command.Dispose();
 		}
 
@@ -81,7 +110,11 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from Computers where Address = '" + address +
 				"' and Hostname = '" + hostname + "'";
-			command.ExecuteNonQuery();
+			try {
+				command.ExecuteNonQuery();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Computers.Delete failed: " + ex);
+			} 
 			command.Dispose();
 		}
 	}
