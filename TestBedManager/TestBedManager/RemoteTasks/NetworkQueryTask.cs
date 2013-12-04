@@ -5,7 +5,8 @@ namespace TestBedManager
 {
 	public class NetworkQueryTask : RemoteTask
 	{
-		public NetworkQueryTask(RemoteComputer computer) : base(computer)
+		public NetworkQueryTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.NetworkConfig);
 		}
@@ -25,7 +26,7 @@ namespace TestBedManager
 					}
 				}
 			} catch (Exception ex) {
-				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 
+				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);

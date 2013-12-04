@@ -58,7 +58,7 @@ namespace TestBedManager
 			DebugLog.DebugLog.Log("Could not find a matching testbed ID in table Testbeds for name " + name);
 		}
 
-		// 1. Remove this testbed from the relations table 
+		// 1. Remove this testbed from the relations table
 		//		and the testbed table
 		public static void Delete(int id)
 		{

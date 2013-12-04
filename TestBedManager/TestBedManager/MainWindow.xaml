@@ -63,7 +63,7 @@
 					<MenuItem x:Name="MenuItemHibernate" Header="Hibernate" Click="MenuItemHibernate_Click" />
 					<MenuItem x:Name="MenuItemSleep" Header="Sleep" Click="MenuItemSleep_Click" />
 				</MenuItem>
-				<MenuItem x:Name="MenuItemEjectDrive" Header="Eject CD Drive" Click="MenuItemEjectDrive_Click" IsEnabled="False"/>
+				<MenuItem x:Name="MenuItemEjectDrive" Header="Eject CD Drive" Click="MenuItemEjectDrive_Click" IsEnabled="False" />
 				<MenuItem x:Name="MenuItemRename" Header="Rename Computer" Click="MenuItemRename_Click" />
 				<MenuItem x:Name="MenuItemPowerSettings" Header="Adjust Power Plan">
 					<MenuItem x:Name="MenuItemBalanced" Header="Balanced" Click="MenuItemPowerSettings_Click" />
@@ -83,9 +83,9 @@
 					<MenuItem x:Name="MenuItemDrivers_system" Header="System" Click="MenuItemDrivers_system_Click" />
 					<MenuItem x:Name="MenuItemDrivers_usb" Header="USB" Click="MenuItemDrivers_usb_Click" />
 				</MenuItem>
-				<MenuItem x:Name="MenuItemBios" Header="View BIOS Version" Click="MenuItemBios_Click"/>
-				<MenuItem x:Name="MenuItemBatteryInfo" Header="View Battery Status" Click="MenuItemBatteryInfo_Click"/>
-				<MenuItem x:Name="MenuItemDriveInfo" Header="View Disk Drive Info" Click="MenuItemDriveInfo_Click"/>
+				<MenuItem x:Name="MenuItemBios" Header="View BIOS Version" Click="MenuItemBios_Click" />
+				<MenuItem x:Name="MenuItemBatteryInfo" Header="View Battery Status" Click="MenuItemBatteryInfo_Click" />
+				<MenuItem x:Name="MenuItemDriveInfo" Header="View Disk Drive Info" Click="MenuItemDriveInfo_Click" />
 				<MenuItem x:Name="MenuItemEventViewer" Header="Query System Events" Click="MenuItemEventViewer_Click" />
 				<MenuItem x:Name="MenuItemLocalTime" Header="View System Time" Click="MenuItemLocalTime_Click" />
 				<MenuItem x:Name="MenuItemComputerSystem" Header="View OS and Architecture" Click="MenuItemComputerSystem_Click" />
@@ -96,9 +96,9 @@
 			</MenuItem>
 			<MenuItem x:Name="MenuItemOptions" Header="OPTIONS">
 				<MenuItem x:Name="MenuItemUseIpOverHostname" Header="Use IP Address" ToolTip="Check this if you have DNS issues. If unchecked, connections will use hostnames." IsCheckable="True" Click="MenuItemUseIpOverHostname_Click" />
-				<!--<MenuItem x:Name="MenuItemPingInterval" Header="Ping Interval..." ToolTip="Amount of time in seconds to wait between testing the remote connection(s)." IsEnabled="False"/>-->
-				<Separator/>
-				<MenuItem x:Name="MenuItemResetAllSettings" Header="Reset All Settings to Default" Click="MenuItemResetAllSettings_Click"/>
+				<!--<MenuItem x:Name="MenuItemPingInterval" Header="Ping Interval..." ToolTip="Amount of time in seconds to wait between testing the remote connection(s)." IsEnabled="False" />-->
+				<Separator />
+				<MenuItem x:Name="MenuItemResetAllSettings" Header="Reset All Settings to Default" Click="MenuItemResetAllSettings_Click" />
 				<MenuItem x:Name="MenuItemClearDatabase" Header="Delete All Saved Information" Click="MenuItemClearDatabase_Click">
 					<MenuItem.Icon>
 						<Image Width="16" Height="16" Source="Icons/remove2.png" />
@@ -115,24 +115,23 @@
 		</Menu>
 
 		<Grid x:Name="StackPanelComputerTable" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Grid.Row="1">
-			<local:TestbedTable x:Name="TestbedTable"/>
+			<local:TestbedTable x:Name="TestbedTable" />
 		</Grid>
 
 		<Grid x:Name="StackPanelOutputLog" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Grid.Row="1">
 			<TabControl x:Name="mainTabControl" />
 		</Grid>
 		<GridSplitter HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Grid.Column="0" Grid.Row="1" ResizeDirection="Columns" />
-		
+
 		<Grid Grid.ColumnSpan="2" Grid.Row="3">
 			<StatusBar x:Name="MainStatusBar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
 				<StatusBarItem HorizontalAlignment="Left">
 					<TextBlock x:Name="StatusBarMain" FontSize="8pt"></TextBlock>
 				</StatusBarItem>
 				<StatusBarItem HorizontalAlignment="Right">
-					<TextBlock x:Name="StatusBarText" FontSize="7pt">Memory usage: </TextBlock>
+					<TextBlock x:Name="StatusBarText" FontSize="7pt">Memory usage:</TextBlock>
 				</StatusBarItem>
 			</StatusBar>
 		</Grid>
-		
 	</Grid>
 </Window>

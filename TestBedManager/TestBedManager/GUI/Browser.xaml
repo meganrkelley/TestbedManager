@@ -23,8 +23,8 @@
 		<ListBox x:Name="masterList" Grid.Column="1" Grid.Row="1" Margin="10,20,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:DataContext="{d:DesignInstance {x:Type local:RemoteComputer}, CreateList=True}">
 			<ListBox.ContextMenu>
 				<ContextMenu>
-					<MenuItem x:Name="MenuItemDelete" Header="Delete" IsEnabled="False" Click="MenuItemDelete_Click"/>
-					<MenuItem x:Name="MenuItemMoveTo" Header="Move to Testbed..." IsEnabled="False" Click="MenuItemMoveTo_Click"/>
+					<MenuItem x:Name="MenuItemDelete" Header="Delete" IsEnabled="False" Click="MenuItemDelete_Click" />
+					<MenuItem x:Name="MenuItemMoveTo" Header="Move to Testbed..." IsEnabled="False" Click="MenuItemMoveTo_Click" />
 				</ContextMenu>
 			</ListBox.ContextMenu>
 		</ListBox>

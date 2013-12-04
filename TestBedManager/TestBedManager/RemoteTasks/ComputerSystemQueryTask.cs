@@ -5,7 +5,8 @@ namespace TestBedManager
 {
 	public class ComputerSystemQueryTask : RemoteTask
 	{
-		public ComputerSystemQueryTask(RemoteComputer computer) : base(computer)
+		public ComputerSystemQueryTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.ComputerSystem);
 		}
@@ -18,13 +19,13 @@ namespace TestBedManager
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
 						DateTime date = ManagementDateTimeConverter.ToDateTime((string)item["InstallDate"]);
-						remoteComputer.Log((string)item["Caption"] + " " + 
-							(string)item["OSArchitecture"] + 
+						remoteComputer.Log((string)item["Caption"] + " " +
+							(string)item["OSArchitecture"] +
 							" (Installed " + date + ")" + Environment.NewLine);
 					}
 				}
 			} catch (Exception ex) {
-				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 
+				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);

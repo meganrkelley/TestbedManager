@@ -21,7 +21,6 @@ namespace TestBedManager
 		{
 			DataTable allTestbeds = new Testbeds().SelectAll();
 			foreach (DataRow row_testbed in allTestbeds.Rows) {
-
 				// Loop through each testbed
 				Testbed testbed = new Testbed((int)row_testbed["ID"], (string)row_testbed["Title"]);
 
@@ -29,7 +28,6 @@ namespace TestBedManager
 				DataTable testbedRelations = new TestbedRelations().FindByTestbedID((int)row_testbed["ID"]);
 
 				foreach (DataRow row_relation in testbedRelations.Rows) {
-
 					// Get the computer information for this ID
 					DataTable table_computer = new Computers().Find((int)row_relation["ComputerID"]);
 
@@ -108,12 +106,10 @@ namespace TestBedManager
 
 		private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
 		{
-			
 		}
 
 		private void MenuItemMoveTo_Click(object sender, RoutedEventArgs e)
 		{
-
 		}
 	}
 }

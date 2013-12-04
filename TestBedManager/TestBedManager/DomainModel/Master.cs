@@ -5,11 +5,14 @@
 	/// </summary>
 	public class Master
 	{
-		private static Browser _browser; 
-		
+		private static Browser _browser;
+
 		public static MainWindow main { get; set; }
+
 		public static TestbedTable table { get; set; }
+
 		public static OutputLogManager logManager { get; set; }
+
 		public static Browser browser
 		{
 			// A window cannot be Shown again after it's been closed,

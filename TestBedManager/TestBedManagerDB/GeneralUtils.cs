@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.SqlServerCe;
+
 namespace TestBedManagerDB
 {
 	public class GeneralUtils
@@ -7,26 +9,22 @@ namespace TestBedManagerDB
 		{
 			try {
 				var command = ConnectionManager.connection.CreateCommand();
-
-				command.CommandText = "delete from Computers";
-				command.ExecuteNonQuery();
-				ResetIdentitySeed("Computers");
-
-				command.CommandText = "delete from Testbeds";
-				command.ExecuteNonQuery();
-				ResetIdentitySeed("Testbeds");
-
-				command.CommandText = "delete from TestbedRelations";
-				command.ExecuteNonQuery();
-				ResetIdentitySeed("TestbedRelations");
-
+				ExecuteCommandAndReset(command, "Computers");
+				ExecuteCommandAndReset(command, "Testbeds");
+				ExecuteCommandAndReset(command, "TestbedRelations");
 				command.Dispose();
-
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("GeneralUtils.ClearAllTables failed: " + ex);
 			}
 
 			DebugLog.DebugLog.Log("All tables have been cleared and their identity seeds reset.");
+		}
+
+		private void ExecuteCommandAndReset(SqlCeCommand command, string tableName)
+		{
+			command.CommandText = "delete from " + tableName;
+			command.ExecuteNonQuery();
+			ResetIdentitySeed(tableName);
 		}
 
 		public void DeleteComputerFromAllTables(int ID)
@@ -49,14 +47,14 @@ namespace TestBedManagerDB
 		private void ResetIdentitySeed(string tableName, string identityColumnName = "ID")
 		{
 			var command = ConnectionManager.connection.CreateCommand();
-			command.CommandText = string.Format("alter table {0} alter column {1} identity (0,1)", 
+			command.CommandText = string.Format("alter table {0} alter column {1} identity (0,1)",
 				tableName, identityColumnName);
 			try {
 				command.ExecuteNonQuery();
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("GeneralUtils.ResetIdentitySeed failed: " + ex);
-			} 
+			}
 		}
 	}
 }

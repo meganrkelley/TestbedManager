@@ -69,7 +69,7 @@ namespace TestBedManagerDB
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Computers.Update failed: " + ex);
-			} 
+			}
 		}
 
 		public int Insert(string hostname, string ipAddress, string username, string password)
@@ -82,7 +82,7 @@ namespace TestBedManagerDB
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Computers.Insert failed: " + ex);
-			} 
+			}
 
 			DataTable findResults = Find(hostname);
 			if (findResults.Rows.Count == 0)
@@ -101,7 +101,7 @@ namespace TestBedManagerDB
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Computers.Delete failed: " + ex);
-			} 
+			}
 		}
 
 		// Both address and hostname must match
@@ -115,7 +115,7 @@ namespace TestBedManagerDB
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Computers.Delete failed: " + ex);
-			} 
+			}
 		}
 	}
 }

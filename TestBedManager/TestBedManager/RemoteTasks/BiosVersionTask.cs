@@ -5,7 +5,8 @@ namespace TestBedManager
 {
 	public class BiosVersionTask : RemoteTask
 	{
-		public BiosVersionTask(RemoteComputer computer) : base(computer)
+		public BiosVersionTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.BIOS);
 		}

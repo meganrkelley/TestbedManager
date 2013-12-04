@@ -1,7 +1,8 @@
-﻿using System;
+﻿using DebugLog.Properties;
+using System;
 using System.Diagnostics;
 using System.IO;
-using DebugLog.Properties;
+using System.Windows.Forms;
 
 namespace DebugLog
 {
@@ -49,6 +50,9 @@ namespace DebugLog
 				Directory.Delete(Settings.Default.LogDir, true);
 				Directory.CreateDirectory(Settings.Default.LogDir);
 			} catch (Exception ex) {
+				if (ex is IOException)
+					MessageBox.Show("The logs directory is in use. Please check if " +
+						Settings.Default.LogDir + " is open.");
 				Trace.WriteLine("Failed to delete and recreate log directory: " + ex.Message);
 			}
 		}

@@ -36,7 +36,7 @@ namespace TestBedManager
 					computer.credentials.UserName,
 					computer.credentials.Password);
 
-				DebugLog.DebugLog.Log("Added new computer (" + computer.ID + ", " + 
+				DebugLog.DebugLog.Log("Added new computer (" + computer.ID + ", " +
 					computer.hostname + ", " + computer.ipAddressStr + ") to the database.");
 			}
 

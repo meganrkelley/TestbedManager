@@ -5,7 +5,8 @@ namespace TestBedManager
 {
 	public class DriveInfoTask : RemoteTask
 	{
-		public DriveInfoTask(RemoteComputer computer) : base(computer)
+		public DriveInfoTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.Disk);
 		}
@@ -17,7 +18,7 @@ namespace TestBedManager
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
-						if (item == null) 
+						if (item == null)
 							continue;
 						remoteComputer.Log(FormatString(item));
 					}
@@ -34,7 +35,7 @@ namespace TestBedManager
 		private string FormatString(ManagementBaseObject item)
 		{
 			string result = "";
-			
+
 			if (!string.IsNullOrEmpty(item["Caption"].ToString()))
 				result += "Volume: " + item["Caption"].ToString() + Environment.NewLine;
 			if (!string.IsNullOrEmpty(item["VolumeName"].ToString()))
@@ -47,7 +48,6 @@ namespace TestBedManager
 				result += "Total size (GB): " + ((ulong)item["Size"] / 1073741824).ToString() + Environment.NewLine;
 
 			return result;
-
 		}
 	}
 }

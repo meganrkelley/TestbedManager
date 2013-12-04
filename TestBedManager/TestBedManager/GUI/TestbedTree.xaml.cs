@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
 
-
 namespace TestBedManager
 {
 	public partial class TestbedTree : UserControl

@@ -5,7 +5,8 @@ namespace TestBedManager
 {
 	public class RunningProcessesQueryTask : RemoteTask
 	{
-		public RunningProcessesQueryTask(RemoteComputer computer) : base(computer)
+		public RunningProcessesQueryTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.Process);
 		}

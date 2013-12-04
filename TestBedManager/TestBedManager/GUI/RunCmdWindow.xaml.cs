@@ -17,7 +17,7 @@ namespace TestBedManager
 				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
 				remoteTaskManager.CreateProcess(TextBoxCommand.Text);
 			}
-		//	Close();
+			//	Close();
 		}
 
 		private void TextBoxCommand_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)

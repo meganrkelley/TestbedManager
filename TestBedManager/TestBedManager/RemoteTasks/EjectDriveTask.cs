@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
-
-namespace TestBedManager
+﻿namespace TestBedManager
 {
-	class EjectDriveTask : RemoteTask
+	internal class EjectDriveTask : RemoteTask
 	{
-		public EjectDriveTask(RemoteComputer computer) : base(computer)
+		public EjectDriveTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.Process);
 		}
@@ -13,7 +11,7 @@ namespace TestBedManager
 		public override void Run()
 		{
 			// copy ejectCD.bat over and run it
-			//string path = Path.Combine(@"\\" + remoteComputer.connectionInfo.hostname, 
+			//string path = Path.Combine(@"\\" + remoteComputer.connectionInfo.hostname,
 			//	Directory.GetCurrentDirectory(), "ejectCD.bat");
 
 			//try {
@@ -26,7 +24,7 @@ namespace TestBedManager
 			//	CreateProcessTask createProc = new CreateProcessTask(remoteComputer);
 			//	createProc.Run(path);
 			//} catch (Exception ex) {
-			//	DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 
+			//	DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
 			//		remoteComputer.ipAddressStr, ex));
 			//	remoteComputer.Log("Error: " + ex.Message);
 			//	WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);

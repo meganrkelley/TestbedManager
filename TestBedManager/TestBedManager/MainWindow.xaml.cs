@@ -1,11 +1,8 @@
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using TestBedManager.Properties;
 using TestBedManagerDB;
-// Delete logs after certain amount of time
 
 namespace TestBedManager
 {
@@ -17,7 +14,6 @@ namespace TestBedManager
 			SetUpStaticReferences();
 			ConnectionManager.Connect();
 			AppStats appStatus = new AppStats(StatusBarText);
-
 			ApplyUserSettings();
 		}
 
@@ -202,73 +198,56 @@ namespace TestBedManager
 			new EventViewerWindow();
 		}
 
-
 		#endregion Remote commands
 
 		#region Driver Classes
 
-		private void MenuItemDrivers_amppal_Click(object sender, RoutedEventArgs e)
+		private void QueryDrivers(string driver)
 		{
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
-				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.QueryDrivers("amppal");
+				RemoteTaskManager taskManager = new RemoteTaskManager(computer);
+				taskManager.QueryDrivers(driver);
 			}
+		}
+
+		private void MenuItemDrivers_amppal_Click(object sender, RoutedEventArgs e)
+		{
+			QueryDrivers("amppal");
 		}
 
 		private void MenuItemDrivers_bluetooth_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (RemoteComputer computer in Master.table.selectedItems) {
-				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.QueryDrivers("bluetooth");
-			}
+			QueryDrivers("bluetooth");
 		}
 
 		private void MenuItemDrivers_display_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (RemoteComputer computer in Master.table.selectedItems) {
-				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.QueryDrivers("display");
-			}
+			QueryDrivers("display");
 		}
 
 		private void MenuItemDrivers_media_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (RemoteComputer computer in Master.table.selectedItems) {
-				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.QueryDrivers("media");
-			}
+			QueryDrivers("media");
 		}
 
 		private void MenuItemDrivers_net_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (RemoteComputer computer in Master.table.selectedItems) {
-				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.QueryDrivers("net");
-			}
+			QueryDrivers("net");
 		}
 
 		private void MenuItemDrivers_processor_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (RemoteComputer computer in Master.table.selectedItems) {
-				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.QueryDrivers("processor");
-			}
+			QueryDrivers("processor");
 		}
 
 		private void MenuItemDrivers_system_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (RemoteComputer computer in Master.table.selectedItems) {
-				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.QueryDrivers("system");
-			}
+			QueryDrivers("system");
 		}
 
 		private void MenuItemDrivers_usb_Click(object sender, RoutedEventArgs e)
 		{
-			foreach (RemoteComputer computer in Master.table.selectedItems) {
-				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
-				remoteTaskManager.QueryDrivers("usb");
-			}
+			QueryDrivers("usb");
 		}
 
 		#endregion Driver Classes
@@ -344,6 +323,5 @@ namespace TestBedManager
 				StatusBarMain.Text = newText;
 			}));
 		}
-		
 	}
 }

@@ -4,7 +4,8 @@ namespace TestBedManager
 {
 	public class RenameComputerTask : RemoteTask
 	{
-		public RenameComputerTask(RemoteComputer computer) : base(computer)
+		public RenameComputerTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.ComputerSystem);
 		}

@@ -61,13 +61,13 @@ namespace TestBedManager
 		private void TestbedTableDataGrid_Loaded(object sender, RoutedEventArgs e)
 		{
 			// Don't try to populate the list in design mode.
-			if (DesignerProperties.GetIsInDesignMode(this)) 
+			if (DesignerProperties.GetIsInDesignMode(this))
 				return;
 
 			if (Settings.Default.MostRecentList < 0 ||
 				new Testbeds().NumberOfTestbeds() == 0)
 				AddAllComputersTo();
-			else 
+			else
 				AddMostRecentListTo();
 		}
 

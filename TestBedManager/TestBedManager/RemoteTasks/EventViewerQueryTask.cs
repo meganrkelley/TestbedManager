@@ -5,7 +5,8 @@ namespace TestBedManager
 {
 	public class EventViewerQueryTask : RemoteTask
 	{
-		public EventViewerQueryTask(RemoteComputer computer) : base(computer)
+		public EventViewerQueryTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.EventViewer);
 		}
@@ -19,14 +20,13 @@ namespace TestBedManager
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
-
 						DateTime date = ManagementDateTimeConverter.ToDateTime(
 							item["TimeGenerated"].ToString());
 
 						remoteComputer.Log(
 							"Event ID: " + (UInt16)item["EventCode"] + Environment.NewLine +
 							"Time Generated: " + date + Environment.NewLine +
-							"Message: " + (string)item["Message"] + Environment.NewLine, 
+							"Message: " + (string)item["Message"] + Environment.NewLine,
 							false);
 					}
 				}

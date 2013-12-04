@@ -6,7 +6,8 @@ namespace TestBedManager
 {
 	public class CreateProcessTask : RemoteTask
 	{
-		public CreateProcessTask(RemoteComputer computer) : base(computer)
+		public CreateProcessTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.Process);
 		}
@@ -21,7 +22,7 @@ namespace TestBedManager
 				inParams["CommandLine"] = fullCommand;
 				mgmtClass.InvokeMethod("Create", inParams, null);
 			} catch (Exception ex) {
-				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 
+				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("There was a problem executing the task: " + ex.Message);
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
@@ -33,7 +34,7 @@ namespace TestBedManager
 
 		private void ReadPrintDelete(string filepath, int timeoutInSeconds = 10, bool delete = true)
 		{
-			if (!WaitForFileExist(filepath, timeoutInSeconds)) 
+			if (!WaitForFileExist(filepath, timeoutInSeconds))
 				return;
 			if (!WaitForFileUnlock(filepath, timeoutInSeconds))
 				return;

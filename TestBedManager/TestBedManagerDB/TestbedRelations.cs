@@ -42,7 +42,7 @@ namespace TestBedManagerDB
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.Update failed: " + ex);
-			} 
+			}
 		}
 
 		public void Insert(int ComputerID, int TestbedID)
@@ -55,7 +55,7 @@ namespace TestBedManagerDB
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.Insert failed: " + ex);
-			} 
+			}
 		}
 
 		public void DeleteTestbed(int TestbedID)
@@ -64,10 +64,10 @@ namespace TestBedManagerDB
 			command.CommandText = "delete from TestbedRelations where TestbedID = " + TestbedID;
 			try {
 				command.ExecuteNonQuery();
-				command.Dispose(); 
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.DeleteTestbed failed: " + ex);
-			} 
+			}
 		}
 
 		public void DeleteComputer(int ComputerID)
@@ -79,7 +79,7 @@ namespace TestBedManagerDB
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.DeleteComputer failed: " + ex);
-			} 
+			}
 		}
 
 		public void DeleteComputerFromTestbed(int ComputerID, int TestbedID)
@@ -92,7 +92,7 @@ namespace TestBedManagerDB
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.DeleteComputerFromTestbed failed: " + ex);
-			} 
+			}
 		}
 	}
 }

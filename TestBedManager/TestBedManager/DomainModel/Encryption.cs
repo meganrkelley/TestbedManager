@@ -23,7 +23,7 @@ namespace TestBedManager
 					cs.Write(inBlock, 0, inBlock.Length);
 				}
 			} catch (Exception ex) {
-				DebugLog.DebugLog.Log(ex);
+				DebugLog.DebugLog.Log("Encryption error: " + ex);
 			}
 
 			return ByteArrayToString(ms.ToArray());
@@ -41,7 +41,7 @@ namespace TestBedManager
 					cs.Write(bytes, 0, bytes.Length);
 				}
 			} catch (Exception ex) {
-				DebugLog.DebugLog.Log(ex);
+				DebugLog.DebugLog.Log("Decryption error: " + ex);
 			}
 
 			return ByteArrayToString(ms.ToArray());

@@ -26,19 +26,27 @@ namespace TestBedManager
 			remoteComputer = computer;
 		}
 
-		public virtual void Run() { }
-		public virtual void Run(string parameter) { }
-		public virtual void Run(string[] parameters) { }
+		public virtual void Run()
+		{
+		}
+
+		public virtual void Run(string parameter)
+		{
+		}
+
+		public virtual void Run(string[] parameters)
+		{
+		}
 
 		protected void SetUpWmiConnection(string wmiClass)
 		{
-			if (remoteComputer.credentials == null || 
+			if (remoteComputer.credentials == null ||
 				remoteComputer.hostname == null)
 				return;
 
 			if (remoteComputer.credentials.UserName == "" ||
 				remoteComputer.credentials.Password == "") {
-					string msg = string.Format("Username or password was empty for {0}.", remoteComputer.ipAddressStr);
+				string msg = string.Format("Username or password was empty for {0}.", remoteComputer.ipAddressStr);
 				DebugLog.DebugLog.Log(msg);
 				remoteComputer.Log(msg);
 			}

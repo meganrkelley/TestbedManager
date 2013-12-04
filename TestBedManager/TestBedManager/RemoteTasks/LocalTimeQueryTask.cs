@@ -5,7 +5,8 @@ namespace TestBedManager
 {
 	public class LocalTimeQueryTask : RemoteTask
 	{
-		public LocalTimeQueryTask(RemoteComputer computer) : base(computer)
+		public LocalTimeQueryTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.LocalTime);
 		}
@@ -20,7 +21,7 @@ namespace TestBedManager
 						remoteComputer.Log(FormatDateTime(wmiObjectSearcher, query) + Environment.NewLine);
 				}
 			} catch (Exception ex) {
-				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 
+				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
@@ -31,11 +32,11 @@ namespace TestBedManager
 		{
 			using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 				foreach (var item in wmiObjectSearcher.Get()) {
-					return (uint)item["Month"] + "/" + 
-						(uint)item["Day"] + "/" + 
-						(uint)item["Year"] + " " + 
-						Pad((uint)item["Hour"]) + ":" + 
-						Pad((uint)item["Minute"]) + ":" + 
+					return (uint)item["Month"] + "/" +
+						(uint)item["Day"] + "/" +
+						(uint)item["Year"] + " " +
+						Pad((uint)item["Hour"]) + ":" +
+						Pad((uint)item["Minute"]) + ":" +
 						Pad((uint)item["Second"]);
 				}
 			}

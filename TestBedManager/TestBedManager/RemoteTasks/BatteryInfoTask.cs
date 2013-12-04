@@ -5,7 +5,8 @@ namespace TestBedManager
 {
 	public class BatteryInfoTask : RemoteTask
 	{
-		public BatteryInfoTask(RemoteComputer computer) : base(computer)
+		public BatteryInfoTask(RemoteComputer computer)
+			: base(computer)
 		{
 			SetUpWmiConnection(WmiClass.Battery);
 		}
@@ -17,8 +18,8 @@ namespace TestBedManager
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
-						remoteComputer.Log("Battery: " + 
-							((UInt16)item["EstimatedChargeRemaining"]).ToString() + 
+						remoteComputer.Log("Battery: " +
+							((UInt16)item["EstimatedChargeRemaining"]).ToString() +
 							"% remaining. Status: " + item["Status"].ToString() + Environment.NewLine);
 					}
 				}

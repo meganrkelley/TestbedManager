@@ -87,7 +87,7 @@ namespace TestBedManagerDB
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Testbeds.Delete failed: " + ex);
-			} 
+			}
 		}
 
 		// alter table Testbeds alter column ID identity (0,1)
@@ -120,7 +120,7 @@ namespace TestBedManagerDB
 				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Testbeds.ResetIDSeed failed: " + ex);
-			} 
+			}
 		}
 
 		public int NumberOfTestbeds()

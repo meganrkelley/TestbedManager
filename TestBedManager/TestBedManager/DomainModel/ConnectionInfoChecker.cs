@@ -16,8 +16,8 @@ namespace TestBedManager
 			if (string.IsNullOrEmpty(hostnameOrIp.Trim()) ||
 				string.IsNullOrEmpty(username.Trim()) ||
 				string.IsNullOrEmpty(password.Trim())) {
-					Master.main.ChangeStatusBarText("Username and password are required.");
-					return null;
+				Master.main.ChangeStatusBarText("Username and password are required.");
+				return null;
 			}
 
 			RemoteComputer computer = new RemoteComputer(hostnameOrIp, IPAddress.None, username, password);

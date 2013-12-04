@@ -1,15 +1,15 @@
-﻿using System.ComponentModel;
-using System.Windows.Controls;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
-using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace TestBedManager
 {
-	class AppStats
+	internal class AppStats
 	{
-		BackgroundWorker worker = new BackgroundWorker();
-		TextBlock statusText;
+		private BackgroundWorker worker = new BackgroundWorker();
+		private TextBlock statusText;
 
 		public AppStats(TextBlock statusTextObj)
 		{
@@ -22,7 +22,7 @@ namespace TestBedManager
 			worker.RunWorkerAsync();
 		}
 
-		void worker_DoWork(object sender, DoWorkEventArgs e)
+		private void worker_DoWork(object sender, DoWorkEventArgs e)
 		{
 			while (true) {
 				List<object> userStateObj = new List<object>(2);
@@ -34,14 +34,12 @@ namespace TestBedManager
 			}
 		}
 
-		void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+		private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
 			List<object> userStateObj = (List<object>)e.UserState;
 			long memorySize = (long)userStateObj[0];
 
 			statusText.Text = "Memory usage: " + memorySize + " MB";
 		}
-
-
 	}
 }
