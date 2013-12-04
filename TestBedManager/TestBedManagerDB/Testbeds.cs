@@ -51,9 +51,9 @@ namespace TestBedManagerDB
 				ID;
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Testbeds.Update failed: " + ex);
-				command.Dispose();
 			}
 		}
 
@@ -84,9 +84,9 @@ namespace TestBedManagerDB
 			command.CommandText = "delete from Testbeds where ID = " + ID;
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Testbeds.Delete failed: " + ex);
-				command.Dispose();
 			} 
 		}
 

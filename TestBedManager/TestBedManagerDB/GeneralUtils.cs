@@ -53,6 +53,7 @@ namespace TestBedManagerDB
 				tableName, identityColumnName);
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("GeneralUtils.ResetIdentitySeed failed: " + ex);
 			} 

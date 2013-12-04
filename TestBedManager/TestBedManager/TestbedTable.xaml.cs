@@ -94,11 +94,19 @@ namespace TestBedManager
 				ActiveTestbed.Add(new RemoteComputer(row));
 		}
 
-		public bool TableContains(string hostname)
+		public bool TableContainsHostname(string hostname)
 		{
 			foreach (RemoteComputer item in dataGrid.Items)
 				if (item.hostname.Equals(
 					hostname, StringComparison.InvariantCultureIgnoreCase))
+					return true;
+			return false;
+		}
+
+		public bool TableContainsIp(System.Net.IPAddress ip)
+		{
+			foreach (RemoteComputer item in dataGrid.Items)
+				if (item.ipAddress.Equals(ip))
 					return true;
 			return false;
 		}
@@ -137,7 +145,7 @@ namespace TestBedManager
 			dataGrid.Items.Clear();
 		}
 
-		private void MenuItemRemoveFromDb_Click(object sender, RoutedEventArgs e)
+		public void MenuItemRemoveFromDb_Click(object sender, RoutedEventArgs e)
 		{
 			foreach (RemoteComputer computer in selectedItems) {
 				ActiveTestbed.Remove(computer);

@@ -13,8 +13,12 @@ namespace TestBedManager
 		/// <returns>Null if the input was invalid.</returns>
 		public RemoteComputer GetValidRemoteComputer(string hostnameOrIp, string username, string password)
 		{
-			if (string.IsNullOrEmpty(hostnameOrIp.Trim()))
-				return null;
+			if (string.IsNullOrEmpty(hostnameOrIp.Trim()) ||
+				string.IsNullOrEmpty(username.Trim()) ||
+				string.IsNullOrEmpty(password.Trim())) {
+					Master.main.ChangeStatusBarText("Username and password are required.");
+					return null;
+			}
 
 			RemoteComputer computer = new RemoteComputer(hostnameOrIp, IPAddress.None, username, password);
 
@@ -23,8 +27,7 @@ namespace TestBedManager
 			else
 				computer.ipAddress = IPAddress.Parse(hostnameOrIp);
 
-			NetUtils netUtils = new NetUtils();
-			netUtils.GetHostEntryAsync(computer);
+			new NetUtils().GetHostEntryAsync(computer);
 
 			return computer;
 		}

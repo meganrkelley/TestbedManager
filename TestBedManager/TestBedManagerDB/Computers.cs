@@ -110,9 +110,9 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from Computers where Address = '" + address +
 				"' and Hostname = '" + hostname + "'";
-			command.Dispose();
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("Computers.Delete failed: " + ex);
 			} 

@@ -6,7 +6,7 @@
 		<StackPanel Orientation="Vertical" Margin="10">
 			<Label Content="Hostname or IP Address" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="1,1,5,1" Margin="0,5,0,0" />
 			<TextBox x:Name="TextBoxHostnameIp" TextWrapping="Wrap" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" Margin="0,5,14,0" Padding="2" MaxLength="255" MaxLines="1" />
-			<Label Content="Username" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="1,1,5,1" Margin="0,5,0,0" />
+			<Label Content="Username" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="1,1,5,1" Margin="0,5,0,0" ToolTip="Member of Administrators group" />
 			<TextBox x:Name="TextBoxUsername" TextWrapping="Wrap" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" Margin="0,5,14,0" Padding="2" MaxLength="255" MaxLines="1" />
 			<Label Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="1,1,5,1" Margin="0,5,0,0" />
 			<PasswordBox x:Name="PasswordBoxPassword" VerticalAlignment="Top" Margin="0,5,14,0" Padding="2" MaxLength="255" />

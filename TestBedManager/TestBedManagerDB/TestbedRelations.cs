@@ -37,9 +37,9 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "update TestbedRelations set ComputerID = " + ComputerID +
 				", TestbedID = " + TestbedID + " where ID = " + ID;
-			command.Dispose();
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.Update failed: " + ex);
 			} 
@@ -50,9 +50,9 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "insert into TestbedRelations (ComputerID, TestbedID) values ("
 				+ ComputerID + ",  " + TestbedID + ")";
-			command.Dispose();
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.Insert failed: " + ex);
 			} 
@@ -62,9 +62,9 @@ namespace TestBedManagerDB
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from TestbedRelations where TestbedID = " + TestbedID;
-			command.Dispose(); 
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose(); 
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.DeleteTestbed failed: " + ex);
 			} 
@@ -74,9 +74,9 @@ namespace TestBedManagerDB
 		{
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from TestbedRelations where ComputerID = " + ComputerID;
-			command.Dispose();
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.DeleteComputer failed: " + ex);
 			} 
@@ -87,9 +87,9 @@ namespace TestBedManagerDB
 			var command = ConnectionManager.connection.CreateCommand();
 			command.CommandText = "delete from TestbedRelations where TestbedID = " + TestbedID +
 				" and ComputerID = " + ComputerID;
-			command.Dispose();
 			try {
 				command.ExecuteNonQuery();
+				command.Dispose();
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log("TestbedRelations.DeleteComputerFromTestbed failed: " + ex);
 			} 

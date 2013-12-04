@@ -105,5 +105,15 @@ namespace TestBedManager
 		}
 
 		#endregion Expand/Collapse/Enter key
+
+		private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
+		private void MenuItemMoveTo_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }

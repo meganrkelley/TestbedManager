@@ -13,8 +13,10 @@ namespace TestBedManager
 			var computer = collection[1] as RemoteComputer;
 			try {
 				scope.Connect();
-				if (scope.IsConnected)
+				if (scope.IsConnected) {
 					computer.status = NetworkStatus.WmiConnected;
+					Master.table.RefreshItems();
+				}
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log(ex);
 				computer.Log("There was a problem connecting to WMI. Error message: " + ex.Message + 

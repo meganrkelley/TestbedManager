@@ -14,6 +14,9 @@ namespace TestBedManager
 
 		private void ButtonAdd_Click(object sender, RoutedEventArgs e)
 		{
+			if (string.IsNullOrEmpty(TextBoxHostnameIp.Text.Trim()))
+				return;
+
 			string encryptedPassword = Encryption.Encrypt(PasswordBoxPassword.Password);
 
 			ConnectionInfoChecker checker = new ConnectionInfoChecker();

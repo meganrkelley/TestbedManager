@@ -338,8 +338,12 @@ namespace TestBedManager
 
 		#endregion Local commands/windows
 
-
-		
+		public void ChangeStatusBarText(string newText)
+		{
+			Dispatcher.Invoke((Action)(() => {
+				StatusBarMain.Text = newText;
+			}));
+		}
 		
 	}
 }

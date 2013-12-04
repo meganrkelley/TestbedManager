@@ -20,8 +20,11 @@ namespace TestBedManager
 		// 5. Start monitoring the network connection
 		public static void Add(RemoteComputer computer)
 		{
-			if (Master.table.TableContains(computer.hostname))
-				return;
+			if (Master.table.TableContainsHostname(computer.hostname) ||
+				Master.table.TableContainsIp(computer.ipAddress)) {
+					Master.main.ChangeStatusBarText("A computer with that name or IP address already exists.");
+					return;
+			}
 
 			Master.table.dataGrid.Items.Add(computer);
 
@@ -34,12 +37,13 @@ namespace TestBedManager
 					computer.credentials.UserName,
 					computer.credentials.Password);
 
-				DebugLog.DebugLog.Log("Added new computer (" + computer.ID + ", " + computer.hostname + ", " + computer.ipAddressStr + ") to the database.");
+				DebugLog.DebugLog.Log("Added new computer (" + computer.ID + ", " + 
+					computer.hostname + ", " + computer.ipAddressStr + ") to the database.");
 			}
 
 			new ConnectionMonitor(computer);
 
-			Master.table.RefreshItems();
+			Master.main.ChangeStatusBarText(computer.ipAddressStr + " added.");
 		}
 
 		// 1. Update the GUI table
@@ -63,8 +67,6 @@ namespace TestBedManager
 				computer.ipAddressStr,
 				computer.credentials.UserName,
 				computer.credentials.Password);
-
-			Master.table.RefreshItems();
 		}
 
 		// 1. Remove from the GUI table
@@ -73,8 +75,6 @@ namespace TestBedManager
 		{
 			Master.table.dataGrid.Items.Remove(computer);
 			Master.logManager.Remove(computer);
-
-			Master.table.RefreshItems();
 		}
 
 		public static bool IsEmpty()

@@ -125,8 +125,11 @@
 		
 		<Grid Grid.ColumnSpan="2" Grid.Row="3">
 			<StatusBar x:Name="MainStatusBar" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+				<StatusBarItem HorizontalAlignment="Left">
+					<TextBlock x:Name="StatusBarMain" FontSize="8pt"></TextBlock>
+				</StatusBarItem>
 				<StatusBarItem HorizontalAlignment="Right">
-					<TextBlock x:Name="StatusBarText" FontSize="8pt">Total memory usage: </TextBlock>
+					<TextBlock x:Name="StatusBarText" FontSize="7pt">Memory usage: </TextBlock>
 				</StatusBarItem>
 			</StatusBar>
 		</Grid>

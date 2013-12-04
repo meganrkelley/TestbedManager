@@ -25,7 +25,6 @@ namespace TestBedManager
 		void worker_DoWork(object sender, DoWorkEventArgs e)
 		{
 			while (true) {
-
 				List<object> userStateObj = new List<object>(2);
 				userStateObj.Add(Process.GetCurrentProcess().PrivateMemorySize64 / 1048576);
 				userStateObj.Add(0);
@@ -40,7 +39,7 @@ namespace TestBedManager
 			List<object> userStateObj = (List<object>)e.UserState;
 			long memorySize = (long)userStateObj[0];
 
-			statusText.Text = "Total memory usage: " + memorySize + " MB";
+			statusText.Text = "Memory usage: " + memorySize + " MB";
 		}
 
 

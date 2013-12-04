@@ -17,17 +17,6 @@ namespace TestBedManager
 		public ConnectionMonitor(RemoteComputer computer)
 		{
 			this.interval = Settings.Default.PingInterval;
-			CommonInitialize(computer);
-		}
-
-		public ConnectionMonitor(RemoteComputer computer, int seconds)
-		{
-			this.interval = seconds;
-			CommonInitialize(computer);
-		}
-
-		private void CommonInitialize(RemoteComputer computer)
-		{
 			remoteComputer = computer;
 			InitializeBackgroundWorker();
 			Start();
@@ -86,6 +75,7 @@ namespace TestBedManager
 		private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
 			remoteComputer.status = (NetworkStatus)e.UserState;
+			Master.table.RefreshItems();
 		}
 	}
 }
