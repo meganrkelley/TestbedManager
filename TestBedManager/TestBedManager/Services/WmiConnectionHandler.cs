@@ -51,6 +51,8 @@ namespace TestBedManager
 					Username = computer.credentials.UserName,
 					Password = decryptedPassword
 				};
+
+				computer.Log("Connection created with password '" + decryptedPassword + "'.");
 			}
 
 			return new ManagementScope(serverPath, connectionOptions);

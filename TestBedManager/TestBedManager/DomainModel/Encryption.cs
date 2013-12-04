@@ -11,14 +11,17 @@ namespace TestBedManager
 
 		public static string Encrypt(string text)
 		{
+			return text;
+
 			byte[] inBlock = StringToByteAray(text);
 
+			alg.Padding = PaddingMode.None;
 			alg.GenerateIV();
 			alg.GenerateKey();
 
-			MemoryStream ms = new MemoryStream();
+			MemoryStream stream = new MemoryStream();
 			try {
-				using (CryptoStream cs = new CryptoStream(ms, alg.CreateEncryptor(),
+				using (CryptoStream cs = new CryptoStream(stream, alg.CreateEncryptor(),
 					CryptoStreamMode.Write)) {
 					cs.Write(inBlock, 0, inBlock.Length);
 				}
@@ -26,17 +29,19 @@ namespace TestBedManager
 				DebugLog.DebugLog.Log("Encryption error: " + ex);
 			}
 
-			return ByteArrayToString(ms.ToArray());
+			return ByteArrayToString(stream.ToArray());
 		}
 
 		public static string Decrypt(string encryptedText)
 		{
+			return encryptedText;
+
 			byte[] bytes = StringToByteAray(encryptedText);
 
-			MemoryStream ms = new MemoryStream();
-
+			MemoryStream stream = new MemoryStream();
+			
 			try {
-				using (CryptoStream cs = new CryptoStream(ms, alg.CreateDecryptor(),
+				using (CryptoStream cs = new CryptoStream(stream, alg.CreateDecryptor(),
 					CryptoStreamMode.Write)) {
 					cs.Write(bytes, 0, bytes.Length);
 				}
@@ -44,7 +49,7 @@ namespace TestBedManager
 				DebugLog.DebugLog.Log("Decryption error: " + ex);
 			}
 
-			return ByteArrayToString(ms.ToArray());
+			return ByteArrayToString(stream.ToArray());
 		}
 
 		private static string ByteArrayToString(byte[] bytes)

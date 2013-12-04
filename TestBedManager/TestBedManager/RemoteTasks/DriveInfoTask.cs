@@ -13,14 +13,13 @@ namespace TestBedManager
 
 		public override void Run()
 		{
+			remoteComputer.Log("Querying logical drives...");
 			ObjectQuery query = new ObjectQuery(String.Format("select * from {0}", WmiClass.Disk));
 
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
-						if (item == null)
-							continue;
-						remoteComputer.Log(FormatString(item));
+						remoteComputer.Log(FormatString(item), false);
 					}
 				}
 			} catch (Exception ex) {
@@ -30,21 +29,23 @@ namespace TestBedManager
 				remoteComputer.Log("Error: " + ex.Message);
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
+
+			remoteComputer.Log("End of logical drives." + Environment.NewLine);
 		}
 
 		private string FormatString(ManagementBaseObject item)
 		{
 			string result = "";
 
-			if (!string.IsNullOrEmpty(item["Caption"].ToString()))
+			if (item["Caption"] != null)
 				result += "Volume: " + item["Caption"].ToString() + Environment.NewLine;
-			if (!string.IsNullOrEmpty(item["VolumeName"].ToString()))
+			if (item["VolumeName"] != null)
 				result += "Name: " + item["VolumeName"].ToString() + Environment.NewLine;
-			if (!string.IsNullOrEmpty(item["FileSystem"].ToString()))
+			if (item["FileSystem"] != null)
 				result += "File system: " + item["FileSystem"].ToString() + Environment.NewLine;
-			if (!string.IsNullOrEmpty(item["FreeSpace"].ToString()))
+			if (item["FreeSpace"] != null)
 				result += "Free space (GB): " + ((ulong)item["FreeSpace"] / 1073741824).ToString() + Environment.NewLine;
-			if (!string.IsNullOrEmpty(item["Size"].ToString()))
+			if (item["Size"] != null)
 				result += "Total size (GB): " + ((ulong)item["Size"] / 1073741824).ToString() + Environment.NewLine;
 
 			return result;
