@@ -17,7 +17,7 @@ namespace TestBedManager
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get()) {
-						remoteComputer.Log("BIOS version: " + item["Version"].ToString());
+						remoteComputer.Log("BIOS version: " + item["Version"].ToString() + Environment.NewLine);
 					}
 				}
 			} catch (Exception ex) {

@@ -64,7 +64,8 @@ namespace TestBedManager
 			if (DesignerProperties.GetIsInDesignMode(this)) 
 				return;
 
-			if (Settings.Default.MostRecentList < 0)
+			if (Settings.Default.MostRecentList < 0 ||
+				new Testbeds().NumberOfTestbeds() == 0)
 				AddAllComputersTo();
 			else 
 				AddMostRecentListTo();
@@ -85,6 +86,8 @@ namespace TestBedManager
 				foreach (DataRow row_computer in table_computer.Rows)
 					ActiveTestbed.Add(new RemoteComputer(row_computer));
 			}
+
+			Master.main.ChangeStatusBarText("Loaded most recent testbed.");
 		}
 
 		private static void AddAllComputersTo()
@@ -131,12 +134,6 @@ namespace TestBedManager
 		private void MenuItemRemove_Click(object sender, RoutedEventArgs e)
 		{
 			foreach (RemoteComputer computer in selectedItems)
-				ActiveTestbed.Remove(computer);
-		}
-
-		private void MenuItemRemoveAll_Click(object sender, RoutedEventArgs e)
-		{
-			foreach (RemoteComputer computer in items)
 				ActiveTestbed.Remove(computer);
 		}
 

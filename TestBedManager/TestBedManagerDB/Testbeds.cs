@@ -122,5 +122,19 @@ namespace TestBedManagerDB
 				DebugLog.DebugLog.Log("Testbeds.ResetIDSeed failed: " + ex);
 			} 
 		}
+
+		public int NumberOfTestbeds()
+		{
+			DataTable queryResultTable = new DataTable();
+			var adapter = new SqlCeDataAdapter("select count(ID) as ct from Testbeds", ConnectionManager.connection);
+			try {
+				adapter.Fill(queryResultTable);
+				foreach (DataRow row in queryResultTable.Rows)
+					return int.Parse(row["ct"].ToString());
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Testbeds.NumberOfTestbeds failed: " + ex);
+			}
+			return 0;
+		}
 	}
 }

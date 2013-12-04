@@ -31,7 +31,7 @@ namespace TestBedManager
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 
-			remoteComputer.Log("End of installed programs.");
+			remoteComputer.Log("End of installed programs." + Environment.NewLine);
 		}
 	}
 }

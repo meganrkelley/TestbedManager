@@ -26,9 +26,8 @@ namespace TestBedManager
 
 			testbedsTable.Insert(name);
 
-			foreach (RemoteComputer item in Master.table.dataGrid.Items) {
+			foreach (RemoteComputer item in Master.table.dataGrid.Items)
 				relationsTable.Insert(item.ID, nextTestbedID);
-			}
 		}
 
 		// 1. Get a list of all the computers with this ID in the relations table
@@ -48,6 +47,7 @@ namespace TestBedManager
 			Settings.Default.Save();
 		}
 
+		// Just calls the method for id
 		public static void Load(string name)
 		{
 			DataTable table = testbedsTable.Find(name);
@@ -58,13 +58,15 @@ namespace TestBedManager
 			DebugLog.DebugLog.Log("Could not find a matching testbed ID in table Testbeds for name " + name);
 		}
 
-		// 1. Remove this testbed from the relations table and the testbed table
+		// 1. Remove this testbed from the relations table 
+		//		and the testbed table
 		public static void Delete(int id)
 		{
 			testbedsTable.Delete(id);
 			relationsTable.DeleteTestbed(id);
 		}
 
+		// Just calls the method for id
 		public static void Delete(string name)
 		{
 			DataTable table = testbedsTable.Find(name);

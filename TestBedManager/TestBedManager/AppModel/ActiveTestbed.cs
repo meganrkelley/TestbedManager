@@ -20,10 +20,9 @@ namespace TestBedManager
 		// 5. Start monitoring the network connection
 		public static void Add(RemoteComputer computer)
 		{
-			if (Master.table.TableContainsHostname(computer.hostname) ||
-				Master.table.TableContainsIp(computer.ipAddress)) {
-					Master.main.ChangeStatusBarText("A computer with that name or IP address already exists.");
-					return;
+			if (Master.table.TableContainsHostname(computer.hostname)) {
+				Master.main.ChangeStatusBarText(computer.hostname + " already exists.");
+				return;
 			}
 
 			Master.table.dataGrid.Items.Add(computer);

@@ -31,7 +31,7 @@ namespace TestBedManager
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 
-			remoteComputer.Log("End of scheduled tasks.");
+			remoteComputer.Log("End of scheduled tasks." + Environment.NewLine);
 		}
 	}
 }

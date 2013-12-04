@@ -29,7 +29,7 @@ namespace TestBedManager
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 
-			remoteComputer.Log("End of running processes.");
+			remoteComputer.Log("End of running processes." + Environment.NewLine);
 		}
 	}
 }

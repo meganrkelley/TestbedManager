@@ -16,7 +16,7 @@
 							<Image Source="Icons/monitor_add.png" />
 						</MenuItem.Icon>
 					</MenuItem>
-					<MenuItem x:Name="MenuItemSave" Header="Save This List" Click="MenuItemSave_Click">
+					<MenuItem x:Name="MenuItemSave" Header="Save Current List" Click="MenuItemSave_Click">
 						<MenuItem.Icon>
 							<Image Source="Icons/list_add.png" />
 						</MenuItem.Icon>

@@ -31,7 +31,7 @@ namespace TestBedManager
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 
-			remoteComputer.Log("End of network information.");
+			remoteComputer.Log("End of network information." + Environment.NewLine);
 		}
 
 		private static string BuildDataString(ManagementBaseObject item)

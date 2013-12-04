@@ -19,7 +19,7 @@ namespace TestBedManager
 					foreach (var item in wmiObjectSearcher.Get()) {
 						string name = (string)item["Name"];
 						string vendor = (string)item["Vendor"];
-						remoteComputer.Log(name + " " + vendor);
+						remoteComputer.Log(name + " " + vendor + Environment.NewLine);
 					}
 				}
 			} catch (Exception ex) {

@@ -19,7 +19,7 @@ namespace TestBedManager
 					foreach (var item in wmiObjectSearcher.Get()) {
 						remoteComputer.Log("Battery: " + 
 							((UInt16)item["EstimatedChargeRemaining"]).ToString() + 
-							"% remaining. Status: " + item["Status"].ToString());
+							"% remaining. Status: " + item["Status"].ToString() + Environment.NewLine);
 					}
 				}
 			} catch (Exception ex) {

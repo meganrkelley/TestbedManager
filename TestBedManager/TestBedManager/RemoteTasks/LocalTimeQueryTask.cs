@@ -17,7 +17,7 @@ namespace TestBedManager
 			try {
 				using (var wmiObjectSearcher = new ManagementObjectSearcher(mgmtClass.Scope, query)) {
 					foreach (var item in wmiObjectSearcher.Get())
-						remoteComputer.Log(FormatDateTime(wmiObjectSearcher, query));
+						remoteComputer.Log(FormatDateTime(wmiObjectSearcher, query) + Environment.NewLine);
 				}
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}", 

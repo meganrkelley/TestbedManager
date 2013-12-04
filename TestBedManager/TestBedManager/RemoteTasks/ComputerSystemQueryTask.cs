@@ -20,7 +20,7 @@ namespace TestBedManager
 						DateTime date = ManagementDateTimeConverter.ToDateTime((string)item["InstallDate"]);
 						remoteComputer.Log((string)item["Caption"] + " " + 
 							(string)item["OSArchitecture"] + 
-							" (Installed " + date + ")");
+							" (Installed " + date + ")" + Environment.NewLine);
 					}
 				}
 			} catch (Exception ex) {

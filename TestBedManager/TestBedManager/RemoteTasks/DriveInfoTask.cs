@@ -23,7 +23,8 @@ namespace TestBedManager
 					}
 				}
 			} catch (Exception ex) {
-				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
+				DebugLog.DebugLog.Log(string.Format(
+					"Error when executing WMI query/method on {0}: {1}",
 					remoteComputer.ipAddressStr, ex));
 				remoteComputer.Log("Error: " + ex.Message);
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
@@ -43,7 +44,7 @@ namespace TestBedManager
 			if (!string.IsNullOrEmpty(item["FreeSpace"].ToString()))
 				result += "Free space (GB): " + ((ulong)item["FreeSpace"] / 1073741824).ToString() + Environment.NewLine;
 			if (!string.IsNullOrEmpty(item["Size"].ToString()))
-				result += "Total size (GB): " + ((ulong)item["Size"] / 1073741824).ToString();
+				result += "Total size (GB): " + ((ulong)item["Size"] / 1073741824).ToString() + Environment.NewLine;
 
 			return result;
 
