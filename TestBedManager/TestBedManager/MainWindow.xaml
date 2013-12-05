@@ -95,9 +95,9 @@
 				<MenuItem x:Name="MenuItemScheduledTasks" Header="View Scheduled Tasks" Click="MenuItemScheduledTasks_Click" />
 			</MenuItem>
 			<MenuItem x:Name="MenuItemOptions" Header="OPTIONS">
-				<MenuItem x:Name="MenuItemUseIpOverHostname" Header="Use IP Address" ToolTip="Check this if you have DNS issues. If unchecked, connections will use hostnames." IsCheckable="True" Click="MenuItemUseIpOverHostname_Click" />
-				<!--<MenuItem x:Name="MenuItemPingInterval" Header="Ping Interval..." ToolTip="Amount of time in seconds to wait between testing the remote connection(s)." IsEnabled="False" />-->
-				<Separator />
+				<!--<MenuItem x:Name="MenuItemUseIpOverHostname" Header="Use IP Address" ToolTip="Check this if you have DNS issues. If unchecked, connections will use hostnames." IsCheckable="True" Click="MenuItemUseIpOverHostname_Click" />
+				<MenuItem x:Name="MenuItemPingInterval" Header="Ping Interval..." ToolTip="Amount of time in seconds to wait between testing the remote connection(s)." IsEnabled="False" />
+				<Separator />-->
 				<MenuItem x:Name="MenuItemResetAllSettings" Header="Reset All Settings to Default" Click="MenuItemResetAllSettings_Click" />
 				<MenuItem x:Name="MenuItemClearDatabase" Header="Delete All Saved Information" Click="MenuItemClearDatabase_Click">
 					<MenuItem.Icon>

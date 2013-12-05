@@ -28,7 +28,8 @@ namespace TestBedManager
 
 		private void ApplyUserSettings()
 		{
-			MenuItemUseIpOverHostname.IsChecked = Settings.Default.UseIp;
+			//MenuItemUseIpOverHostname.IsChecked = Settings.Default.UseIp;
+			MenuItemOpenLogs.ToolTip = DebugLog.DebugLog.GetLogDirSetting();
 		}
 
 		private void MenuItemUseIpOverHostname_Click(object sender, RoutedEventArgs e)

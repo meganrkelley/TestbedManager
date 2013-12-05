@@ -38,13 +38,13 @@ namespace TestBedManager
 
 		private string GetHostname(string ip)
 		{
-			if (Settings.Default.UseIp)
-				return ip;
+			//if (Settings.Default.UseIp)
+			//	return ip;
 
 			string returnValue = Resources.DefaultHostname;
 
 			try {
-				return RemoveDnsSuffix(Dns.GetHostEntry(ip).HostName);
+				return Dns.GetHostEntry(ip).HostName;
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log(ex);
 			}

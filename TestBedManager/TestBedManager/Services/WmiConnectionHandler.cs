@@ -27,6 +27,8 @@ namespace TestBedManager
 
 		public static ManagementScope SetUpScope(RemoteComputer computer, string wmiClass = "none")
 		{
+			// Since NMU's hostnames are messed up, I have to use the IP address to access the machine.
+			// This creates an issue with RenameComputer.
 			string serverPath = String.Format(@"\\{0}\root\cimv2", computer.ipAddressStr);
 
 			if (wmiClass == WmiClass.PowerPlan) // PowerPlan is a special case.
@@ -52,7 +54,7 @@ namespace TestBedManager
 					Password = decryptedPassword
 				};
 
-				computer.Log("Connection created with password '" + decryptedPassword + "'.");
+			//	computer.Log("Connection created with password '" + decryptedPassword + "'.");
 			}
 
 			return new ManagementScope(serverPath, connectionOptions);

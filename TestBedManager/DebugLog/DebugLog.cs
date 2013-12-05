@@ -21,13 +21,15 @@ namespace DebugLog
 
 			if (!Directory.Exists(Settings.Default.LogDir)) {
 				Trace.WriteLine("Creating log files directory " + Settings.Default.LogDir + ".");
-				Directory.CreateDirectory(Settings.Default.LogDir);
+				try {
+					Directory.CreateDirectory(Settings.Default.LogDir);
+				} catch (Exception ex) {
+					Trace.WriteLine("Couldn't create the logs folder at " + Settings.Default.LogDir + ": " + ex);
+				}
 			}
 
-			SetLogFileUri();
+			SetLogFilePath();
 			isInitialized = true;
-
-			Log("Log file " + logFilePath + " created.");
 		}
 
 		public static void Log(object text)
@@ -71,9 +73,10 @@ namespace DebugLog
 			}
 		}
 
-		private static void SetLogFileUri()
+		private static void SetLogFilePath()
 		{
-			logFilePath = Path.Combine(Settings.Default.LogDir, GetDateTimeForFilename() + ".txt");
+			logFilePath = Path.Combine(Settings.Default.LogDir, 
+				GetDateTimeForFilename() + ".txt");
 		}
 
 		private static string GetDateTimeForFilename()
@@ -81,6 +84,11 @@ namespace DebugLog
 			return DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Year +
 				"_" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second +
 				"-" + DateTime.Now.Millisecond;
+		}
+
+		public static string GetLogDirSetting()
+		{
+			return Settings.Default.LogDir;
 		}
 	}
 }

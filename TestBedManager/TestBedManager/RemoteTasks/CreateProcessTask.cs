@@ -20,7 +20,12 @@ namespace TestBedManager
 			try {
 				var inParams = mgmtClass.GetMethodParameters("Create");
 				inParams["CommandLine"] = fullCommand;
-				mgmtClass.InvokeMethod("Create", inParams, null);
+				var outParams = mgmtClass.InvokeMethod("Create", inParams, null);
+				if (int.Parse(outParams["ReturnValue"].ToString()) != 0)
+					remoteComputer.Log("The command '" + command +
+						"' returned value " + outParams["ReturnValue"] + ".");
+				else
+					remoteComputer.Log("The command '" + command + "' executed without errors. (This only means the program did not return an error code.)");
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
 					remoteComputer.ipAddressStr, ex));
