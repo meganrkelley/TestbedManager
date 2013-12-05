@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Windows.Forms;
 
 namespace TestBedManager
 {
@@ -13,11 +14,13 @@ namespace TestBedManager
 		/// <returns>Null if the input was invalid.</returns>
 		public RemoteComputer GetValidRemoteComputer(string hostnameOrIp, string username, string password)
 		{
-			if (string.IsNullOrEmpty(hostnameOrIp.Trim()) ||
-				string.IsNullOrEmpty(username.Trim()) ||
+			if (string.IsNullOrEmpty(username.Trim()) ||
 				string.IsNullOrEmpty(password.Trim())) {
-				Master.main.ChangeStatusBarText("Username and password are required.");
-				return null;
+					if (!(hostnameOrIp == "localhost" || 
+						hostnameOrIp == "127.0.0.1")) {
+						MessageBox.Show("Username and password are required for remote connections.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						return null;
+					}
 			}
 
 			RemoteComputer computer = new RemoteComputer(hostnameOrIp, IPAddress.None, username, password);

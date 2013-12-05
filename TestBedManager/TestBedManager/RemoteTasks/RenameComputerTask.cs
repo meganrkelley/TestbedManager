@@ -27,7 +27,7 @@ namespace TestBedManager
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
 					remoteComputer.ipAddressStr, ex));
-				remoteComputer.Log("You MUST be able to ping '" + remoteComputer.hostname + "'. Error: " + ex.Message);
+				remoteComputer.Log("Error: You must be able to ping '" + remoteComputer.hostname + "'. Message: " + ex.Message);
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 		}

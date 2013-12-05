@@ -8,6 +8,6 @@
 			<RowDefinition />
 		</Grid.RowDefinitions>
 		<TextBox Grid.Row="0" x:Name="TextBoxNewHostname" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Text="" Margin="5" VerticalAlignment="Top" MaxLines="1" MaxLength="63" UndoLimit="10" />
-		<Button Grid.Row="1" x:Name="ButtonRename" Content="Rename" HorizontalAlignment="Center" Margin="32,5,33,5" VerticalAlignment="Stretch" Click="ButtonRename_Click" Width="112" />
+		<Button Grid.Row="1" x:Name="ButtonRename" Content="Rename" HorizontalAlignment="Center" Margin="32,5,33,5" VerticalAlignment="Stretch" Click="ButtonRename_Click" Width="112" IsDefault="True" />
 	</Grid>
 </Window>

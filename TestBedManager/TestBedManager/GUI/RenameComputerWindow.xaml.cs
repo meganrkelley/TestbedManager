@@ -17,6 +17,7 @@ namespace TestBedManager
 				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
 				remoteTaskManager.RenameComputer(TextBoxNewHostname.Text);
 			}
+			Close();
 		}
 	}
 }

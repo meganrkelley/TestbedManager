@@ -46,9 +46,12 @@ namespace TestBedManager
 
 			if (remoteComputer.credentials.UserName == "" ||
 				remoteComputer.credentials.Password == "") {
-				string msg = string.Format("Username or password was empty for {0}.", remoteComputer.ipAddressStr);
-				DebugLog.DebugLog.Log(msg);
-				remoteComputer.Log(msg);
+					if (remoteComputer.ipAddressStr != "127.0.0.1") {
+						string msg = string.Format("Username or password was empty for {0}.",
+							remoteComputer.ipAddressStr);
+						DebugLog.DebugLog.Log(msg);
+						remoteComputer.Log(msg);
+					}
 			}
 
 			ManagementPath mgmtPath = new ManagementPath(wmiClass);
