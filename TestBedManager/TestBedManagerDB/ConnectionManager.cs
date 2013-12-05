@@ -12,7 +12,8 @@ namespace TestBedManagerDB
 
 		public static SqlCeConnection Connect()
 		{
-			AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(Directory.GetCurrentDirectory(), "Database"));
+			AppDomain.CurrentDomain.SetData("DataDirectory", 
+				Path.Combine(Directory.GetCurrentDirectory(), "Database"));
 
 			try {
 				if (connection != null && connection.State == ConnectionState.Open)

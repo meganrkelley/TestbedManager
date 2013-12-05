@@ -10,6 +10,8 @@ namespace TestBedManager
 		//NOTE: This method will encrypt the text so that only this machine can decrypt it.
 		public static string Encrypt(string plainText)
 		{
+			return plainText;
+
 			if (plainText == null) 
 				return plainText;
 
@@ -21,6 +23,8 @@ namespace TestBedManager
 
 		public static string Decrypt(string cipher)
 		{
+			return cipher;
+
 			if (cipher == null)
 				return cipher;
 
