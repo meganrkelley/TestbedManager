@@ -67,6 +67,10 @@ namespace TestBedManager
 			try {
 				tabControl.Dispatcher.Invoke((Action)(() => {
 					TabItem thisTab = GetTabItem(computer);
+					if (thisTab == null) {
+						Add(computer);
+						thisTab = GetTabItem(computer);
+					}
 					tabControl.SelectedItem = thisTab;
 					RichTextBox textBox = ((RichTextBox)(((TabItem)thisTab).Content));
 					if (textBox != null) {
