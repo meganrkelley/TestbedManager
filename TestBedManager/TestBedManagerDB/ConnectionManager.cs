@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlServerCe;
 using System.IO;
 using TestBedManagerDB.Properties;
+using System.Windows.Forms;
 
 namespace TestBedManagerDB
 {
@@ -22,6 +23,7 @@ namespace TestBedManagerDB
 				connection = new SqlCeConnection(Settings.Default.dbConnectionString);
 				connection.Open();
 			} catch (Exception ex) {
+				MessageBox.Show("Couldn't connect to the database: " + ex.Message);
 				DebugLog.DebugLog.Log(ex);
 			}
 

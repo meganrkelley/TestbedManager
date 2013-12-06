@@ -5,11 +5,11 @@ namespace TestBedManager
 {
 	public class LocalProcessExecutor
 	{
-		public void StartRemoteDesktop(string hostname)
+		public void StartRemoteDesktop(string ip)
 		{
 			Process proc = new Process();
 			proc.StartInfo.FileName = "mstsc.exe";
-			proc.StartInfo.Arguments = "/v:" + hostname;
+			proc.StartInfo.Arguments = "/v:" + ip;
 			proc.Start();
 		}
 

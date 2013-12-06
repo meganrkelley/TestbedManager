@@ -137,13 +137,10 @@ namespace TestBedManager
 				switch (status) {
 					case NetworkStatus.Unknown:
 						return Resources.Unknown;
-
 					case NetworkStatus.Disconnected:
 						return Resources.Disconnected;
-
 					case NetworkStatus.WmiConnected:
 						return Resources.WmiConnected;
-
 					default:
 						return Resources.Connected;
 				}
@@ -156,16 +153,13 @@ namespace TestBedManager
 			{
 				switch (status) {
 					case NetworkStatus.Unknown:
-						return "Unknown";
-
+						return "Unknown status";
 					case NetworkStatus.Disconnected:
 						return "Unable to ping";
-
 					case NetworkStatus.WmiConnected:
-						return "WMI is connected";
-
+						return "WMI connection established";
 					default:
-						return "Responding to ping only";
+						return "Responding to ping";
 				}
 			}
 		}

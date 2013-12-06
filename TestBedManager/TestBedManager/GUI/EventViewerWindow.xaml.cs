@@ -17,6 +17,11 @@ namespace TestBedManager
 			string source = TextBoxSource.Text.Trim();
 			string level = ComboBoxLevel.Text;
 
+			if (string.IsNullOrEmpty(ID) &&
+				string.IsNullOrEmpty(source) &&
+				string.IsNullOrEmpty(level))
+				return;
+
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
 				RemoteTaskManager remoteTaskManager = new RemoteTaskManager(computer);
 				remoteTaskManager.QueryEventViewer(ID, source, level);

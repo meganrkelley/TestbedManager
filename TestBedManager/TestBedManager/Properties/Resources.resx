@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Connected" xml:space="preserve">
-    <value>Icons/bullet_yellow.png</value>
+    <value>Icons/bullet_green.png</value>
   </data>
   <data name="DefaultHostname" xml:space="preserve">
     <value>Unknown</value>
@@ -142,7 +142,7 @@
     <value>Icons/bullet_black.png</value>
   </data>
   <data name="WmiConnected" xml:space="preserve">
-    <value>Icons/bullet_green.png</value>
+    <value>Icons/check.png</value>
   </data>
   <data name="WmiErrorMsg" xml:space="preserve">
     <value>Could not contact the Windows Management Instrumentation (WMI) service on the remote computer.

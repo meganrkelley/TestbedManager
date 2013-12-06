@@ -61,7 +61,7 @@ namespace TestBedManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons/bullet_yellow.png.
+        ///   Looks up a localized string similar to Icons/bullet_green.png.
         /// </summary>
         internal static string Connected {
             get {
@@ -133,7 +133,7 @@ namespace TestBedManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons/bullet_green.png.
+        ///   Looks up a localized string similar to Icons/check.png.
         /// </summary>
         internal static string WmiConnected {
             get {

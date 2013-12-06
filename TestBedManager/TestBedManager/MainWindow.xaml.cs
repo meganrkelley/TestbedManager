@@ -290,7 +290,7 @@ namespace TestBedManager
 		{
 			foreach (RemoteComputer computer in Master.table.selectedItems) {
 				LocalProcessExecutor executor = new LocalProcessExecutor();
-				executor.StartRemoteDesktop(computer.hostname);
+				executor.StartRemoteDesktop(computer.ipAddressStr);
 			}
 		}
 

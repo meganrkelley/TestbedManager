@@ -37,7 +37,7 @@ namespace TestBedManager
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 
-			remoteComputer.Log("End events.");
+			remoteComputer.Log("End events." + Environment.NewLine);
 		}
 
 		private static string BuildQueryString(string[] parameters)

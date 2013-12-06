@@ -38,9 +38,6 @@ namespace TestBedManager
 
 		private string GetHostname(string ip)
 		{
-			//if (Settings.Default.UseIp)
-			//	return ip;
-
 			string returnValue = Resources.DefaultHostname;
 
 			try {

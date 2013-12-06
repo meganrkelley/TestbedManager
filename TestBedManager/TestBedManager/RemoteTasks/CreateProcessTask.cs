@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 
@@ -21,9 +22,9 @@ namespace TestBedManager
 				var inParams = mgmtClass.GetMethodParameters("Create");
 				inParams["CommandLine"] = fullCommand;
 				var outParams = mgmtClass.InvokeMethod("Create", inParams, null);
+
 				if (int.Parse(outParams["ReturnValue"].ToString()) != 0)
-					remoteComputer.Log("The command '" + command +
-						"' returned value " + outParams["ReturnValue"] + ".");
+					remoteComputer.Log("The command '" + command + "' returned value " + outParams["ReturnValue"] + ".");
 				else
 					remoteComputer.Log("The command '" + command + "' executed without errors. (This only means the program did not return an error code.)");
 			} catch (Exception ex) {
@@ -37,7 +38,7 @@ namespace TestBedManager
 				ReadPrintDelete(outputFilePath, 60);
 		}
 
-		private void ReadPrintDelete(string filepath, int timeoutInSeconds = 10, bool delete = true)
+		private void ReadPrintDelete(string filepath, int timeoutInSeconds = 40, bool delete = true)
 		{
 			if (!WaitForFileExist(filepath, timeoutInSeconds))
 				return;
@@ -55,13 +56,31 @@ namespace TestBedManager
 			DeleteFile(filepath);
 		}
 
+		private void HandleFileAccessError(string filepath)
+		{
+			string fileErrorString = "There was a problem getting command output. Ensure that this machine has access to the C$ administrative share (" + @"\\" + remoteComputer.ipAddressStr + @"\C$\" + ") by attempting to open it from Windows Explorer.";
+			remoteComputer.Log(fileErrorString);
+
+			if (remoteComputer.ipAddressStr == "127.0.0.1")
+				return;
+
+			Process proc = new Process();
+			proc.StartInfo.FileName = "explorer.exe";
+			proc.StartInfo.Arguments = @"\\" + remoteComputer.ipAddressStr + @"\C$\";
+			try {
+				proc.Start();
+			} catch (Exception ex) {
+				DebugLog.DebugLog.Log("Error opening explorer with args " + proc.StartInfo.Arguments + ": " + ex);
+			}
+		}
+
 		private bool WaitForFileExist(string filepath, int timeoutInSeconds)
 		{
 			DateTime start = DateTime.Now;
 			while (!File.Exists(filepath)) {
 				if (TimeoutExceeded(timeoutInSeconds, start)) {
 					DebugLog.DebugLog.Log("File was not created after " + timeoutInSeconds + " seconds.");
-					remoteComputer.Log("There was a problem getting command output.");
+					HandleFileAccessError(filepath);
 					return false;
 				}
 				Thread.Sleep(1000);
@@ -75,7 +94,7 @@ namespace TestBedManager
 			while (IsFileLocked(new FileInfo(filepath))) {
 				if (TimeoutExceeded(timeoutInSeconds, start)) {
 					DebugLog.DebugLog.Log("File " + filepath + " was not unlocked after " + timeoutInSeconds + " seconds.");
-					remoteComputer.Log("There was a problem getting command output.");
+					HandleFileAccessError(filepath);
 					return false;
 				}
 				Thread.Sleep(1000);
@@ -92,13 +111,13 @@ namespace TestBedManager
 		{
 			try {
 				remoteComputer.Log(File.ReadAllText(filepath));
-				remoteComputer.Log("End of output.");
+				remoteComputer.Log("End of output." + Environment.NewLine);
 			} catch (Exception ex) {
 				if (ex is FileNotFoundException ||
 					ex is IOException) {
 					DebugLog.DebugLog.Log("Error when attempting to read file: " + ex.Message);
 				}
-				remoteComputer.Log("There was a problem getting command output.");
+				HandleFileAccessError(filepath);
 			}
 		}
 

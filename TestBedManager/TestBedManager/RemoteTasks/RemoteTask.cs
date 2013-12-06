@@ -26,17 +26,9 @@ namespace TestBedManager
 			remoteComputer = computer;
 		}
 
-		public virtual void Run()
-		{
-		}
-
-		public virtual void Run(string parameter)
-		{
-		}
-
-		public virtual void Run(string[] parameters)
-		{
-		}
+		public virtual void Run() {}
+		public virtual void Run(string parameter) {}
+		public virtual void Run(string[] parameters) {}
 
 		protected void SetUpWmiConnection(string wmiClass)
 		{
@@ -44,11 +36,17 @@ namespace TestBedManager
 				remoteComputer.hostname == null)
 				return;
 
+			if (remoteComputer.ipAddressStr == "255.255.255.255") {
+				string msg = "'" + remoteComputer.hostname + "' cannot be resolved to an IP address. Check the network connection.";
+				DebugLog.DebugLog.Log(msg);
+				remoteComputer.Log(msg);
+				return;
+			}
+
 			if (remoteComputer.credentials.UserName == "" ||
 				remoteComputer.credentials.Password == "") {
 					if (remoteComputer.ipAddressStr != "127.0.0.1") {
-						string msg = string.Format("Username or password was empty for {0}.",
-							remoteComputer.ipAddressStr);
+						string msg = string.Format("Username or password was empty for {0}.", remoteComputer.ipAddressStr);
 						DebugLog.DebugLog.Log(msg);
 						remoteComputer.Log(msg);
 					}

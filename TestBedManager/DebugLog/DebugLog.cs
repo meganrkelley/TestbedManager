@@ -40,6 +40,7 @@ namespace DebugLog
 			try {
 				File.AppendAllText(logFilePath, text.ToString() + Environment.NewLine);
 			} catch (Exception ex) {
+				MessageBox.Show("Failed to append text to log file: " + ex.Message);
 				Trace.WriteLine("Failed to append text to log file: " + ex.Message);
 			}
 		}

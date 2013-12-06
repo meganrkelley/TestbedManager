@@ -13,16 +13,22 @@ namespace TestBedManager
 
 		private void RunRemoteTask(RemoteTask task)
 		{
+			if (task.mgmtClass == null)
+				return;
 			Task.Factory.StartNew(() => task.Run());
 		}
 
 		private void RunRemoteTask(RemoteTask task, string parameter = "")
 		{
+			if (task.mgmtClass == null)
+				return;
 			Task.Factory.StartNew(() => task.Run(parameter));
 		}
 
 		private void RunRemoteTask(RemoteTask task, string[] parameters)
 		{
+			if (task.mgmtClass == null)
+				return;
 			Task.Factory.StartNew(() => task.Run(parameters));
 		}
 
