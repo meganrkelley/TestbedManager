@@ -26,7 +26,7 @@ namespace TestBedManager
 				if (int.Parse(outParams["ReturnValue"].ToString()) != 0)
 					remoteComputer.Log("The command '" + command + "' returned value " + outParams["ReturnValue"] + ".");
 				else
-					remoteComputer.Log("The command '" + command + "' executed without errors. (This only means the program did not return an error code.)");
+					remoteComputer.Log("The command '" + command + "' executed without errors. (This only means the program did not return an error code.) Please wait up to 60 seconds for output.");
 			} catch (Exception ex) {
 				DebugLog.DebugLog.Log(string.Format("Error when executing WMI query/method on {0}: {1}",
 					remoteComputer.ipAddressStr, ex));
@@ -38,7 +38,7 @@ namespace TestBedManager
 				ReadPrintDelete(outputFilePath, 60);
 		}
 
-		private void ReadPrintDelete(string filepath, int timeoutInSeconds = 40, bool delete = true)
+		private void ReadPrintDelete(string filepath, int timeoutInSeconds = 60, bool delete = true)
 		{
 			if (!WaitForFileExist(filepath, timeoutInSeconds))
 				return;
