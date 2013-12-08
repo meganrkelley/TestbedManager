@@ -60,18 +60,6 @@ namespace TestBedManager
 		{
 			string fileErrorString = "There was a problem getting command output. Ensure that this machine has access to the C$ administrative share (" + @"\\" + remoteComputer.ipAddressStr + @"\C$\" + ") by attempting to open it from Windows Explorer.";
 			remoteComputer.Log(fileErrorString);
-
-			if (remoteComputer.ipAddressStr == "127.0.0.1")
-				return;
-
-			Process proc = new Process();
-			proc.StartInfo.FileName = "explorer.exe";
-			proc.StartInfo.Arguments = @"\\" + remoteComputer.ipAddressStr + @"\C$\";
-			try {
-				proc.Start();
-			} catch (Exception ex) {
-				DebugLog.DebugLog.Log("Error opening explorer with args " + proc.StartInfo.Arguments + ": " + ex);
-			}
 		}
 
 		private bool WaitForFileExist(string filepath, int timeoutInSeconds)
