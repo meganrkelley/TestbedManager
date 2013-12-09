@@ -12,26 +12,26 @@ namespace TestBedManager
 		{
 			return plainText;
 
-			if (plainText == null) 
-				return plainText;
+			//if (plainText == null) 
+			//	return plainText;
 
-			var data = Encoding.Unicode.GetBytes(plainText);
-			byte[] encrypted = ProtectedData.Protect(data, null, DataProtectionScope.LocalMachine);
+			//var data = Encoding.Unicode.GetBytes(plainText);
+			//byte[] encrypted = ProtectedData.Protect(data, null, DataProtectionScope.LocalMachine);
 
-			return Convert.ToBase64String(encrypted);
+			//return Convert.ToBase64String(encrypted);
 		}
 
 		public static string Decrypt(string cipher)
 		{
 			return cipher;
 
-			if (cipher == null)
-				return cipher;
+			//if (cipher == null)
+			//	return cipher;
 
-			byte[] data = Convert.FromBase64String(cipher);
+			//byte[] data = Convert.FromBase64String(cipher);
 
-			byte[] decrypted = ProtectedData.Unprotect(data, null, DataProtectionScope.LocalMachine);
-			return Encoding.Unicode.GetString(decrypted);
+			//byte[] decrypted = ProtectedData.Unprotect(data, null, DataProtectionScope.LocalMachine);
+			//return Encoding.Unicode.GetString(decrypted);
 		}
 
 		//	private static SymmetricAlgorithm alg = Rijndael.Create();

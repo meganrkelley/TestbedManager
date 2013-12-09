@@ -42,7 +42,7 @@ Each machine added requires:
 	If the connection and credentials are okay, then visit http://www.poweradmin.com/help/enablewmi.aspx.
 
 	Problem: Not getting output from shell commands
-	Solution: Make sure the user provided has permission to write to the \\machineName\C$ directory.
+	Solution: Make sure the user provided has permission to write to the \\machineName\C$ directory. If a login prompt is not provided, run "rundll32.exe keymgr.dll, KRShowKeyMgr" and add the computer, username, and password and try again.
 
 	Problem: Scheduled tasks returns nothing, but I have tasks.
 	Solution: This function can only return jobs that are created using either a script or AT.exe. It cannot return information about jobs that are either created by or modified by the Scheduled Task wizard.
