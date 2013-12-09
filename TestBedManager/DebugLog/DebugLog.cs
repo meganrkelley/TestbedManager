@@ -19,6 +19,14 @@ namespace DebugLog
 			Settings.Default.LogDir = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
 			Settings.Default.Save();
 
+			CreateLogDirectory();
+			CreateLogFile();
+
+			isInitialized = true;
+		}
+
+		private static void CreateLogDirectory()
+		{
 			if (!Directory.Exists(Settings.Default.LogDir)) {
 				Trace.WriteLine("Creating log files directory " + Settings.Default.LogDir + ".");
 				try {
@@ -27,9 +35,16 @@ namespace DebugLog
 					Trace.WriteLine("Couldn't create the logs folder at " + Settings.Default.LogDir + ": " + ex);
 				}
 			}
+		}
 
-			SetLogFilePath();
-			isInitialized = true;
+		private static void CreateLogFile()
+		{
+			try {
+				CreateNewLogFilePath();
+				File.Create(logFilePath);
+			} catch (Exception ex) {
+				Trace.WriteLine("Couldn't create the log file " + logFilePath + ": " + ex);
+			}
 		}
 
 		public static void Log(object text)
@@ -40,7 +55,6 @@ namespace DebugLog
 			try {
 				File.AppendAllText(logFilePath, text.ToString() + Environment.NewLine);
 			} catch (Exception ex) {
-				MessageBox.Show("Failed to append text to log file: " + ex.Message);
 				Trace.WriteLine("Failed to append text to log file: " + ex.Message);
 			}
 		}
@@ -63,6 +77,7 @@ namespace DebugLog
 		public static void OpenLogsFolderInExplorer()
 		{
 			Initialize();
+			CreateLogDirectory();
 
 			Process proc = new Process();
 			proc.StartInfo.FileName = "explorer.exe";
@@ -74,13 +89,13 @@ namespace DebugLog
 			}
 		}
 
-		private static void SetLogFilePath()
+		private static void CreateNewLogFilePath()
 		{
 			logFilePath = Path.Combine(Settings.Default.LogDir, 
-				GetDateTimeForFilename() + ".txt");
+				CreateNewLogFileName() + ".txt");
 		}
 
-		private static string GetDateTimeForFilename()
+		private static string CreateNewLogFileName()
 		{
 			return DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Year +
 				"_" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second +

@@ -7,7 +7,7 @@
 	<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RowSpan="2" ColumnSpan="2">
 
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="63*" MaxWidth="400" MinWidth="50" />
+			<ColumnDefinition Width="70*" MaxWidth="400" MinWidth="50" />
 			<ColumnDefinition Width="118*" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
