@@ -8,6 +8,7 @@ namespace TestBedManager
 		{
 			InitializeComponent();
 			TextBoxCommand.Focus();
+			TextBoxCommand.SelectAll();
 			Show();
 		}
 
