@@ -33,19 +33,20 @@ namespace TestBedManager
 				WmiConnectionHandler.AttemptReconnect(mgmtClass.Scope);
 			}
 
-			if (!command.Contains("shutdown"))
-				ReadPrintDelete(outputFilePath, 60);
+			ReadPrintDelete(outputFilePath, 60);
 		}
 
 		private void ReadPrintDelete(string filepath, int timeoutInSeconds = 60, bool delete = true)
 		{
+			Master.main.ChangeStatusBarText("Waiting for output file to be created...");
 			if (!WaitForFileExist(filepath, timeoutInSeconds))
 				return;
+			Master.main.ChangeStatusBarText("Output file created...");
 			if (!WaitForFileUnlock(filepath, timeoutInSeconds))
 				return;
-
+			Master.main.ChangeStatusBarText("Reading output file...");
 			ReadFileAndPrint(filepath);
-
+			Master.main.ChangeStatusBarText("Command completed.");
 			if (!delete)
 				return;
 
