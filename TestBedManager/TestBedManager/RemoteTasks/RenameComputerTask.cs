@@ -16,7 +16,7 @@ namespace TestBedManager
 			remoteComputer.Log("Attempting to rename computer from " + remoteComputer.hostname + " to " + newHostname + ".");
 
 			try {
-				using (var cs = new ManagementObject("Win32_ComputerSystem.Name='" 
+				using (var cs = new ManagementObject("Win32_ComputerSystem.Name='"
 						+ remoteComputer.hostname + "'")) {
 					cs.Get();
 					var inParams = cs.GetMethodParameters("Rename");

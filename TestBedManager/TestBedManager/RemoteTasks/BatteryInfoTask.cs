@@ -37,26 +37,37 @@ namespace TestBedManager
 			switch (code) {
 				case 1:
 					return "The battery is discharging.";
+
 				case 2:
 					return "The system has access to AC so no battery is being discharged. However, the battery is not necessarily charging.";
+
 				case 3:
 					return "Fully charged";
+
 				case 4:
 					return "Low";
+
 				case 5:
 					return "Critical";
+
 				case 6:
 					return "Charging";
+
 				case 7:
 					return "Charging and high";
+
 				case 8:
 					return "Charging and low";
+
 				case 9:
 					return "Charging and critical";
+
 				case 10:
 					return "Undefined";
+
 				case 11:
 					return "Partially charged";
+
 				default:
 					return "Unknown";
 			}

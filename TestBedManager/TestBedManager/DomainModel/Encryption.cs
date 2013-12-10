@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace TestBedManager
+﻿namespace TestBedManager
 {
 	public class Encryption
 	{
@@ -12,7 +7,7 @@ namespace TestBedManager
 		{
 			return plainText;
 
-			//if (plainText == null) 
+			//if (plainText == null)
 			//	return plainText;
 
 			//var data = Encoding.Unicode.GetBytes(plainText);
@@ -35,7 +30,7 @@ namespace TestBedManager
 		}
 
 		//	private static SymmetricAlgorithm alg = Rijndael.Create();
-		
+
 		//public static string Encrypt2(string text)
 		//{
 		//	return text;
@@ -66,7 +61,7 @@ namespace TestBedManager
 		//	byte[] bytes = StringToByteAray(encryptedText);
 
 		//	MemoryStream stream = new MemoryStream();
-			
+
 		//	try {
 		//		using (CryptoStream cs = new CryptoStream(stream, alg.CreateDecryptor(),
 		//			CryptoStreamMode.Write)) {

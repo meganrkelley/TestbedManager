@@ -91,7 +91,7 @@ namespace DebugLog
 
 		private static void CreateNewLogFilePath()
 		{
-			logFilePath = Path.Combine(Settings.Default.LogDir, 
+			logFilePath = Path.Combine(Settings.Default.LogDir,
 				CreateNewLogFileName() + ".txt");
 		}
 

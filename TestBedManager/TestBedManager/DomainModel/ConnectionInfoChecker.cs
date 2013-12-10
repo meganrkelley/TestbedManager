@@ -16,11 +16,11 @@ namespace TestBedManager
 		{
 			if (string.IsNullOrEmpty(username.Trim()) ||
 				string.IsNullOrEmpty(password.Trim())) {
-					if (!(hostnameOrIp == "localhost" || 
-						hostnameOrIp == "127.0.0.1")) {
-						MessageBox.Show("Username and password are required for remote connections.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						return null;
-					}
+				if (!(hostnameOrIp == "localhost" ||
+					hostnameOrIp == "127.0.0.1")) {
+					MessageBox.Show("Username and password are required for remote connections.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return null;
+				}
 			}
 
 			RemoteComputer computer = new RemoteComputer(hostnameOrIp, IPAddress.None, username, password);

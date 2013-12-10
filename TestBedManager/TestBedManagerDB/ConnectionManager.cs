@@ -2,8 +2,8 @@
 using System.Data;
 using System.Data.SqlServerCe;
 using System.IO;
-using TestBedManagerDB.Properties;
 using System.Windows.Forms;
+using TestBedManagerDB.Properties;
 
 namespace TestBedManagerDB
 {
@@ -13,7 +13,7 @@ namespace TestBedManagerDB
 
 		public static SqlCeConnection Connect()
 		{
-			AppDomain.CurrentDomain.SetData("DataDirectory", 
+			AppDomain.CurrentDomain.SetData("DataDirectory",
 				Path.Combine(Directory.GetCurrentDirectory(), "Database"));
 
 			try {
