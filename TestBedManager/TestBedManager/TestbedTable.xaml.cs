@@ -185,8 +185,17 @@ namespace TestBedManager
 		// Enable the TASKS menu when an item is selected.
 		private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (dataGrid.SelectedItems.Count > 0)
+			int count = dataGrid.SelectedItems.Count;
+
+			if (count > 0)
 				Master.main.MenuItemTasks.IsEnabled = true;
+
+			if (count == 1) {
+				Master.main.ChangeStatusBarText("1 item selected.");
+				return;
+			}
+
+			Master.main.ChangeStatusBarText(count + " items selected.");
 		}
 	}
 }
