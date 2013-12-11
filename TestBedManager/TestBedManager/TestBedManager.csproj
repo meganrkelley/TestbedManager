@@ -342,6 +342,13 @@
   <ItemGroup>
     <Resource Include="Icons\check.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\about.png" />
+    <Resource Include="Icons\battery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\folder.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
